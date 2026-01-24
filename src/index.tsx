@@ -266,7 +266,6 @@ function getMainHTML() {
       </div>
       <div class="grid-3">
         <div class="card">
-          <img src="/images/loginexio.jpg" alt="LogiNexio" class="card-image">
           <div class="card-content">
             <h3 class="card-title">LogiNexio</h3>
             <p class="card-text">최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다. 팔레트 자동화, 물류 서류 자동화, 포워더 계약 등 다양한 기능을 지원합니다.</p>
@@ -284,7 +283,7 @@ function getMainHTML() {
       </div>
     </section>
 
-    <section class="content-section" style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white;">
+    <section class="content-section" style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding-bottom: 5rem; margin-bottom: 0;">
       <div class="section-header">
         <h2 class="section-title" style="color: white;">고객 성공 사례</h2>
         <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">다양한 산업 분야의 기업들이 우리 솔루션으로 성공을 경험하고 있습니다</p>
