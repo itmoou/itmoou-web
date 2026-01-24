@@ -321,19 +321,19 @@ function getCompanyHTML() {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">회사소개</h1>
-        <p style="font-size: 1.2rem;">글로벌 세계선진 진로기업, SD 바이오센서를 소개합니다</p>
+        <p style="font-size: 1.2rem;">글로벌 물류 SaaS 솔루션, 경영지원 AI 솔루션, 아이티무유를 소개합니다</p>
       </section>
 
       <section class="content-section">
         <div class="section-header">
-          <h2 class="section-title">체외진단 업계의 토탈플랫폼 기업</h2>
+          <h2 class="section-title">혁신적인 AI&빅데이터 솔루션 기업</h2>
         </div>
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666;">
           <p style="margin-bottom: 1.5rem;">
-            SD 바이오센서는 '생명을 지키는 시작 '이라는 슬로건과 함께 <strong style="color: #0052A5;">혁신을 통한 건강한 내일</strong>의 실현을 위해 진단제 개발로 시작한 전체 산업의 Total Solution Provider로 혁신적인 진단 솔루션을 확보한 기업입니다.
+            아이티무유는 <strong style="color: #0052A5;">'기술로 세상을 움직이다'</strong>이라는 슬로건과 함께 혁신을 통한 기업의 미래가치 실현을 위해 물류 솔루션 개발로 시작한 기업의 물류 및 경영 솔루션을 확보한 기업입니다.
           </p>
           <p style="margin-bottom: 1.5rem;">
-            SD 바이오센서는 진단 시약, 장비에 대한 개발 및 생산 역량을 바탕으로 혈당, 혈압, 콜레스테롤 측정 솔루션을 시장에 공급합니다. 또한 우수한 연구소와 브랜드 가치를 기반으로 성장하는 대한민국 최대의 토탈플랫폼 기업으로 성장하고 있습니다.
+            아이티무유는 물류와 경영 자문의 역량을 바탕으로 물류 산업에 필요한 팔레타이징, 수출 서류 자동화, 포워더 컨택 및 선적 등의 올인원 솔루션을 시장에 공급합니다. 또한 경영에 도움이 될 수 있도록 기업 맞춤형 AI 솔루션으로 기업의 가치를 높이고 같이 성장하는 대한민국 최대의 비즈니스솔루션 기업으로 성장을 준비하고 있습니다.
           </p>
         </div>
       </section>
@@ -342,20 +342,20 @@ function getCompanyHTML() {
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-eye"></i> 비전</h3>
-              <p class="card-text">글로벌 헬스케어 시장을 선도하는 혁신적인 기업</p>
+              <h3 class="card-title"><i class="fas fa-eye"></i> Vision</h3>
+              <p class="card-text">데이터와 AI로 전 세계 중소 수출 기업의 운영을 표준화하는 디지털 운영 OS 구축</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-bullseye"></i> 미션</h3>
-              <p class="card-text">첨단 기술로 인류의 건강한 삶에 기여</p>
+              <h3 class="card-title"><i class="fas fa-bullseye"></i> Mission</h3>
+              <p class="card-text">모든 기업의 업무를 한번에, 오류 없이 처리할 수 있는 원스톱 SaaS 제공</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
               <h3 class="card-title"><i class="fas fa-heart"></i> 핵심가치</h3>
-              <p class="card-text">혁신, 품질, 고객만족, 사회적 책임</p>
+              <p class="card-text">정확, 효율, 투명, 연결, 고객중심</p>
             </div>
           </div>
         </div>
@@ -369,30 +369,33 @@ function getCEOHTML() {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">CEO 메시지</h1>
-        <p style="font-size: 1.2rem;">대표이사 마르코</p>
+        <p style="font-size: 1.2rem;">대표이사 심영민</p>
       </section>
 
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto;">
           <div style="text-align: center; margin-bottom: 3rem;">
-            <img src="/images/ceo.jpg" alt="CEO 마르코" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
-            <h3 style="font-size: 1.5rem; color: #0052A5;">대표이사 마르코</h3>
+            <img src="/images/ceo.jpg" alt="CEO 심영민" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.5rem; color: #0052A5;">대표이사 심영민</h3>
           </div>
           <div style="line-height: 1.8; color: #666;">
             <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
-              안녕하십니까. SD 바이오센서 대표이사 마르코입니다.
+              안녕하십니까. IT moou 대표이사 심영민입니다.
             </p>
             <p style="margin-bottom: 1.5rem;">
-              저희 SD 바이오센서를 찾아주신 모든 분들께 진심으로 감사의 말씀을 드립니다. 저희는 '생명을 지키는 시작'이라는 슬로건 아래 인류의 건강한 삶을 위해 끊임없이 노력하고 있습니다.
+              저희 아이티무유를 찾아주신 모든 분들께 진심으로 감사의 말씀을 드립니다. 저희는 '기술로 세상을 움직이다'라는 슬로건 아래 기업의 안정적인 성장과 미래가치를 위해 끊임없이 노력하고 있습니다.
             </p>
             <p style="margin-bottom: 1.5rem;">
-              SD 바이오센서는 체외진단 분야의 혁신적인 기술 개발과 글로벌 시장 확대를 통해 세계적인 진단기업으로 성장해왔습니다. 앞으로도 지속적인 연구개발 투자와 품질 향상을 통해 고객에게 최상의 제품과 서비스를 제공하겠습니다.
+              아이티무유는 물류 솔루션과 경영지원 솔루션을 아우르는 기업 운영 SaaS를 통해 복잡한 업무를 더 정확하고 효율적으로 개선하는 데 집중해왔습니다.
             </p>
             <p style="margin-bottom: 1.5rem;">
-              변화하는 헬스케어 환경 속에서 SD 바이오센서는 혁신과 도전 정신으로 새로운 미래를 열어가겠습니다. 여러분의 변함없는 관심과 성원을 부탁드립니다.
+              앞으로도 지속적인 연구개발과 품질 혁신을 통해 고객에게 더 나은 경험과 확신 있는 성장 파트너가 되겠습니다.
+            </p>
+            <p style="margin-bottom: 1.5rem;">
+              변화하는 환경 속에서 혁신과 도전 정신으로 새로운 미래를 열어가는 아이티무유가 되겠습니다. 여러분의 지속적인 관심과 성원을 부탁드립니다.
             </p>
             <p style="margin-top: 3rem; text-align: right;">
-              <strong style="color: #0052A5; font-size: 1.2rem;">대표이사 마르코</strong>
+              <strong style="color: #0052A5; font-size: 1.2rem;">대표이사 심영민</strong>
             </p>
           </div>
         </div>
@@ -406,39 +409,17 @@ function getHistoryHTML() {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">연혁</h1>
-        <p style="font-size: 1.2rem;">SD 바이오센서의 성장 역사</p>
+        <p style="font-size: 1.2rem;">IT moou의 성장 역사</p>
       </section>
 
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto;">
           <div style="border-left: 3px solid #0052A5; padding-left: 2rem;">
             <div style="margin-bottom: 3rem;">
-              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2025</h3>
-              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• AI 기반 진단 시스템 개발</li>
-                <li>• 글로벌 파트너십 확대</li>
-              </ul>
-            </div>
-            <div style="margin-bottom: 3rem;">
               <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2024</h3>
               <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• 혁신적인 진단 플랫폼 출시</li>
-                <li>• 해외 시장 진출 확대</li>
-                <li>• ISO 인증 획득</li>
-              </ul>
-            </div>
-            <div style="margin-bottom: 3rem;">
-              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2023</h3>
-              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• 연구개발센터 설립</li>
-                <li>• 신제품 라인업 확장</li>
-              </ul>
-            </div>
-            <div style="margin-bottom: 3rem;">
-              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2020</h3>
-              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• SD 바이오센서 설립</li>
-                <li>• 첫 번째 진단 제품 출시</li>
+                <li>• IT moou 설립</li>
+                <li>• LogiNexio 개발 착수</li>
               </ul>
             </div>
           </div>
