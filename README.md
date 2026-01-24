@@ -1,67 +1,26 @@
-# SD Biosensor Website
-
-## 이미지 파일 준비 가이드
-
-웹사이트에서 사용할 이미지 파일들을 준비해주세요.
-아래 파일들을 `/home/user/webapp/public/images/` 폴더에 넣어주시면 됩니다.
-
-### 필요한 이미지 목록:
-
-#### 메인 슬라이더 (3장)
-- `slide1.jpg` - 첫 번째 슬라이드 이미지 (1920x600px 권장)
-- `slide2.jpg` - 두 번째 슬라이드 이미지 (1920x600px 권장)
-- `slide3.jpg` - 세 번째 슬라이드 이미지 (1920x600px 권장)
-
-#### 메인 페이지 카드 이미지
-- `tech.jpg` - 첨단 기술 이미지 (800x600px 권장)
-- `support.jpg` - 고객 지원 이미지 (800x600px 권장)
-- `global.jpg` - 글로벌 네트워크 이미지 (800x600px 권장)
-- `loginnexio.jpg` - LoginNexio 솔루션 이미지 (800x600px 권장)
-- `busisupport.jpg` - BusiSupport Pro 솔루션 이미지 (800x600px 권장)
-- `custom.jpg` - 맞춤형 솔루션 이미지 (800x600px 권장)
-
-#### 기타 이미지
-- `ceo.jpg` - CEO 사진 (400x400px 권장)
-
-### 이미지 준비 방법:
-
-1. **로컬에서 이미지 준비 후 업로드:**
-   ```bash
-   # 샌드박스의 이미지 폴더 경로
-   /home/user/webapp/public/images/
-   ```
-
-2. **임시 플레이스홀더 이미지 사용:**
-   - 현재는 파일 경로만 설정되어 있습니다
-   - 이미지가 없으면 브라우저에서 이미지가 표시되지 않습니다
-   - 원하시는 이미지로 교체하시면 됩니다
-
-3. **이미지 규격 권장사항:**
-   - 슬라이더 이미지: 1920x600px (가로형)
-   - 카드 이미지: 800x600px (4:3 비율)
-   - CEO 사진: 400x400px (정사각형)
-   - 파일 형식: JPG, PNG (JPG 권장)
-   - 파일 크기: 각 이미지당 500KB 이하 권장
-
-### 이미지 교체 방법:
-
-이미지 파일명을 위의 목록과 동일하게 맞춰서 `/home/user/webapp/public/images/` 폴더에 넣으시면 자동으로 웹사이트에 표시됩니다.
-
----
+# IT moou Website
 
 ## 프로젝트 개요
-- **프로젝트명**: SD Biosensor Website
+- **프로젝트명**: IT moou 기업 웹사이트
 - **기술 스택**: Hono + TypeScript + Cloudflare Pages
-- **목표**: 기업 소개 웹사이트 구축
+- **목표**: 물류 및 경영지원 SaaS 기업 소개 웹사이트 구축
 
 ## 주요 기능
 
 ### 완료된 기능
 ✅ 헤더 네비게이션 (드롭다운 메뉴 포함)
+✅ IT moou 로고 적용
 ✅ 메인 이미지 슬라이더 (3장, 5초 자동 전환)
-✅ 회사소개 섹션 (회사명, CEO 메시지, 연혁, ESG, 오시는 길)
-✅ 솔루션 섹션 (LoginNexio, BusiSupport Pro)
-✅ 연구개발 섹션 (연구소, 연구개발 활동)
+✅ 회사소개 섹션
+  - 회사 소개 (혁신적인 AI&빅데이터 솔루션 기업)
+  - CEO 메시지 (대표이사 심영민)
+  - 연혁 (2024년 설립)
+  - ESG 경영
+  - 오시는 길
+✅ 솔루션 섹션
+  - LogiNexio (물류 SaaS 솔루션)
+  - BizSupport Pro (경영지원 AI 솔루션)
+✅ 연구개발 섹션
 ✅ 채용정보 섹션 (인재상, 채용공고 리다이렉션)
 ✅ 지원센터 섹션 (고객지원, Contact Us)
 ✅ 반응형 디자인 (모바일, 태블릿, 데스크톱)
@@ -73,7 +32,9 @@ webapp/
 ├── src/
 │   └── index.tsx          # 메인 애플리케이션 (모든 라우트 포함)
 ├── public/
-│   ├── images/            # 이미지 파일 저장 폴더 (위의 가이드 참조)
+│   ├── images/            # 이미지 파일 저장 폴더
+│   │   ├── logo.png       # IT moou 로고 (완료)
+│   │   └── README.md      # 이미지 파일 안내
 │   └── static/
 │       ├── app.js         # 프론트엔드 JavaScript
 │       └── styles.css     # 스타일시트
@@ -81,6 +42,20 @@ webapp/
 ├── package.json           # 의존성 및 스크립트
 └── README.md             # 프로젝트 문서
 ```
+
+## 회사 정보
+
+### IT moou
+- **대표이사**: 심영민
+- **주소**: (우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호
+- **대표번호**: 043.715.8553
+- **이메일**: cs@itmoou.com
+- **사업자등록번호**: 229-81-43410
+
+### 비전 & 미션
+- **Vision**: 데이터와 AI로 전 세계 중소 수출 기업의 운영을 표준화하는 디지털 운영 OS 구축
+- **Mission**: 모든 기업의 업무를 한번에, 오류 없이 처리할 수 있는 원스톱 SaaS 제공
+- **핵심가치**: 정확, 효율, 투명, 연결, 고객중심
 
 ## 로컬 개발
 
@@ -117,6 +92,22 @@ pm2 stop webapp
 pm2 delete webapp
 ```
 
+## 이미지 파일 관리
+
+### 필요한 이미지 목록
+이미지는 `/home/user/webapp/public/images/` 폴더에 저장합니다.
+
+**이미 추가된 이미지:**
+- ✅ logo.png - IT moou 로고
+
+**추가 필요한 이미지:**
+- slide1.jpg, slide2.jpg, slide3.jpg - 메인 슬라이더 (1920x600px)
+- tech.jpg, support.jpg, global.jpg - "왜 우리를 선택해야 할까요?" 섹션 (800x600px)
+- loginexio.jpg, bizsupport.jpg - 솔루션 카드 (800x600px)
+- ceo.jpg - CEO 사진 (400x400px)
+
+자세한 내용은 `public/images/README.md` 파일을 참조하세요.
+
 ## 배포
 
 ### Cloudflare Pages 배포
@@ -131,10 +122,10 @@ npm run deploy
 ## 페이지 구조
 
 ### 메인 메뉴
-- **회사소개**: 회사명, CEO 메시지, 연혁, ESG, 오시는 길
-- **솔루션**: LoginNexio, BusiSupport Pro
+- **회사소개**: IT moou, CEO 메시지, 연혁, ESG, 오시는 길
+- **솔루션**: LogiNexio, BizSupport Pro
 - **연구개발**: 연구소, 연구개발 활동
-- **채용정보**: 인재상, 채용공고 (외부 사이트 리다이렉션)
+- **채용정보**: 인재상, 채용공고
 - **지원센터**: 고객지원, Contact Us
 
 ### 주요 URL
@@ -144,8 +135,8 @@ npm run deploy
 - `/company/history` - 연혁
 - `/company/esg` - ESG 경영
 - `/company/location` - 오시는 길
-- `/solutions/loginnexio` - LoginNexio 솔루션
-- `/solutions/busisupport` - BusiSupport Pro
+- `/solutions/loginexio` - LogiNexio 솔루션
+- `/solutions/bizsupport` - BizSupport Pro
 - `/rnd/lab` - 연구소
 - `/rnd/activities` - 연구개발 활동
 - `/careers` - 채용공고 (리다이렉션)
@@ -174,8 +165,8 @@ npm run deploy
 - Edge (최신 버전)
 
 ## 라이센스
-2025 SD Biosensor, INC. ALL RIGHTS RESERVED.
+2025 IT moou, INC. ALL RIGHTS RESERVED.
 
 ## 문의
-- 이메일: sales@sdbiosensor.com
-- 전화: 031-300-0400
+- 이메일: cs@itmoou.com
+- 전화: 043-715-8553
