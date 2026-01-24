@@ -84,14 +84,14 @@ function getHeader() {
     <header class="header">
       <div class="header-container">
         <a href="/" class="logo">
-          <img src="/images/logo.png" alt="IT moou" style="height: 40px;">
+          <img src="/images/logo.png" alt="IT moou" style="height: 60px;">
         </a>
         <nav>
           <ul class="main-nav">
             <li class="nav-item">
               <a href="/company" class="nav-link">회사소개</a>
               <div class="dropdown">
-                <a href="/company" class="dropdown-item">회사명</a>
+                <a href="/company" class="dropdown-item">IT moou</a>
                 <a href="/company/ceo" class="dropdown-item">CEO 메시지</a>
                 <a href="/company/history" class="dropdown-item">연혁</a>
                 <a href="/company/esg" class="dropdown-item">ESG</a>
@@ -164,7 +164,7 @@ function getFooter() {
           </div>
         </div>
         <div class="footer-bottom">
-          <p>2025 IT moou, INC. ALL RIGHTS RESERVED.</p>
+          <p>2025 IT moou Co., Ltd. ALL RIGHTS RESERVED.</p>
         </div>
       </div>
     </footer>
@@ -468,7 +468,7 @@ function getLocationHTML() {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">오시는 길</h1>
-        <p style="font-size: 1.2rem;">SD 바이오센서를 찾아오시는 길을 안내합니다</p>
+        <p style="font-size: 1.2rem;">IT moou를 찾아오시는 길을 안내합니다</p>
       </section>
 
       <section class="content-section">
@@ -476,32 +476,23 @@ function getLocationHTML() {
           <div style="margin-bottom: 3rem;">
             <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt"></i> 주소</h3>
             <p style="color: #666; line-height: 1.8;">
-              (우) 16690 경기도 수원시 영통구 디지털엠파이어빌딩 4, 5층<br>
-              기업부설연구소 : 1층 동 13315
+              (우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호
             </p>
           </div>
           
           <div style="margin-bottom: 3rem;">
             <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-phone"></i> 연락처</h3>
             <p style="color: #666; line-height: 1.8;">
-              대표번호: 031.300.0400<br>
-              이메일: sales@sdbiosensor.com
-            </p>
-          </div>
-
-          <div style="margin-bottom: 3rem;">
-            <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-subway"></i> 대중교통</h3>
-            <p style="color: #666; line-height: 1.8;">
-              지하철: 신분당선 광교역 3번 출구에서 도보 10분<br>
-              버스: 영통구청 정류장 하차 후 도보 5분
+              대표번호: 043.715.8553<br>
+              이메일: cs@itmoou.com
             </p>
           </div>
 
           <div>
             <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-car"></i> 자가용</h3>
             <p style="color: #666; line-height: 1.8;">
-              영동고속도로 → 수원IC → 디지털엠파이어빌딩<br>
-              주차: 건물 지하 주차장 이용 가능
+              중부고속도로 → 서청주IC → 청주산단스타트업센터<br>
+              주차: 건물 뒷편 주차장 이용 가능
             </p>
           </div>
         </div>
@@ -627,7 +618,7 @@ function getLabHTML() {
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666;">
           <p style="margin-bottom: 1.5rem;">
-            SD 바이오센서 연구소는 체외진단 분야의 혁신적인 기술을 개발하는 핵심 조직입니다. 최첨단 연구 시설과 우수한 연구 인력을 바탕으로 차세대 진단 기술을 개발하고 있습니다.
+            아이티무유 연구소는 기업의 물류 흐름 및 경영 분야의 혁신적인 기술을 개발하는 핵심 조직입니다. 우수한 연구 개발 인력을 바탕으로 차세대 기업형 기술을 개발하고 있습니다.
           </p>
         </div>
 
@@ -671,36 +662,20 @@ function getActivitiesHTML() {
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-dna"></i> 바이오센서 기술</h3>
-              <p class="card-text">차세대 바이오센서 개발을 통한 진단 정확도 향상</p>
+              <h3 class="card-title"><i class="fas fa-truck"></i> 물류 최적화 기술</h3>
+              <p class="card-text">차세대 AI 개발을 통한 정확도 향상</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-brain"></i> AI 진단 시스템</h3>
-              <p class="card-text">인공지능을 활용한 스마트 진단 솔루션 개발</p>
+              <h3 class="card-title"><i class="fas fa-database"></i> 빅데이터 처리 시스템</h3>
+              <p class="card-text">빅데이터를 활용한 기업 맞춤 데이터 처리 솔루션 개발</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-mobile-alt"></i> 모바일 헬스케어</h3>
-              <p class="card-text">언제 어디서나 건강을 관리할 수 있는 모바일 솔루션</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-header" style="margin-top: 4rem;">
-          <h2 class="section-title">연구 성과</h2>
-        </div>
-        <div style="max-width: 900px; margin: 0 auto;">
-          <div class="card">
-            <div class="card-content">
-              <ul style="list-style: none; padding: 0; line-height: 2; color: #666;">
-                <li>• 특허 출원 및 등록: 50건 이상</li>
-                <li>• 국제 학술지 논문 발표: 30편 이상</li>
-                <li>• 정부 R&D 과제 수행: 10건 이상</li>
-                <li>• 신제품 개발 및 출시: 연간 5건 이상</li>
-              </ul>
+              <h3 class="card-title"><i class="fas fa-chart-line"></i> 경영지원 솔루션</h3>
+              <p class="card-text">기업 내부의 빅데이터를 활용하여 AI가 기업의 최적화 해법을 제시</p>
             </div>
           </div>
         </div>
@@ -714,7 +689,7 @@ function getTalentHTML() {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">인재상</h1>
-        <p style="font-size: 1.2rem;">SD 바이오센서가 찾는 인재</p>
+        <p style="font-size: 1.2rem;">IT moou가 찾는 인재</p>
       </section>
 
       <section class="content-section">
@@ -782,21 +757,21 @@ function getCustomerSupportHTML() {
             <div class="card-content">
               <h3 class="card-title"><i class="fas fa-headset"></i> 기술 지원</h3>
               <p class="card-text">제품 사용 중 발생하는 기술적 문제를 신속하게 해결해드립니다.</p>
-              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">전화: 031-300-0400</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">전화: 043-715-8553</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
               <h3 class="card-title"><i class="fas fa-book"></i> 제품 교육</h3>
               <p class="card-text">제품의 효과적인 사용을 위한 교육 프로그램을 제공합니다.</p>
-              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">이메일: training@sdbiosensor.com</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">이메일: cs@itmoou.com</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
               <h3 class="card-title"><i class="fas fa-tools"></i> 유지보수</h3>
               <p class="card-text">정기적인 유지보수로 제품의 최적 성능을 유지합니다.</p>
-              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">이메일: service@sdbiosensor.com</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">이메일: service@itmoou.com</p>
             </div>
           </div>
         </div>
@@ -860,8 +835,8 @@ function getContactHTML() {
           <div style="margin-top: 3rem; text-align: center; color: #666;">
             <p style="margin-bottom: 1rem;">또는 직접 연락주세요</p>
             <p style="font-size: 1.1rem;">
-              <i class="fas fa-phone"></i> 031-300-0400<br>
-              <i class="fas fa-envelope"></i> sales@sdbiosensor.com
+              <i class="fas fa-phone"></i> 043-715-8553<br>
+              <i class="fas fa-envelope"></i> cs@itmoou.com
             </p>
           </div>
         </div>
