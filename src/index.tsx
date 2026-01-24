@@ -57,7 +57,7 @@ app.get('/rnd/activities', (c) => {
 
 // Careers pages - redirect to external site
 app.get('/careers', (c) => {
-  return c.redirect('https://careers.itmoou.com')
+  return c.redirect('https://recruit.itmoou.com')
 })
 
 app.get('/careers/talent', (c) => {
@@ -290,8 +290,8 @@ function getMainHTML() {
         <div class="card">
           <div class="card-content">
             <h3 class="card-title">제조업 A사</h3>
-            <p class="card-text">"LogiNexio 도입 후 보안 사고가 90% 감소했으며, 직원들의 로그인 시간이 50% 단축되었습니다."</p>
-            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- IT 담당 이사</p>
+            <p class="card-text">"LogiNexio 도입 후 물류 효율이 45% 증가했으며, 수출에 걸리는 시간이 대폭 감소하여 직원들의 업무 효율성이 20% 증가했습니다."</p>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- 물류 본부장</p>
           </div>
         </div>
         <div class="card">
@@ -333,7 +333,7 @@ function getCompanyHTML() {
             아이티무유는 <strong style="color: #0052A5;">'기술로 세상을 움직이다'</strong>이라는 슬로건과 함께 혁신을 통한 기업의 미래가치 실현을 위해 물류 솔루션 개발로 시작한 기업의 물류 및 경영 솔루션을 확보한 기업입니다.
           </p>
           <p style="margin-bottom: 1.5rem;">
-            아이티무유는 물류와 경영 자문의 역량을 바탕으로 물류 산업에 필요한 팔레타이징, 수출 서류 자동화, 포워더 컨택 및 선적 등의 올인원 솔루션을 시장에 공급합니다. 또한 경영에 도움이 될 수 있도록 기업 맞춤형 AI 솔루션으로 기업의 가치를 높이고 같이 성장하는 대한민국 최대의 비즈니스솔루션 기업으로 성장을 준비하고 있습니다.
+            아이티무유는 물류와 경영 자문의 역량을 바탕으로 물류 산업에 필요한 팔레타이징, 수출 서류 자동화, 포워더 컨택 및 선적 등의 올인원 솔루션을 시장에 공급합니다. 또한 경영에 도움이 될 수 있도록 기업 맞춤형 AI 솔루션으로 기업의 가치를 높이고 같이 성장하는 <strong style="color: #0052A5;">대한민국 최대의 비즈니스<br/>솔루션 기업</strong>으로 성장을 준비하고 있습니다.
           </p>
         </div>
       </section>
@@ -415,6 +415,19 @@ function getHistoryHTML() {
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto;">
           <div style="border-left: 3px solid #0052A5; padding-left: 2rem;">
+            <div style="margin-bottom: 3rem;">
+              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2026</h3>
+              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
+                <li>• 연 매출 1억원 달성</li>
+              </ul>
+            </div>
+            <div style="margin-bottom: 3rem;">
+              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2025</h3>
+              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
+                <li>• 연 매출 7천만원 달성</li>
+                <li>• 독자 팔레타이징 기술 개발</li>
+              </ul>
+            </div>
             <div style="margin-bottom: 3rem;">
               <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2024</h3>
               <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
