@@ -179,11 +179,12 @@ function getBaseHTML(title: string, content: string) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ITMOOU</title>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon-96x96.png">
+        <link rel="apple-touch-icon" href="/favicon-96x96.png">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <link href="/static/styles.css" rel="stylesheet">
@@ -238,23 +239,20 @@ function getMainHTML() {
       </div>
       <div class="grid-3">
         <div class="card">
-          <img src="/images/tech.jpg" alt="첨단 기술" class="card-image">
           <div class="card-content">
-            <h3 class="card-title">첨단 기술</h3>
+            <h3 class="card-title"><i class="fas fa-microchip" style="color: #0052A5; margin-right: 0.5rem;"></i>첨단 기술</h3>
             <p class="card-text">최신 빅데이터 기술과 AI를 활용한 혁신적인 기업형 업무 솔루션을 제공합니다.</p>
           </div>
         </div>
         <div class="card">
-          <img src="/images/support.jpg" alt="고객 지원" class="card-image">
           <div class="card-content">
-            <h3 class="card-title">전문 지원</h3>
+            <h3 class="card-title"><i class="fas fa-headset" style="color: #0052A5; margin-right: 0.5rem;"></i>전문 지원</h3>
             <p class="card-text">전문 지식을 가지고 있는 기술 서비스로 고객의 성공을 함께하겠습니다.</p>
           </div>
         </div>
         <div class="card">
-          <img src="/images/global.jpg" alt="글로벌 네트워크" class="card-image">
           <div class="card-content">
-            <h3 class="card-title">글로벌 네트워크</h3>
+            <h3 class="card-title"><i class="fas fa-globe" style="color: #0052A5; margin-right: 0.5rem;"></i>글로벌 네트워크</h3>
             <p class="card-text">전 세계 파트너와의 협력을 통해 최상의 서비스를 제공합니다.</p>
           </div>
         </div>
