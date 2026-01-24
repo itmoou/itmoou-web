@@ -113,10 +113,10 @@ function getHeader() {
               </div>
             </li>
             <li class="nav-item">
-              <a href="/careers" class="nav-link">채용정보</a>
+              <a href="/careers/talent" class="nav-link">채용정보</a>
               <div class="dropdown">
                 <a href="/careers/talent" class="dropdown-item">인재상</a>
-                <a href="/careers" class="dropdown-item">채용공고</a>
+                <a href="https://recruit.itmoou.com" class="dropdown-item" target="_blank" rel="noopener noreferrer">채용공고</a>
               </div>
             </li>
             <li class="nav-item">
@@ -179,10 +179,11 @@ function getBaseHTML(title: string, content: string) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ITMOOU</title>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon-96x96.png">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <link href="/static/styles.css" rel="stylesheet">
@@ -275,7 +276,7 @@ function getMainHTML() {
           </div>
         </div>
         <div class="card">
-          <img src="/images/bizsupport.jpg" alt="BizSupport Pro" class="card-image">
+          <img src="/images/bizsupport.jpg" alt="BizSupport Pro" class="card-image" style="display: none;">
           <div class="card-content">
             <h3 class="card-title">BizSupport Pro</h3>
             <p class="card-text">기업의 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼입니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 제공합니다.</p>
@@ -377,30 +378,33 @@ function getCEOHTML() {
       </section>
 
       <section class="content-section">
-        <div style="max-width: 900px; margin: 0 auto;">
-          <div style="text-align: center; margin-bottom: 3rem;">
-            <img src="/images/ceo.jpg" alt="CEO 심영민" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
-            <h3 style="font-size: 1.5rem; color: #0052A5;">대표이사 심영민</h3>
-          </div>
-          <div style="line-height: 1.8; color: #666;">
-            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
-              안녕하십니까. IT moou 대표이사 심영민입니다.
-            </p>
-            <p style="margin-bottom: 1.5rem;">
-              저희 아이티무유를 찾아주신 모든 분들께 진심으로 감사의 말씀을 드립니다. 저희는 '기술로 세상을 움직이다'라는 슬로건 아래 기업의 안정적인 성장과 미래가치를 위해 끊임없이 노력하고 있습니다.
-            </p>
-            <p style="margin-bottom: 1.5rem;">
-              아이티무유는 물류 솔루션과 경영지원 솔루션을 아우르는 기업 운영 SaaS를 통해 복잡한 업무를 더 정확하고 효율적으로 개선하는 데 집중해왔습니다.
-            </p>
-            <p style="margin-bottom: 1.5rem;">
-              앞으로도 지속적인 연구개발과 품질 혁신을 통해 고객에게 더 나은 경험과 확신 있는 성장 파트너가 되겠습니다.
-            </p>
-            <p style="margin-bottom: 1.5rem;">
-              변화하는 환경 속에서 혁신과 도전 정신으로 새로운 미래를 열어가는 아이티무유가 되겠습니다. 여러분의 지속적인 관심과 성원을 부탁드립니다.
-            </p>
-            <p style="margin-top: 3rem; text-align: right;">
-              <strong style="color: #0052A5; font-size: 1.2rem;">대표이사 심영민</strong>
-            </p>
+        <div style="max-width: 1000px; margin: 0 auto;">
+          <div style="display: flex; gap: 3rem; align-items: flex-start;">
+            <div style="flex: 1; line-height: 1.8; color: #666;">
+              <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
+                안녕하십니까. IT moou 대표이사 심영민입니다.
+              </p>
+              <p style="margin-bottom: 1.5rem;">
+                저희 아이티무유를 찾아주신 모든 분들께 진심으로 감사의 말씀을 드립니다. 저희는 '기술로 세상을 움직이다'라는 슬로건 아래 기업의 안정적인 성장과 미래가치를 위해 끊임없이 노력하고 있습니다.
+              </p>
+              <p style="margin-bottom: 1.5rem;">
+                아이티무유는 물류 솔루션과 경영지원 솔루션을 아우르는 기업 운영 SaaS를 통해 복잡한 업무를 더 정확하고 효율적으로 개선하는 데 집중해왔습니다.
+              </p>
+              <p style="margin-bottom: 1.5rem;">
+                앞으로도 지속적인 연구개발과 품질 혁신을 통해 고객에게 더 나은 경험과 확신 있는 성장 파트너가 되겠습니다.
+              </p>
+              <p style="margin-bottom: 1.5rem;">
+                변화하는 환경 속에서 혁신과 도전 정신으로 새로운 미래를 열어가는 아이티무유가 되겠습니다. 여러분의 지속적인 관심과 성원을 부탁드립니다.
+              </p>
+              <p style="margin-top: 3rem;">
+                <strong style="color: #0052A5; font-size: 1.2rem;">대표이사 심영민</strong>
+              </p>
+            </div>
+            <div style="flex: 0 0 250px; text-align: center;">
+              <img src="/images/ceo.jpg" alt="CEO 심영민" style="width: 100%; border-radius: 10px; object-fit: cover; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <h3 style="font-size: 1.2rem; color: #0052A5; margin-top: 1rem;">심영민</h3>
+              <p style="color: #666; font-size: 0.9rem;">대표이사</p>
+            </div>
           </div>
         </div>
       </section>
@@ -527,42 +531,57 @@ function getLogiNexioHTML() {
       </section>
 
       <section class="content-section">
-        <div style="max-width: 900px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
-          <img src="/images/loginexio.jpg" alt="LogiNexio" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        </div>
-
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
-          <p style="margin-bottom: 1.5rem;">
-            최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다. 팔레트 자동화, 물류 서류 자동화, 포워더 계약 등 다양한 기능을 지원합니다.
+          <p style="margin-bottom: 1.5rem; text-align: center; font-size: 1.1rem;">
+            최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다.
           </p>
         </div>
 
         <div class="section-header">
           <h2 class="section-title">주요 기능</h2>
         </div>
-        <div class="grid-3">
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-boxes"></i> 팔레트 자동화</h3>
-              <p class="card-text">물류 팔레트 관리를 자동화하여 효율적인 창고 운영을 지원합니다.</p>
+        <div style="max-width: 1000px; margin: 0 auto;">
+          <!-- 팔레트 자동화 -->
+          <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="flex: 1;">
+              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-boxes" style="margin-right: 0.5rem;"></i> 팔레트 자동화</h3>
+              <p style="color: #666; line-height: 1.8;">물류 팔레트 관리를 자동화하여 효율적인 창고 운영을 지원합니다. AI 기반 최적화로 공간 활용도를 극대화하고, 실시간 재고 추적으로 정확한 물류 관리가 가능합니다.</p>
+            </div>
+            <div style="flex: 0 0 250px;">
+              <img src="/images/pallet.png" alt="팔레트 자동화" style="width: 100%; border-radius: 8px; object-fit: cover;">
             </div>
           </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-file-alt"></i> 물류 서류 자동화</h3>
-              <p class="card-text">수출입 서류, 운송장 등 물류 관련 서류를 자동으로 생성하고 관리합니다.</p>
+
+          <!-- 물류 서류 자동화 -->
+          <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex-direction: row-reverse;">
+            <div style="flex: 1;">
+              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i> 물류 서류 자동화</h3>
+              <p style="color: #666; line-height: 1.8;">수출입 서류, 운송장 등 물류 관련 서류를 자동으로 생성하고 관리합니다. 복잡한 서류 작업을 간소화하여 업무 효율성을 대폭 향상시킵니다.</p>
+            </div>
+            <div style="flex: 0 0 250px;">
+              <img src="/images/docu.png" alt="물류 서류 자동화" style="width: 100%; border-radius: 8px; object-fit: cover;">
             </div>
           </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-handshake"></i> 포워더 계약 관리</h3>
-              <p class="card-text">글로벌 포워더와의 계약 및 운송 관리를 통합하여 처리합니다.</p>
+
+          <!-- 포워더 계약 관리 -->
+          <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="flex: 1;">
+              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-handshake" style="margin-right: 0.5rem;"></i> 포워더 계약 관리</h3>
+              <p style="color: #666; line-height: 1.8;">글로벌 포워더와의 계약 및 운송 관리를 통합하여 처리합니다. 최적의 운송 경로와 비용을 자동으로 제안하여 물류 비용을 절감합니다.</p>
+            </div>
+            <div style="flex: 0 0 250px;">
+              <img src="/images/foward.png" alt="포워더 계약 관리" style="width: 100%; border-radius: 8px; object-fit: cover;">
             </div>
           </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-chart-line"></i> 실시간 물류 추적</h3>
-              <p class="card-text">제조부터 고객 인도까지 전체 물류 흐름을 실시간으로 추적합니다.</p>
+
+          <!-- 실시간 물류 추적 -->
+          <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex-direction: row-reverse;">
+            <div style="flex: 1;">
+              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> 실시간 물류 추적</h3>
+              <p style="color: #666; line-height: 1.8;">제조부터 고객 인도까지 전체 물류 흐름을 실시간으로 추적합니다. GPS 기반 위치 추적과 예상 도착 시간 알림으로 고객 만족도를 향상시킵니다.</p>
+            </div>
+            <div style="flex: 0 0 250px;">
+              <img src="/images/locate.png" alt="실시간 물류 추적" style="width: 100%; border-radius: 8px; object-fit: cover;">
             </div>
           </div>
         </div>
@@ -581,7 +600,7 @@ function getBizSupportHTML() {
 
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
-          <img src="/images/bizsupport.jpg" alt="BizSupport Pro" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <img src="/images/bizsupport.jpg" alt="BizSupport Pro" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: none;">
         </div>
 
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
