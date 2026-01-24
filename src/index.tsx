@@ -1,0 +1,901 @@
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+import { serveStatic } from 'hono/cloudflare-workers'
+
+const app = new Hono()
+
+// Enable CORS for API routes
+app.use('/api/*', cors())
+
+// Serve static files from public directory
+app.use('/static/*', serveStatic({ root: './public' }))
+app.use('/images/*', serveStatic({ root: './public' }))
+
+// Main page
+app.get('/', (c) => {
+  return c.html(getMainHTML())
+})
+
+// Company pages
+app.get('/company', (c) => {
+  return c.html(getCompanyHTML())
+})
+
+app.get('/company/ceo', (c) => {
+  return c.html(getCEOHTML())
+})
+
+app.get('/company/history', (c) => {
+  return c.html(getHistoryHTML())
+})
+
+app.get('/company/esg', (c) => {
+  return c.html(getESGHTML())
+})
+
+app.get('/company/location', (c) => {
+  return c.html(getLocationHTML())
+})
+
+// Solutions pages
+app.get('/solutions/loginnexio', (c) => {
+  return c.html(getLoginNexioHTML())
+})
+
+app.get('/solutions/busisupport', (c) => {
+  return c.html(getBusiSupportHTML())
+})
+
+// R&D pages
+app.get('/rnd/lab', (c) => {
+  return c.html(getLabHTML())
+})
+
+app.get('/rnd/activities', (c) => {
+  return c.html(getActivitiesHTML())
+})
+
+// Careers pages - redirect to external site
+app.get('/careers', (c) => {
+  return c.redirect('https://careers.sdbiosensor.com')
+})
+
+app.get('/careers/talent', (c) => {
+  return c.html(getTalentHTML())
+})
+
+// Support pages
+app.get('/support/customer', (c) => {
+  return c.html(getCustomerSupportHTML())
+})
+
+app.get('/support/contact', (c) => {
+  return c.html(getContactHTML())
+})
+
+// API routes
+app.get('/api/hello', (c) => {
+  return c.json({ message: 'Hello from SD Biosensor API!' })
+})
+
+// Helper functions for HTML templates
+function getHeader() {
+  return `
+    <header class="header">
+      <div class="header-container">
+        <a href="/" class="logo">
+          <span style="color: #0052A5; font-weight: bold; font-size: 1.5rem;">SD BIOSENSOR</span>
+        </a>
+        <nav>
+          <ul class="main-nav">
+            <li class="nav-item">
+              <a href="/company" class="nav-link">회사소개</a>
+              <div class="dropdown">
+                <a href="/company" class="dropdown-item">회사명</a>
+                <a href="/company/ceo" class="dropdown-item">CEO 메시지</a>
+                <a href="/company/history" class="dropdown-item">연혁</a>
+                <a href="/company/esg" class="dropdown-item">ESG</a>
+                <a href="/company/location" class="dropdown-item">오시는 길</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="/solutions/loginnexio" class="nav-link">솔루션</a>
+              <div class="dropdown">
+                <a href="/solutions/loginnexio" class="dropdown-item">LoginNexio</a>
+                <a href="/solutions/busisupport" class="dropdown-item">BusiSupport Pro</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="/rnd/lab" class="nav-link">연구개발</a>
+              <div class="dropdown">
+                <a href="/rnd/lab" class="dropdown-item">연구소</a>
+                <a href="/rnd/activities" class="dropdown-item">연구개발 활동</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="/careers" class="nav-link">채용정보</a>
+              <div class="dropdown">
+                <a href="/careers/talent" class="dropdown-item">인재상</a>
+                <a href="/careers" class="dropdown-item">채용공고</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="/support/customer" class="nav-link">지원센터</a>
+              <div class="dropdown">
+                <a href="/support/customer" class="dropdown-item">고객지원</a>
+                <a href="/support/contact" class="dropdown-item">Contact Us</a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  `
+}
+
+function getFooter() {
+  return `
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>SD BIOSENSOR</h3>
+            <p>대표이사 : 마르코<br>
+            경기도 수원시 영통구 디지털엠파이어빌딩 4층<br>
+            기업부설연구소 : 1층 동 13315</p>
+          </div>
+          <div class="footer-section">
+            <h3>연락처</h3>
+            <p>대표번호: 031.300.0400<br>
+            이메일: sales@sdbiosensor.com</p>
+          </div>
+          <div class="footer-section">
+            <h3>사업자 정보</h3>
+            <p>(우) 16690 경기도 수원시 영통구 디지털엠파이어빌 155880번지 16 (하동)<br>
+            사업자등록번호: 123-45-67890</p>
+          </div>
+          <div class="footer-section">
+            <h3>SNS</h3>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>2025 SD Biosensor, INC. ALL RIGHTS RESERVED.</p>
+        </div>
+      </div>
+    </footer>
+  `
+}
+
+function getBaseHTML(title: string, content: string) {
+  return `
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${title} - SD BIOSENSOR</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        ${getHeader()}
+        ${content}
+        ${getFooter()}
+        <script src="/static/app.js"></script>
+    </body>
+    </html>
+  `
+}
+
+function getMainHTML() {
+  return getBaseHTML('홈', `
+    <div class="main-slider">
+      <div class="slider-container">
+        <div class="slide active">
+          <img src="/images/slide1.jpg" alt="SD Biosensor Slide 1">
+          <div class="slide-content">
+            <h2>체외진단 업계의 토탈플랫폼 기업</h2>
+            <p>글로벌 세계선진 진로기업, SD 바이오센서를 소개합니다</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="/images/slide2.jpg" alt="SD Biosensor Slide 2">
+          <div class="slide-content">
+            <h2>혁신적인 진단 기술</h2>
+            <p>첨단 기술로 건강한 미래를 만들어갑니다</p>
+          </div>
+        </div>
+        <div class="slide">
+          <img src="/images/slide3.jpg" alt="SD Biosensor Slide 3">
+          <div class="slide-content">
+            <h2>글로벌 헬스케어 리더</h2>
+            <p>전 세계 고객의 신뢰를 받는 기업</p>
+          </div>
+        </div>
+      </div>
+      <div class="slider-controls">
+        <span class="slider-dot active"></span>
+        <span class="slider-dot"></span>
+        <span class="slider-dot"></span>
+      </div>
+    </div>
+
+    <section class="content-section" style="background: #f9f9f9;">
+      <div class="section-header">
+        <h2 class="section-title">왜 우리를 선택해야 할까요?</h2>
+        <p class="section-subtitle">고객의 성공이 우리의 목표입니다</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <img src="/images/tech.jpg" alt="첨단 기술" class="card-image">
+          <div class="card-content">
+            <h3 class="card-title">첨단 기술</h3>
+            <p class="card-text">최신 바이오센서 기술과 AI를 활용한 혁신적인 진단 솔루션을 제공합니다.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="/images/support.jpg" alt="고객 지원" class="card-image">
+          <div class="card-content">
+            <h3 class="card-title">전문 지원</h3>
+            <p class="card-text">24/7 고객 지원과 전문적인 기술 서비스로 고객의 성공을 돕습니다.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="/images/global.jpg" alt="글로벌 네트워크" class="card-image">
+          <div class="card-content">
+            <h3 class="card-title">글로벌 네트워크</h3>
+            <p class="card-text">전 세계 파트너와의 협력을 통해 최상의 서비스를 제공합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="section-header">
+        <h2 class="section-title">우리의 솔루션</h2>
+        <p class="section-subtitle">기업의 성장을 위한 혁신적인 B2B 솔루션을 제공합니다</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <img src="/images/loginnexio.jpg" alt="LoginNexio" class="card-image">
+          <div class="card-content">
+            <h3 class="card-title">LoginNexio</h3>
+            <p class="card-text">최첨단 통합 솔루션으로 기업의 보안을 강화하고, 사용자 경험을 개선합니다. 다중 인증, SSO, 생체 인증 등 다양한 인증 방식을 지원합니다.</p>
+            <a href="/solutions/loginnexio" style="color: #0052A5; text-decoration: none;">자세히 보기 →</a>
+          </div>
+        </div>
+        <div class="card">
+          <img src="/images/busisupport.jpg" alt="BusiSupport Pro" class="card-image">
+          <div class="card-content">
+            <h3 class="card-title">BusiSupport Pro</h3>
+            <p class="card-text">기업의 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼입니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 제공합니다.</p>
+            <a href="/solutions/busisupport" style="color: #0052A5; text-decoration: none;">자세히 보기 →</a>
+          </div>
+        </div>
+        <div class="card">
+          <img src="/images/custom.jpg" alt="맞춤형 솔루션" class="card-image">
+          <div class="card-content">
+            <h3 class="card-title">맞춤형 솔루션</h3>
+            <p class="card-text">고객의 특별한 요구사항에 맞춘 커스터마이징 솔루션을 개발합니다. 귀사의 비즈니스 환경에 최적화된 시스템을 구축해드립니다.</p>
+            <a href="/support/contact" style="color: #0052A5; text-decoration: none;">문의하기 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white;">
+      <div class="section-header">
+        <h2 class="section-title" style="color: white;">고객 성공 사례</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">다양한 산업 분야의 기업들이 우리 솔루션으로 성공을 경험하고 있습니다</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="card-title">제조업 A사</h3>
+            <p class="card-text">"LoginNexio 도입 후 보안 사고가 90% 감소했으며, 직원들의 로그인 시간이 50% 단축되었습니다."</p>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- IT 담당 이사</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <h3 class="card-title">금융업 B사</h3>
+            <p class="card-text">"BusiSupport Pro로 통합 프로젝트 관리 후 업무 생산성이 70% 향상되고, 팀 간 협업이 원활해졌습니다."</p>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- 프로젝트 매니저</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <h3 class="card-title">유통업 C사</h3>
+            <p class="card-text">"통합 솔루션 도입으로 운영 비용이 40% 절감되고, 실무 생산성이 크게 향상되었습니다."</p>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- 운영 본부장</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a href="/support/contact" style="display: inline-block; padding: 1rem 2rem; background: white; color: #0052A5; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s;">지원센터 방문</a>
+      </div>
+    </section>
+  `)
+}
+
+function getCompanyHTML() {
+  return getBaseHTML('회사소개', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">회사소개</h1>
+        <p style="font-size: 1.2rem;">글로벌 세계선진 진로기업, SD 바이오센서를 소개합니다</p>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">체외진단 업계의 토탈플랫폼 기업</h2>
+        </div>
+        <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666;">
+          <p style="margin-bottom: 1.5rem;">
+            SD 바이오센서는 '생명을 지키는 시작 '이라는 슬로건과 함께 <strong style="color: #0052A5;">혁신을 통한 건강한 내일</strong>의 실현을 위해 진단제 개발로 시작한 전체 산업의 Total Solution Provider로 혁신적인 진단 솔루션을 확보한 기업입니다.
+          </p>
+          <p style="margin-bottom: 1.5rem;">
+            SD 바이오센서는 진단 시약, 장비에 대한 개발 및 생산 역량을 바탕으로 혈당, 혈압, 콜레스테롤 측정 솔루션을 시장에 공급합니다. 또한 우수한 연구소와 브랜드 가치를 기반으로 성장하는 대한민국 최대의 토탈플랫폼 기업으로 성장하고 있습니다.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section" style="background: #f9f9f9;">
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-eye"></i> 비전</h3>
+              <p class="card-text">글로벌 헬스케어 시장을 선도하는 혁신적인 기업</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-bullseye"></i> 미션</h3>
+              <p class="card-text">첨단 기술로 인류의 건강한 삶에 기여</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-heart"></i> 핵심가치</h3>
+              <p class="card-text">혁신, 품질, 고객만족, 사회적 책임</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getCEOHTML() {
+  return getBaseHTML('CEO 메시지', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">CEO 메시지</h1>
+        <p style="font-size: 1.2rem;">대표이사 마르코</p>
+      </section>
+
+      <section class="content-section">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <div style="text-align: center; margin-bottom: 3rem;">
+            <img src="/images/ceo.jpg" alt="CEO 마르코" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+            <h3 style="font-size: 1.5rem; color: #0052A5;">대표이사 마르코</h3>
+          </div>
+          <div style="line-height: 1.8; color: #666;">
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
+              안녕하십니까. SD 바이오센서 대표이사 마르코입니다.
+            </p>
+            <p style="margin-bottom: 1.5rem;">
+              저희 SD 바이오센서를 찾아주신 모든 분들께 진심으로 감사의 말씀을 드립니다. 저희는 '생명을 지키는 시작'이라는 슬로건 아래 인류의 건강한 삶을 위해 끊임없이 노력하고 있습니다.
+            </p>
+            <p style="margin-bottom: 1.5rem;">
+              SD 바이오센서는 체외진단 분야의 혁신적인 기술 개발과 글로벌 시장 확대를 통해 세계적인 진단기업으로 성장해왔습니다. 앞으로도 지속적인 연구개발 투자와 품질 향상을 통해 고객에게 최상의 제품과 서비스를 제공하겠습니다.
+            </p>
+            <p style="margin-bottom: 1.5rem;">
+              변화하는 헬스케어 환경 속에서 SD 바이오센서는 혁신과 도전 정신으로 새로운 미래를 열어가겠습니다. 여러분의 변함없는 관심과 성원을 부탁드립니다.
+            </p>
+            <p style="margin-top: 3rem; text-align: right;">
+              <strong style="color: #0052A5; font-size: 1.2rem;">대표이사 마르코</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getHistoryHTML() {
+  return getBaseHTML('연혁', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">연혁</h1>
+        <p style="font-size: 1.2rem;">SD 바이오센서의 성장 역사</p>
+      </section>
+
+      <section class="content-section">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <div style="border-left: 3px solid #0052A5; padding-left: 2rem;">
+            <div style="margin-bottom: 3rem;">
+              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2025</h3>
+              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
+                <li>• AI 기반 진단 시스템 개발</li>
+                <li>• 글로벌 파트너십 확대</li>
+              </ul>
+            </div>
+            <div style="margin-bottom: 3rem;">
+              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2024</h3>
+              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
+                <li>• 혁신적인 진단 플랫폼 출시</li>
+                <li>• 해외 시장 진출 확대</li>
+                <li>• ISO 인증 획득</li>
+              </ul>
+            </div>
+            <div style="margin-bottom: 3rem;">
+              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2023</h3>
+              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
+                <li>• 연구개발센터 설립</li>
+                <li>• 신제품 라인업 확장</li>
+              </ul>
+            </div>
+            <div style="margin-bottom: 3rem;">
+              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2020</h3>
+              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
+                <li>• SD 바이오센서 설립</li>
+                <li>• 첫 번째 진단 제품 출시</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getESGHTML() {
+  return getBaseHTML('ESG 경영', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">ESG 경영</h1>
+        <p style="font-size: 1.2rem;">지속가능한 미래를 위한 SD 바이오센서의 약속</p>
+      </section>
+
+      <section class="content-section">
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title" style="color: #00A651;"><i class="fas fa-leaf"></i> Environment</h3>
+              <p class="card-text">친환경 제조 공정과 탄소 중립 목표 달성을 위해 노력하고 있습니다. 지속 가능한 환경 보호를 위한 다양한 활동을 전개합니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title" style="color: #0052A5;"><i class="fas fa-users"></i> Social</h3>
+              <p class="card-text">임직원의 복지 향상과 지역사회 기여를 통해 사회적 책임을 다하고 있습니다. 상생과 협력의 가치를 실천합니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title" style="color: #FF6B00;"><i class="fas fa-balance-scale"></i> Governance</h3>
+              <p class="card-text">투명한 경영과 윤리적 기업 문화를 구축하여 이해관계자의 신뢰를 얻고 있습니다. 공정하고 책임있는 지배구조를 운영합니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getLocationHTML() {
+  return getBaseHTML('오시는 길', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">오시는 길</h1>
+        <p style="font-size: 1.2rem;">SD 바이오센서를 찾아오시는 길을 안내합니다</p>
+      </section>
+
+      <section class="content-section">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <div style="margin-bottom: 3rem;">
+            <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt"></i> 주소</h3>
+            <p style="color: #666; line-height: 1.8;">
+              (우) 16690 경기도 수원시 영통구 디지털엠파이어빌딩 4, 5층<br>
+              기업부설연구소 : 1층 동 13315
+            </p>
+          </div>
+          
+          <div style="margin-bottom: 3rem;">
+            <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-phone"></i> 연락처</h3>
+            <p style="color: #666; line-height: 1.8;">
+              대표번호: 031.300.0400<br>
+              이메일: sales@sdbiosensor.com
+            </p>
+          </div>
+
+          <div style="margin-bottom: 3rem;">
+            <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-subway"></i> 대중교통</h3>
+            <p style="color: #666; line-height: 1.8;">
+              지하철: 신분당선 광교역 3번 출구에서 도보 10분<br>
+              버스: 영통구청 정류장 하차 후 도보 5분
+            </p>
+          </div>
+
+          <div>
+            <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-car"></i> 자가용</h3>
+            <p style="color: #666; line-height: 1.8;">
+              영동고속도로 → 수원IC → 디지털엠파이어빌딩<br>
+              주차: 건물 지하 주차장 이용 가능
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getLoginNexioHTML() {
+  return getBaseHTML('LoginNexio', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">LoginNexio</h1>
+        <p style="font-size: 1.2rem;">최첨단 통합 인증 솔루션으로 기업의 보안을 강화합니다</p>
+      </section>
+
+      <section class="content-section">
+        <div style="max-width: 900px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
+          <img src="/images/loginnexio.jpg" alt="LoginNexio" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
+          <p style="margin-bottom: 1.5rem;">
+            최첨단 통합 솔루션으로 기업의 보안을 강화하고, 사용자 경험을 개선합니다. 다중 인증, SSO(Single Sign-On), 생체 인증 등 다양한 인증 방식을 지원하여 보안성과 편의성을 동시에 제공합니다.
+          </p>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">주요 기능</h2>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-shield-alt"></i> 다중 인증 시스템</h3>
+              <p class="card-text">비밀번호, OTP, 생체 인증 등 다층 보안 인증으로 강력한 보안을 제공합니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-key"></i> SSO 통합 로그인</h3>
+              <p class="card-text">한 번의 로그인으로 여러 시스템에 접근 가능한 편리한 SSO 기능을 제공합니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-fingerprint"></i> 생체 인증 지원</h3>
+              <p class="card-text">지문, 얼굴 인식 등 최신 생체 인증 기술을 지원합니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-clock"></i> 실시간 보안 모니터링</h3>
+              <p class="card-text">의심스러운 접근 시도를 실시간으로 감지하고 차단합니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getBusiSupportHTML() {
+  return getBaseHTML('BusiSupport Pro', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">BusiSupport Pro</h1>
+        <p style="font-size: 1.2rem;">기업의 업무 효율성을 극대화하는 종합 비즈니스 플랫폼</p>
+      </section>
+
+      <section class="content-section">
+        <div style="max-width: 900px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
+          <img src="/images/busisupport.jpg" alt="BusiSupport Pro" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
+          <p style="margin-bottom: 1.5rem;">
+            기업의 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼입니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅, 워크플로우 자동화 기능을 하나의 플랫폼에서 제공하여 업무 생산성을 획기적으로 향상시킵니다.
+          </p>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">주요 기능</h2>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-tasks"></i> 통합 프로젝트 관리</h3>
+              <p class="card-text">프로젝트의 전체 라이프사이클을 효율적으로 관리하고 추적할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-users"></i> 실시간 협업 도구</h3>
+              <p class="card-text">팀원 간 실시간 커뮤니케이션과 파일 공유로 협업 효율을 높입니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-chart-line"></i> 데이터 분석 및 리포팅</h3>
+              <p class="card-text">비즈니스 데이터를 시각화하고 인사이트를 제공합니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-cogs"></i> 워크플로우 자동화</h3>
+              <p class="card-text">반복적인 업무를 자동화하여 생산성을 향상시킵니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getLabHTML() {
+  return getBaseHTML('연구소', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">연구소</h1>
+        <p style="font-size: 1.2rem;">혁신적인 기술 개발의 중심</p>
+      </section>
+
+      <section class="content-section">
+        <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666;">
+          <p style="margin-bottom: 1.5rem;">
+            SD 바이오센서 연구소는 체외진단 분야의 혁신적인 기술을 개발하는 핵심 조직입니다. 최첨단 연구 시설과 우수한 연구 인력을 바탕으로 차세대 진단 기술을 개발하고 있습니다.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-microscope"></i> 첨단 연구 시설</h3>
+              <p class="card-text">최신 연구 장비와 시설을 갖춘 세계적 수준의 연구 환경을 제공합니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-user-graduate"></i> 전문 연구 인력</h3>
+              <p class="card-text">해당 분야 최고의 전문가들이 연구개발을 주도하고 있습니다.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-handshake"></i> 산학협력</h3>
+              <p class="card-text">국내외 대학 및 연구기관과의 긴밀한 협력 네트워크를 구축하고 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getActivitiesHTML() {
+  return getBaseHTML('연구개발 활동', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">연구개발 활동</h1>
+        <p style="font-size: 1.2rem;">지속적인 혁신으로 미래를 준비합니다</p>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">주요 연구 분야</h2>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-dna"></i> 바이오센서 기술</h3>
+              <p class="card-text">차세대 바이오센서 개발을 통한 진단 정확도 향상</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-brain"></i> AI 진단 시스템</h3>
+              <p class="card-text">인공지능을 활용한 스마트 진단 솔루션 개발</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-mobile-alt"></i> 모바일 헬스케어</h3>
+              <p class="card-text">언제 어디서나 건강을 관리할 수 있는 모바일 솔루션</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top: 4rem;">
+          <h2 class="section-title">연구 성과</h2>
+        </div>
+        <div style="max-width: 900px; margin: 0 auto;">
+          <div class="card">
+            <div class="card-content">
+              <ul style="list-style: none; padding: 0; line-height: 2; color: #666;">
+                <li>• 특허 출원 및 등록: 50건 이상</li>
+                <li>• 국제 학술지 논문 발표: 30편 이상</li>
+                <li>• 정부 R&D 과제 수행: 10건 이상</li>
+                <li>• 신제품 개발 및 출시: 연간 5건 이상</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getTalentHTML() {
+  return getBaseHTML('인재상', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">인재상</h1>
+        <p style="font-size: 1.2rem;">SD 바이오센서가 찾는 인재</p>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">우리가 찾는 인재</h2>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-lightbulb"></i> 혁신적 사고</h3>
+              <p class="card-text">새로운 아이디어로 끊임없이 도전하는 창의적인 인재</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-handshake"></i> 협업 능력</h3>
+              <p class="card-text">팀워크를 중시하고 함께 성장하는 인재</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-star"></i> 전문성</h3>
+              <p class="card-text">자신의 분야에서 전문성을 갖추고 발전하는 인재</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-heart"></i> 책임감</h3>
+              <p class="card-text">맡은 일에 최선을 다하는 책임감 있는 인재</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-globe"></i> 글로벌 마인드</h3>
+              <p class="card-text">세계를 무대로 활동하는 글로벌 인재</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-graduation-cap"></i> 학습 열정</h3>
+              <p class="card-text">지속적으로 배우고 성장하려는 열정을 가진 인재</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 4rem; text-align: center;">
+          <a href="/careers" style="display: inline-block; padding: 1rem 3rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; transition: all 0.3s;">채용공고 보기</a>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getCustomerSupportHTML() {
+  return getBaseHTML('고객지원', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">고객지원</h1>
+        <p style="font-size: 1.2rem;">언제나 고객님을 위해 준비되어 있습니다</p>
+      </section>
+
+      <section class="content-section">
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-headset"></i> 기술 지원</h3>
+              <p class="card-text">제품 사용 중 발생하는 기술적 문제를 신속하게 해결해드립니다.</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">전화: 031-300-0400</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-book"></i> 제품 교육</h3>
+              <p class="card-text">제품의 효과적인 사용을 위한 교육 프로그램을 제공합니다.</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">이메일: training@sdbiosensor.com</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title"><i class="fas fa-tools"></i> 유지보수</h3>
+              <p class="card-text">정기적인 유지보수로 제품의 최적 성능을 유지합니다.</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">이메일: service@sdbiosensor.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="max-width: 900px; margin: 4rem auto; padding: 2rem; background: #f9f9f9; border-radius: 8px;">
+          <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem; text-align: center;"><i class="fas fa-clock"></i> 운영 시간</h3>
+          <p style="text-align: center; color: #666; line-height: 1.8;">
+            평일: 09:00 - 18:00<br>
+            점심시간: 12:00 - 13:00<br>
+            주말 및 공휴일: 휴무
+          </p>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+function getContactHTML() {
+  return getBaseHTML('Contact Us', `
+    <div style="margin-top: 80px;">
+      <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">Contact Us</h1>
+        <p style="font-size: 1.2rem;">문의사항을 남겨주시면 빠르게 답변드리겠습니다</p>
+      </section>
+
+      <section class="content-section">
+        <div style="max-width: 600px; margin: 0 auto;">
+          <form style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">이름 *</label>
+              <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">이메일 *</label>
+              <input type="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">전화번호</label>
+              <input type="tel" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">문의 유형 *</label>
+              <select required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                <option value="">선택해주세요</option>
+                <option value="product">제품 문의</option>
+                <option value="solution">솔루션 문의</option>
+                <option value="support">기술 지원</option>
+                <option value="partnership">파트너십</option>
+                <option value="etc">기타</option>
+              </select>
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">문의 내용 *</label>
+              <textarea required rows="6" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; resize: vertical;"></textarea>
+            </div>
+            <div style="text-align: center;">
+              <button type="submit" style="padding: 1rem 3rem; background: #0052A5; color: white; border: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s;">문의하기</button>
+            </div>
+          </form>
+
+          <div style="margin-top: 3rem; text-align: center; color: #666;">
+            <p style="margin-bottom: 1rem;">또는 직접 연락주세요</p>
+            <p style="font-size: 1.1rem;">
+              <i class="fas fa-phone"></i> 031-300-0400<br>
+              <i class="fas fa-envelope"></i> sales@sdbiosensor.com
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  `)
+}
+
+export default app
