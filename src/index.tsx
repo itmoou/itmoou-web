@@ -84,7 +84,7 @@ function getHeader() {
     <header class="header">
       <div class="header-container">
         <a href="/" class="logo">
-          <img src="/images/logo.png" alt="IT moou" style="height: 60px;">
+          <img src="/images/logo.png" alt="IT moou" style="height: 80px;">
         </a>
         <nav>
           <ul class="main-nav">
@@ -178,7 +178,11 @@ function getBaseHTML(title: string, content: string) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${title} - IT moou</title>
+        <title>ITMOOU</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <link href="/static/styles.css" rel="stylesheet">
@@ -333,7 +337,7 @@ function getCompanyHTML() {
             아이티무유는 <strong style="color: #0052A5;">'기술로 세상을 움직이다'</strong>이라는 슬로건과 함께 혁신을 통한 기업의 미래가치 실현을 위해 물류 솔루션 개발로 시작한 기업의 물류 및 경영 솔루션을 확보한 기업입니다.
           </p>
           <p style="margin-bottom: 1.5rem;">
-            아이티무유는 물류와 경영 자문의 역량을 바탕으로 물류 산업에 필요한 팔레타이징, 수출 서류 자동화, 포워더 컨택 및 선적 등의 올인원 솔루션을 시장에 공급합니다. 또한 경영에 도움이 될 수 있도록 기업 맞춤형 AI 솔루션으로 기업의 가치를 높이고 같이 성장하는 <strong style="color: #0052A5;">대한민국 최대의 비즈니스<br/>솔루션 기업</strong>으로 성장을 준비하고 있습니다.
+            아이티무유는 물류와 경영 자문의 역량을 바탕으로 물류 산업에 필요한 팔레타이징, 수출 서류 자동화, 포워더 컨택 및 선적 등의 올인원 솔루션을 시장에 공급합니다. 또한 경영에 도움이 될 수 있도록 기업 맞춤형 AI 솔루션으로 기업의 가치를 높이고 같이 성장하는 <strong style="color: #0052A5;">대한민국 최대의 비즈니스 솔루션 기업</strong>으로 성장을 준비하고 있습니다.
           </p>
         </div>
       </section>
@@ -354,7 +358,7 @@ function getCompanyHTML() {
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-heart"></i> 핵심가치</h3>
+              <h3 class="card-title"><i class="fas fa-heart"></i> Core Values</h3>
               <p class="card-text">정확, 효율, 투명, 연결, 고객중심</p>
             </div>
           </div>
