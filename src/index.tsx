@@ -38,12 +38,12 @@ app.get('/company/location', (c) => {
 })
 
 // Solutions pages
-app.get('/solutions/loginnexio', (c) => {
-  return c.html(getLoginNexioHTML())
+app.get('/solutions/loginexio', (c) => {
+  return c.html(getLogiNexioHTML())
 })
 
-app.get('/solutions/busisupport', (c) => {
-  return c.html(getBusiSupportHTML())
+app.get('/solutions/bizsupport', (c) => {
+  return c.html(getBizSupportHTML())
 })
 
 // R&D pages
@@ -57,7 +57,7 @@ app.get('/rnd/activities', (c) => {
 
 // Careers pages - redirect to external site
 app.get('/careers', (c) => {
-  return c.redirect('https://careers.sdbiosensor.com')
+  return c.redirect('https://careers.itmoou.com')
 })
 
 app.get('/careers/talent', (c) => {
@@ -75,7 +75,7 @@ app.get('/support/contact', (c) => {
 
 // API routes
 app.get('/api/hello', (c) => {
-  return c.json({ message: 'Hello from SD Biosensor API!' })
+  return c.json({ message: 'Hello from IT moou API!' })
 })
 
 // Helper functions for HTML templates
@@ -84,7 +84,7 @@ function getHeader() {
     <header class="header">
       <div class="header-container">
         <a href="/" class="logo">
-          <span style="color: #0052A5; font-weight: bold; font-size: 1.5rem;">SD BIOSENSOR</span>
+          <img src="/images/logo.png" alt="IT moou" style="height: 40px;">
         </a>
         <nav>
           <ul class="main-nav">
@@ -101,8 +101,8 @@ function getHeader() {
             <li class="nav-item">
               <a href="/solutions/loginnexio" class="nav-link">솔루션</a>
               <div class="dropdown">
-                <a href="/solutions/loginnexio" class="dropdown-item">LoginNexio</a>
-                <a href="/solutions/busisupport" class="dropdown-item">BusiSupport Pro</a>
+                <a href="/solutions/loginexio" class="dropdown-item">LogiNexio</a>
+                <a href="/solutions/bizsupport" class="dropdown-item">BizSupport Pro</a>
               </div>
             </li>
             <li class="nav-item">
@@ -139,20 +139,19 @@ function getFooter() {
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-section">
-            <h3>SD BIOSENSOR</h3>
-            <p>대표이사 : 마르코<br>
-            경기도 수원시 영통구 디지털엠파이어빌딩 4층<br>
-            기업부설연구소 : 1층 동 13315</p>
+            <h3>IT moou</h3>
+            <p>대표이사 : 심영민<br>
+            충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호</p>
           </div>
           <div class="footer-section">
             <h3>연락처</h3>
-            <p>대표번호: 031.300.0400<br>
-            이메일: sales@sdbiosensor.com</p>
+            <p>대표번호: 043.715.8553<br>
+            이메일: cs@itmoou.com</p>
           </div>
           <div class="footer-section">
             <h3>사업자 정보</h3>
-            <p>(우) 16690 경기도 수원시 영통구 디지털엠파이어빌 155880번지 16 (하동)<br>
-            사업자등록번호: 123-45-67890</p>
+            <p>(우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호<br>
+            사업자등록번호: 229-81-43410</p>
           </div>
           <div class="footer-section">
             <h3>SNS</h3>
@@ -165,7 +164,7 @@ function getFooter() {
           </div>
         </div>
         <div class="footer-bottom">
-          <p>2025 SD Biosensor, INC. ALL RIGHTS RESERVED.</p>
+          <p>2025 IT moou, INC. ALL RIGHTS RESERVED.</p>
         </div>
       </div>
     </footer>
@@ -179,7 +178,7 @@ function getBaseHTML(title: string, content: string) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${title} - SD BIOSENSOR</title>
+        <title>${title} - IT moou</title>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <link href="/static/styles.css" rel="stylesheet">
@@ -199,23 +198,23 @@ function getMainHTML() {
     <div class="main-slider">
       <div class="slider-container">
         <div class="slide active">
-          <img src="/images/slide1.jpg" alt="SD Biosensor Slide 1">
+          <img src="/images/slide1.jpg" alt="IT moou Slide 1">
           <div class="slide-content">
-            <h2>체외진단 업계의 토탈플랫폼 기업</h2>
-            <p>글로벌 세계선진 진로기업, SD 바이오센서를 소개합니다</p>
+            <h2>기업 SaaS 솔루션 기업</h2>
+            <p>글로벌 물류 SaaS 솔루션, 경영지원 AI 솔루션, 아이티무유를 소개합니다</p>
           </div>
         </div>
         <div class="slide">
-          <img src="/images/slide2.jpg" alt="SD Biosensor Slide 2">
+          <img src="/images/slide2.jpg" alt="IT moou Slide 2">
           <div class="slide-content">
-            <h2>혁신적인 진단 기술</h2>
-            <p>첨단 기술로 건강한 미래를 만들어갑니다</p>
+            <h2>혁신적인 AI&빅데이터 기술</h2>
+            <p>첨단 기술로 기업의 미래를 만들어갑니다</p>
           </div>
         </div>
         <div class="slide">
-          <img src="/images/slide3.jpg" alt="SD Biosensor Slide 3">
+          <img src="/images/slide3.jpg" alt="IT moou Slide 3">
           <div class="slide-content">
-            <h2>글로벌 헬스케어 리더</h2>
+            <h2>글로벌 SaaS 기업</h2>
             <p>전 세계 고객의 신뢰를 받는 기업</p>
           </div>
         </div>
@@ -237,14 +236,14 @@ function getMainHTML() {
           <img src="/images/tech.jpg" alt="첨단 기술" class="card-image">
           <div class="card-content">
             <h3 class="card-title">첨단 기술</h3>
-            <p class="card-text">최신 바이오센서 기술과 AI를 활용한 혁신적인 진단 솔루션을 제공합니다.</p>
+            <p class="card-text">최신 빅데이터 기술과 AI를 활용한 혁신적인 기업형 업무 솔루션을 제공합니다.</p>
           </div>
         </div>
         <div class="card">
           <img src="/images/support.jpg" alt="고객 지원" class="card-image">
           <div class="card-content">
             <h3 class="card-title">전문 지원</h3>
-            <p class="card-text">24/7 고객 지원과 전문적인 기술 서비스로 고객의 성공을 돕습니다.</p>
+            <p class="card-text">전문 지식을 가지고 있는 기술 서비스로 고객의 성공을 함께하겠습니다.</p>
           </div>
         </div>
         <div class="card">
@@ -264,27 +263,19 @@ function getMainHTML() {
       </div>
       <div class="grid-3">
         <div class="card">
-          <img src="/images/loginnexio.jpg" alt="LoginNexio" class="card-image">
+          <img src="/images/loginexio.jpg" alt="LogiNexio" class="card-image">
           <div class="card-content">
-            <h3 class="card-title">LoginNexio</h3>
-            <p class="card-text">최첨단 통합 솔루션으로 기업의 보안을 강화하고, 사용자 경험을 개선합니다. 다중 인증, SSO, 생체 인증 등 다양한 인증 방식을 지원합니다.</p>
-            <a href="/solutions/loginnexio" style="color: #0052A5; text-decoration: none;">자세히 보기 →</a>
+            <h3 class="card-title">LogiNexio</h3>
+            <p class="card-text">최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다. 팔레트 자동화, 물류 서류 자동화, 포워더 계약 등 다양한 기능을 지원합니다.</p>
+            <a href="/solutions/loginexio" style="color: #0052A5; text-decoration: none;">자세히 보기 →</a>
           </div>
         </div>
         <div class="card">
-          <img src="/images/busisupport.jpg" alt="BusiSupport Pro" class="card-image">
+          <img src="/images/bizsupport.jpg" alt="BizSupport Pro" class="card-image">
           <div class="card-content">
-            <h3 class="card-title">BusiSupport Pro</h3>
+            <h3 class="card-title">BizSupport Pro</h3>
             <p class="card-text">기업의 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼입니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 제공합니다.</p>
-            <a href="/solutions/busisupport" style="color: #0052A5; text-decoration: none;">자세히 보기 →</a>
-          </div>
-        </div>
-        <div class="card">
-          <img src="/images/custom.jpg" alt="맞춤형 솔루션" class="card-image">
-          <div class="card-content">
-            <h3 class="card-title">맞춤형 솔루션</h3>
-            <p class="card-text">고객의 특별한 요구사항에 맞춘 커스터마이징 솔루션을 개발합니다. 귀사의 비즈니스 환경에 최적화된 시스템을 구축해드립니다.</p>
-            <a href="/support/contact" style="color: #0052A5; text-decoration: none;">문의하기 →</a>
+            <a href="/solutions/bizsupport" style="color: #0052A5; text-decoration: none;">자세히 보기 →</a>
           </div>
         </div>
       </div>
@@ -299,14 +290,14 @@ function getMainHTML() {
         <div class="card">
           <div class="card-content">
             <h3 class="card-title">제조업 A사</h3>
-            <p class="card-text">"LoginNexio 도입 후 보안 사고가 90% 감소했으며, 직원들의 로그인 시간이 50% 단축되었습니다."</p>
+            <p class="card-text">"LogiNexio 도입 후 보안 사고가 90% 감소했으며, 직원들의 로그인 시간이 50% 단축되었습니다."</p>
             <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- IT 담당 이사</p>
           </div>
         </div>
         <div class="card">
           <div class="card-content">
             <h3 class="card-title">금융업 B사</h3>
-            <p class="card-text">"BusiSupport Pro로 통합 프로젝트 관리 후 업무 생산성이 70% 향상되고, 팀 간 협업이 원활해졌습니다."</p>
+            <p class="card-text">"BizSupport Pro로 통합 프로젝트 관리 후 업무 생산성이 70% 향상되고, 팀 간 협업이 원활해졌습니다."</p>
             <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- 프로젝트 매니저</p>
           </div>
         </div>
@@ -538,22 +529,22 @@ function getLocationHTML() {
   `)
 }
 
-function getLoginNexioHTML() {
-  return getBaseHTML('LoginNexio', `
+function getLogiNexioHTML() {
+  return getBaseHTML('LogiNexio', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">LoginNexio</h1>
-        <p style="font-size: 1.2rem;">최첨단 통합 인증 솔루션으로 기업의 보안을 강화합니다</p>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">LogiNexio</h1>
+        <p style="font-size: 1.2rem;">최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결</p>
       </section>
 
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
-          <img src="/images/loginnexio.jpg" alt="LoginNexio" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <img src="/images/loginexio.jpg" alt="LogiNexio" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         </div>
 
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
           <p style="margin-bottom: 1.5rem;">
-            최첨단 통합 솔루션으로 기업의 보안을 강화하고, 사용자 경험을 개선합니다. 다중 인증, SSO(Single Sign-On), 생체 인증 등 다양한 인증 방식을 지원하여 보안성과 편의성을 동시에 제공합니다.
+            최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다. 팔레트 자동화, 물류 서류 자동화, 포워더 계약 등 다양한 기능을 지원합니다.
           </p>
         </div>
 
@@ -563,26 +554,26 @@ function getLoginNexioHTML() {
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-shield-alt"></i> 다중 인증 시스템</h3>
-              <p class="card-text">비밀번호, OTP, 생체 인증 등 다층 보안 인증으로 강력한 보안을 제공합니다.</p>
+              <h3 class="card-title"><i class="fas fa-boxes"></i> 팔레트 자동화</h3>
+              <p class="card-text">물류 팔레트 관리를 자동화하여 효율적인 창고 운영을 지원합니다.</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-key"></i> SSO 통합 로그인</h3>
-              <p class="card-text">한 번의 로그인으로 여러 시스템에 접근 가능한 편리한 SSO 기능을 제공합니다.</p>
+              <h3 class="card-title"><i class="fas fa-file-alt"></i> 물류 서류 자동화</h3>
+              <p class="card-text">수출입 서류, 운송장 등 물류 관련 서류를 자동으로 생성하고 관리합니다.</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-fingerprint"></i> 생체 인증 지원</h3>
-              <p class="card-text">지문, 얼굴 인식 등 최신 생체 인증 기술을 지원합니다.</p>
+              <h3 class="card-title"><i class="fas fa-handshake"></i> 포워더 계약 관리</h3>
+              <p class="card-text">글로벌 포워더와의 계약 및 운송 관리를 통합하여 처리합니다.</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-clock"></i> 실시간 보안 모니터링</h3>
-              <p class="card-text">의심스러운 접근 시도를 실시간으로 감지하고 차단합니다.</p>
+              <h3 class="card-title"><i class="fas fa-chart-line"></i> 실시간 물류 추적</h3>
+              <p class="card-text">제조부터 고객 인도까지 전체 물류 흐름을 실시간으로 추적합니다.</p>
             </div>
           </div>
         </div>
@@ -591,17 +582,17 @@ function getLoginNexioHTML() {
   `)
 }
 
-function getBusiSupportHTML() {
-  return getBaseHTML('BusiSupport Pro', `
+function getBizSupportHTML() {
+  return getBaseHTML('BizSupport Pro', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">BusiSupport Pro</h1>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">BizSupport Pro</h1>
         <p style="font-size: 1.2rem;">기업의 업무 효율성을 극대화하는 종합 비즈니스 플랫폼</p>
       </section>
 
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
-          <img src="/images/busisupport.jpg" alt="BusiSupport Pro" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <img src="/images/bizsupport.jpg" alt="BizSupport Pro" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         </div>
 
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
