@@ -13,15 +13,19 @@
 ✅ 메인 이미지 슬라이더 (3장, 5초 자동 전환)
 ✅ 회사소개 섹션
   - 회사 소개 (혁신적인 AI&빅데이터 솔루션 기업)
+    - '대한민국 최대의 비즈니스 / 솔루션 기업' 분리 표기
   - CEO 메시지 (대표이사 심영민)
-  - 연혁 (2024년 설립)
+  - 연혁
+    - 2026년: 연 매출 1억원 달성
+    - 2025년: 연 매출 7천만원 달성, 독자 팔레타이징 기술 개발
+    - 2024년: IT moou 설립, LogiNexio 개발 착수
   - ESG 경영
-  - 오시는 길
+  - 오시는 길 (청주산단스타트업센터)
 ✅ 솔루션 섹션
   - LogiNexio (물류 SaaS 솔루션)
   - BizSupport Pro (경영지원 AI 솔루션)
 ✅ 연구개발 섹션
-✅ 채용정보 섹션 (인재상, 채용공고 리다이렉션)
+✅ 채용정보 섹션 (인재상, 채용공고 리다이렉션 - https://recruit.itmoou.com)
 ✅ 지원센터 섹션 (고객지원, Contact Us)
 ✅ 반응형 디자인 (모바일, 태블릿, 데스크톱)
 ✅ 푸터 (회사 정보, 연락처, SNS 링크)
@@ -56,6 +60,15 @@ webapp/
 - **Vision**: 데이터와 AI로 전 세계 중소 수출 기업의 운영을 표준화하는 디지털 운영 OS 구축
 - **Mission**: 모든 기업의 업무를 한번에, 오류 없이 처리할 수 있는 원스톱 SaaS 제공
 - **핵심가치**: 정확, 효율, 투명, 연결, 고객중심
+
+## 고객 성공 사례
+### 제조업 A사
+"LogiNexio 도입 후 물류 효율이 45% 증가했으며, 수출에 걸리는 시간이 대폭 감소하여 직원들의 업무 효율성이 20% 증가했습니다."
+- 물류 본부장
+
+## 접속 정보
+- **개발 서버**: https://3000-i8l84rs6rn37nmv6x2qo0-cbeee0f9.sandbox.novita.ai
+- **GitHub 저장소**: https://github.com/itmoou/itmoou-web
 
 ## 로컬 개발
 
@@ -139,7 +152,7 @@ npm run deploy
 - `/solutions/bizsupport` - BizSupport Pro
 - `/rnd/lab` - 연구소
 - `/rnd/activities` - 연구개발 활동
-- `/careers` - 채용공고 (리다이렉션)
+- `/careers` - 채용공고 (https://recruit.itmoou.com 리다이렉션)
 - `/careers/talent` - 인재상
 - `/support/customer` - 고객지원
 - `/support/contact` - Contact Us
