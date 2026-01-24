@@ -283,7 +283,7 @@ function getMainHTML() {
       </div>
     </section>
 
-    <section class="content-section" style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem 8rem 2rem; margin-bottom: 0;">
+    <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; max-width: 1400px; margin: 0 auto; padding: 4rem 2rem 10rem 2rem;">
       <div class="section-header">
         <h2 class="section-title" style="color: white;">고객 성공 사례</h2>
         <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">다양한 산업 분야의 기업들이 우리 솔루션으로 성공을 경험하고 있습니다</p>
