@@ -74,8 +74,11 @@ webapp/
 - 물류 본부장
 
 ## 접속 정보
+- **프로덕션**: https://itmoou-web.pages.dev
+- **최신 배포**: https://0b0b81e5.itmoou-web.pages.dev
 - **개발 서버**: https://3000-i8l84rs6rn37nmv6x2qo0-cbeee0f9.sandbox.novita.ai
 - **GitHub 저장소**: https://github.com/itmoou/itmoou-web
+- **Cloudflare Pages**: itmoou-web
 
 ## 로컬 개발
 
@@ -135,9 +138,18 @@ pm2 delete webapp
 # 빌드
 npm run build
 
-# 배포
+# Cloudflare Pages에 배포
+npx wrangler pages deploy dist --project-name itmoou-web
+
+# 또는 package.json 스크립트 사용
 npm run deploy
 ```
+
+**배포 정보**:
+- 프로젝트명: `itmoou-web`
+- Production 브랜치: `main`
+- Production URL: https://itmoou-web.pages.dev
+- 최신 배포: https://0b0b81e5.itmoou-web.pages.dev
 
 ## 페이지 구조
 
