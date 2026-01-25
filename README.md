@@ -24,6 +24,10 @@
     - 2024년: IT moou 설립, LogiNexio 개발 착수
   - ESG 경영
   - 오시는 길 (청주산단스타트업센터)
+  - **회사소식** ⭐ NEW
+    - 메인 페이지: 6개 미리보기
+    - 전체 페이지: 8개 소식 + 검색 기능
+    - B2B 고객 경험 및 보도자료 형식
 ✅ 솔루션 섹션
   - LogiNexio (물류 SaaS 솔루션)
   - BizSupport Pro (경영지원 AI 솔루션)
@@ -138,7 +142,7 @@ npm run deploy
 ## 페이지 구조
 
 ### 메인 메뉴
-- **회사소개**: IT moou, CEO 메시지, 연혁, ESG, 오시는 길
+- **회사소개**: IT moou, CEO 메시지, 연혁, ESG, 오시는 길, 회사소식 ⭐
 - **솔루션**: LogiNexio, BizSupport Pro
 - **연구개발**: 연구소, 연구개발 활동
 - **채용정보**: 인재상, 채용공고
@@ -151,6 +155,7 @@ npm run deploy
 - `/company/history` - 연혁
 - `/company/esg` - ESG 경영
 - `/company/location` - 오시는 길
+- `/company/news` ⭐ - 회사소식 (검색 기능 포함)
 - `/solutions/loginexio` - LogiNexio 솔루션
 - `/solutions/bizsupport` - BizSupport Pro
 - `/rnd/lab` - 연구소
