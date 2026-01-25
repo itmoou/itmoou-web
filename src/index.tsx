@@ -533,31 +533,60 @@ function getLocationHTML() {
       </section>
 
       <section class="content-section">
-        <div style="max-width: 900px; margin: 0 auto;">
-          <div style="margin-bottom: 3rem;">
-            <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt"></i> 주소</h3>
-            <p style="color: #666; line-height: 1.8;">
-              (우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호
-            </p>
-          </div>
-          
-          <div style="margin-bottom: 3rem;">
-            <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-phone"></i> 연락처</h3>
-            <p style="color: #666; line-height: 1.8;">
-              대표번호: 043.715.8553<br>
-              이메일: cs@itmoou.com
-            </p>
-          </div>
+        <div style="max-width: 1200px; margin: 0 auto;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+            <!-- 왼쪽: 정보 -->
+            <div>
+              <div style="margin-bottom: 3rem;">
+                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt"></i> 주소</h3>
+                <p style="color: #666; line-height: 1.8;">
+                  (우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호
+                </p>
+              </div>
+              
+              <div style="margin-bottom: 3rem;">
+                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-phone"></i> 연락처</h3>
+                <p style="color: #666; line-height: 1.8;">
+                  대표번호: 043.715.8553<br>
+                  이메일: cs@itmoou.com
+                </p>
+              </div>
 
-          <div>
-            <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-car"></i> 자가용</h3>
-            <p style="color: #666; line-height: 1.8;">
-              중부고속도로 → 서청주IC → 청주산단스타트업센터<br>
-              주차: 건물 뒷편 주차장 이용 가능
-            </p>
+              <div>
+                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-car"></i> 자가용</h3>
+                <p style="color: #666; line-height: 1.8;">
+                  중부고속도로 → 서청주IC → 청주산단스타트업센터<br>
+                  주차: 건물 뒷편 주차장 이용 가능
+                </p>
+              </div>
+            </div>
+
+            <!-- 오른쪽: 카카오맵 -->
+            <div style="border: 3px solid #0052A5; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+              <div id="daumRoughmapContainer1769348918868" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%;"></div>
+              <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+              <script charset="UTF-8">
+                new daum.roughmap.Lander({
+                  "timestamp" : "1769348918868",
+                  "key" : "gmuvtvo88pm",
+                  "mapWidth" : "100%",
+                  "mapHeight" : "400"
+                }).render();
+              </script>
+            </div>
           </div>
         </div>
       </section>
+
+      <!-- 반응형: 모바일에서는 세로로 배치 -->
+      <style>
+        @media (max-width: 768px) {
+          .content-section > div > div {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+        }
+      </style>
     </div>
   `)
 }
