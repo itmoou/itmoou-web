@@ -287,9 +287,9 @@ body {
 
 .footer-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 6rem;
+  gap: 2rem;
   padding-bottom: 2rem;
 }
 
@@ -302,9 +302,10 @@ body {
 }
 
 .footer-info {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   max-width: none;
   margin-left: auto;
+  padding-left: 4rem;
   text-align: left;
 }
 
