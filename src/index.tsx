@@ -97,10 +97,10 @@ function getHeader() {
               <div class="dropdown">
                 <a href="/company" class="dropdown-item">IT moou</a>
                 <a href="/company/ceo" class="dropdown-item">CEO 메시지</a>
+                <a href="/company/news" class="dropdown-item">회사소식</a>
                 <a href="/company/history" class="dropdown-item">연혁</a>
                 <a href="/company/esg" class="dropdown-item">ESG</a>
                 <a href="/company/location" class="dropdown-item">오시는 길</a>
-                <a href="/company/news" class="dropdown-item">회사소식</a>
               </div>
             </li>
             <li class="nav-item">
@@ -326,36 +326,48 @@ function getMainHTML() {
         <h2 class="section-title">회사소식</h2>
         <p class="section-subtitle">B2B 고객이 경험하는 아이티무유만의 이야기를 들려드립니다.</p>
       </div>
-      <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">글로벌 물류 시장 진출 계획 발표</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">아이티무유는 2026년 상반기 아시아 물류 시장 진출을 목표로 LogiNexio 플랫폼의 다국어 지원 및 현지화 작업을 진행하고 있습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2025.01.15</p>
+      <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
+          <div style="flex: 1;">
+            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">글로벌 물류 시장 진출 계획 발표</h3>
+            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">아이티무유는 2026년 상반기 아시아 물류 시장 진출을 목표로 LogiNexio 플랫폼의 다국어 지원 및 현지화 작업을 진행하고 있습니다.</p>
+            <p style="color: #999; font-size: 0.85rem;">2025.01.15</p>
+          </div>
         </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">독자 팔레타이징 기술 개발 성공</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 자체 개발한 팔레타이징 기술이 국내 제조업체에서 높은 평가를 받으며 물류 자동화 분야에서 기술력을 인정받고 있습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2025.01.10</p>
+        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
+          <div style="flex: 1;">
+            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">독자 팔레타이징 기술 개발 성공</h3>
+            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">2025년 자체 개발한 팔레타이징 기술이 국내 제조업체에서 높은 평가를 받으며 물류 자동화 분야에서 기술력을 인정받고 있습니다.</p>
+            <p style="color: #999; font-size: 0.85rem;">2025.01.10</p>
+          </div>
         </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">AI 기반 수출 서류 자동화 솔루션 업그레이드</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">최신 AI 기술을 적용하여 수출 서류 작성 시간을 60% 단축하고 오류율을 80% 감소시킨 업그레이드 버전을 출시했습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.12.20</p>
+        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
+          <div style="flex: 1;">
+            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">AI 기반 수출 서류 자동화 솔루션 업그레이드</h3>
+            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">최신 AI 기술을 적용하여 수출 서류 작성 시간을 60% 단축하고 오류율을 80% 감소시킨 업그레이드 버전을 출시했습니다.</p>
+            <p style="color: #999; font-size: 0.85rem;">2024.12.20</p>
+          </div>
         </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">BizSupport Pro 대규모 업데이트</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">프로젝트 관리 기능이 강화되고 실시간 협업 도구가 추가된 BizSupport Pro v2.0을 출시하여 기업 업무 효율성을 한층 높였습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.12.01</p>
+        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
+          <div style="flex: 1;">
+            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">BizSupport Pro 개발 착수</h3>
+            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">기업 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼 BizSupport Pro의 개발을 본격적으로 시작했습니다. 프로젝트 관리와 실시간 협업 도구를 중심으로 개발 중입니다.</p>
+            <p style="color: #999; font-size: 0.85rem;">2026.01.02</p>
+          </div>
         </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">중소기업 디지털 전환 지원 프로그램 시작</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">중소기업의 디지털 전환을 돕기 위해 무료 컨설팅과 교육 프로그램을 제공하는 '아이티무유 성장 파트너십'을 시작했습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.11.15</p>
+        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
+          <div style="flex: 1;">
+            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">중소기업 디지털 전환 지원 프로그램 시작</h3>
+            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">중소기업의 디지털 전환을 돕기 위해 무료 컨설팅과 교육 프로그램을 제공하는 '아이티무유 성장 파트너십'을 시작했습니다.</p>
+            <p style="color: #999; font-size: 0.85rem;">2024.11.15</p>
+          </div>
         </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">연매출 7천만원 달성 및 성장세 지속</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 연매출 7천만원을 달성하며 안정적인 성장세를 이어가고 있으며, 2026년 목표인 1억원 달성을 향해 나아가고 있습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.11.01</p>
+        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
+          <div style="flex: 1;">
+            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">연매출 7천만원 달성 및 성장세 지속</h3>
+            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">2025년 연매출 7천만원을 달성하며 안정적인 성장세를 이어가고 있으며, 2026년 목표인 1억원 달성을 향해 나아가고 있습니다.</p>
+            <p style="color: #999; font-size: 0.85rem;">2024.11.01</p>
+          </div>
         </div>
       </div>
       <div class="text-center mt-4" style="margin-top: 2rem;">
@@ -620,15 +632,15 @@ function getCompanyNewsHTML() {
               </div>
             </div>
 
-            <div class="news-item" data-title="BizSupport Pro 대규모 업데이트">
+            <div class="news-item" data-title="BizSupport Pro 개발 착수">
               <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
                 <div style="background: linear-gradient(135deg, #fd7e14 0%, #c35a00 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
                   <i class="fas fa-chart-line" style="font-size: 4rem; color: white;"></i>
                 </div>
                 <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">BizSupport Pro 대규모 업데이트</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2024.12.01</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">프로젝트 관리 기능이 강화되고 실시간 협업 도구가 추가된 BizSupport Pro v2.0을 출시하여 기업 업무 효율성을 한층 높였습니다. 간트 차트와 칸반 보드를 통합한 하이브리드 뷰를 제공합니다.</p>
+                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">BizSupport Pro 개발 착수</h3>
+                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2026.01.02</p>
+                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">기업 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼 BizSupport Pro의 개발을 본격적으로 시작했습니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 중심으로 개발을 진행하고 있습니다.</p>
                 </div>
               </div>
             </div>
@@ -668,19 +680,6 @@ function getCompanyNewsHTML() {
                   <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">클라우드 기반 협업 플랫폼 출시</h3>
                   <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2024.10.15</p>
                   <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">언제 어디서나 팀원들과 실시간으로 협업할 수 있는 클라우드 기반 플랫폼을 새롭게 출시했습니다. 모바일 앱 지원으로 이동 중에도 업무가 가능합니다.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="news-item" data-title="데이터 보안 강화 ISO 27001 인증 취득">
-              <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
-                <div style="background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
-                  <i class="fas fa-shield-alt" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">데이터 보안 강화 ISO 27001 인증 취득</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2024.09.20</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">정보보안 관리체계 국제 표준 ISO 27001 인증을 취득하여 고객 데이터 보호에 대한 신뢰성을 한층 강화했습니다. 암호화 기술과 접근 제어 시스템을 업그레이드했습니다.</p>
                 </div>
               </div>
             </div>
