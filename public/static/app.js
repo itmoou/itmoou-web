@@ -1,4 +1,4 @@
-// SD Biosensor Website JavaScript
+// ITmoou Website JavaScript
 
 // Image Slider
 class Slider {
@@ -91,6 +91,29 @@ function setupMobileMenu() {
   });
 }
 
+// Header scroll effect - change background opacity
+function setupHeaderScroll() {
+  const header = document.querySelector('.header');
+  if (!header) return;
+  
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.pageYOffset;
+    
+    // Calculate opacity based on scroll position (0 to 300px)
+    const maxScroll = 300;
+    const opacity = Math.min(scrollPosition / maxScroll, 1);
+    
+    // Apply background color with opacity
+    if (scrollPosition > 10) {
+      header.style.background = `rgba(0, 0, 0, ${opacity * 0.95})`;
+      header.style.backdropFilter = 'blur(10px)';
+    } else {
+      header.style.background = 'transparent';
+      header.style.backdropFilter = 'none';
+    }
+  });
+}
+
 // API call example
 async function fetchData(endpoint) {
   try {
@@ -114,20 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Setup mobile menu
   setupMobileMenu();
   
-  // Add scroll effect to header
-  let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    const header = document.querySelector('.header');
-    
-    if (currentScroll > lastScroll && currentScroll > 80) {
-      header.style.transform = 'translateY(-100%)';
-    } else {
-      header.style.transform = 'translateY(0)';
-    }
-    
-    lastScroll = currentScroll;
-  });
+  // Setup header scroll effect
+  setupHeaderScroll();
 });
 
 // Export for use in other modules if needed
