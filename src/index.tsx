@@ -326,48 +326,36 @@ function getMainHTML() {
         <h2 class="section-title">회사소식</h2>
         <p class="section-subtitle">B2B 고객이 경험하는 아이티무유만의 이야기를 들려드립니다.</p>
       </div>
-      <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
-        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
-          <div style="flex: 1;">
-            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">글로벌 물류 시장 진출 계획 발표</h3>
-            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">아이티무유는 2026년 상반기 아시아 물류 시장 진출을 목표로 LogiNexio 플랫폼의 다국어 지원 및 현지화 작업을 진행하고 있습니다.</p>
-            <p style="color: #999; font-size: 0.85rem;">2025.01.15</p>
-          </div>
+      <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">글로벌 물류 시장 진출 계획 발표</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">아이티무유는 2026년 상반기 아시아 물류 시장 진출을 목표로 LogiNexio 플랫폼의 다국어 지원 및 현지화 작업을 진행하고 있습니다.</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2025.01.15</p>
         </div>
-        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
-          <div style="flex: 1;">
-            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">독자 팔레타이징 기술 개발 성공</h3>
-            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">2025년 자체 개발한 팔레타이징 기술이 국내 제조업체에서 높은 평가를 받으며 물류 자동화 분야에서 기술력을 인정받고 있습니다.</p>
-            <p style="color: #999; font-size: 0.85rem;">2025.01.10</p>
-          </div>
+        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">독자 팔레타이징 기술 개발 성공</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 자체 개발한 팔레타이징 기술이 국내 제조업체에서 높은 평가를 받으며 물류 자동화 분야에서 기술력을 인정받고 있습니다.</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2025.01.10</p>
         </div>
-        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
-          <div style="flex: 1;">
-            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">AI 기반 수출 서류 자동화 솔루션 업그레이드</h3>
-            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">최신 AI 기술을 적용하여 수출 서류 작성 시간을 60% 단축하고 오류율을 80% 감소시킨 업그레이드 버전을 출시했습니다.</p>
-            <p style="color: #999; font-size: 0.85rem;">2024.12.20</p>
-          </div>
+        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">AI 기반 수출 서류 자동화 솔루션 업그레이드</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">최신 AI 기술을 적용하여 수출 서류 작성 시간을 60% 단축하고 오류율을 80% 감소시킨 업그레이드 버전을 출시했습니다.</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.12.20</p>
         </div>
-        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
-          <div style="flex: 1;">
-            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">BizSupport Pro 개발 착수</h3>
-            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">기업 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼 BizSupport Pro의 개발을 본격적으로 시작했습니다. 프로젝트 관리와 실시간 협업 도구를 중심으로 개발 중입니다.</p>
-            <p style="color: #999; font-size: 0.85rem;">2026.01.02</p>
-          </div>
+        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">BizSupport Pro 개발 착수</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">기업 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼 BizSupport Pro의 개발을 본격적으로 시작했습니다. 프로젝트 관리와 실시간 협업 도구를 중심으로 개발 중입니다.</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2026.01.02</p>
         </div>
-        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
-          <div style="flex: 1;">
-            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">중소기업 디지털 전환 지원 프로그램 시작</h3>
-            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">중소기업의 디지털 전환을 돕기 위해 무료 컨설팅과 교육 프로그램을 제공하는 '아이티무유 성장 파트너십'을 시작했습니다.</p>
-            <p style="color: #999; font-size: 0.85rem;">2024.11.15</p>
-          </div>
+        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">중소기업 디지털 전환 지원 프로그램 시작</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">중소기업의 디지털 전환을 돕기 위해 무료 컨설팅과 교육 프로그램을 제공하는 '아이티무유 성장 파트너십'을 시작했습니다.</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.11.15</p>
         </div>
-        <div style="display: flex; padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer; align-items: center; gap: 2rem;">
-          <div style="flex: 1;">
-            <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">연매출 7천만원 달성 및 성장세 지속</h3>
-            <p style="color: #666; line-height: 1.6; font-size: 0.95rem; margin-bottom: 0.5rem;">2025년 연매출 7천만원을 달성하며 안정적인 성장세를 이어가고 있으며, 2026년 목표인 1억원 달성을 향해 나아가고 있습니다.</p>
-            <p style="color: #999; font-size: 0.85rem;">2024.11.01</p>
-          </div>
+        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">연매출 7천만원 달성 및 성장세 지속</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 연매출 7천만원을 달성하며 안정적인 성장세를 이어가고 있으며, 2026년 목표인 1억원 달성을 향해 나아가고 있습니다.</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.11.01</p>
         </div>
       </div>
       <div class="text-center mt-4" style="margin-top: 2rem;">
@@ -587,100 +575,86 @@ function getCompanyNewsHTML() {
       </section>
 
       <section class="content-section">
-        <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="max-width: 900px; margin: 0 auto;">
           <div style="margin-bottom: 2rem;">
             <input type="text" id="searchInput" placeholder="제목으로 검색하세요..." style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;" onkeyup="filterNews()">
           </div>
 
-          <div id="newsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;">
-            <div class="news-item" data-title="글로벌 물류 시장 진출 계획 발표">
-              <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
-                <div style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
-                  <i class="fas fa-globe" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">글로벌 물류 시장 진출 계획 발표</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2025.01.15</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">아이티무유는 2026년 상반기 아시아 물류 시장 진출을 목표로 LogiNexio 플랫폼의 다국어 지원 및 현지화 작업을 진행하고 있습니다. 베트남, 태국 등 동남아시아 주요 국가를 중심으로 시장 조사를 완료하고 현지 파트너십을 구축 중입니다.</p>
-                </div>
+          <div id="newsList" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div class="news-item" data-title="글로벌 물류 시장 진출 계획 발표" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+              <div style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-globe" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div style="padding: 1.5rem; flex: 1;">
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">글로벌 물류 시장 진출 계획 발표</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2025.01.15</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">아이티무유는 2026년 상반기 아시아 물류 시장 진출을 목표로 LogiNexio 플랫폼의 다국어 지원 및 현지화 작업을 진행하고 있습니다. 베트남, 태국 등 동남아시아 주요 국가를 중심으로 시장 조사를 완료하고 현지 파트너십을 구축 중입니다.</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="독자 팔레타이징 기술 개발 성공">
-              <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
-                <div style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
-                  <i class="fas fa-boxes" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">독자 팔레타이징 기술 개발 성공</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2025.01.10</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 자체 개발한 팔레타이징 기술이 국내 제조업체에서 높은 평가를 받으며 물류 자동화 분야에서 기술력을 인정받고 있습니다. AI 기반 최적 배치 알고리즘으로 공간 활용도를 40% 향상시켰습니다.</p>
-                </div>
+            <div class="news-item" data-title="독자 팔레타이징 기술 개발 성공" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+              <div style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-boxes" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div style="padding: 1.5rem; flex: 1;">
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">독자 팔레타이징 기술 개발 성공</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2025.01.10</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 자체 개발한 팔레타이징 기술이 국내 제조업체에서 높은 평가를 받으며 물류 자동화 분야에서 기술력을 인정받고 있습니다. AI 기반 최적 배치 알고리즘으로 공간 활용도를 40% 향상시켰습니다.</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="AI 기반 수출 서류 자동화 솔루션 업그레이드">
-              <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
-                <div style="background: linear-gradient(135deg, #6f42c1 0%, #4e2a84 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
-                  <i class="fas fa-file-alt" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">AI 기반 수출 서류 자동화 솔루션 업그레이드</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2024.12.20</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">최신 AI 기술을 적용하여 수출 서류 작성 시간을 60% 단축하고 오류율을 80% 감소시킨 업그레이드 버전을 출시했습니다. 자연어 처리 기술로 다양한 형식의 문서를 자동으로 인식하고 변환합니다.</p>
-                </div>
+            <div class="news-item" data-title="AI 기반 수출 서류 자동화 솔루션 업그레이드" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+              <div style="background: linear-gradient(135deg, #6f42c1 0%, #4e2a84 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-file-alt" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div style="padding: 1.5rem; flex: 1;">
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">AI 기반 수출 서류 자동화 솔루션 업그레이드</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2024.12.20</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">최신 AI 기술을 적용하여 수출 서류 작성 시간을 60% 단축하고 오류율을 80% 감소시킨 업그레이드 버전을 출시했습니다. 자연어 처리 기술로 다양한 형식의 문서를 자동으로 인식하고 변환합니다.</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="BizSupport Pro 개발 착수">
-              <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
-                <div style="background: linear-gradient(135deg, #fd7e14 0%, #c35a00 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
-                  <i class="fas fa-chart-line" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">BizSupport Pro 개발 착수</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2026.01.02</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">기업 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼 BizSupport Pro의 개발을 본격적으로 시작했습니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 중심으로 개발을 진행하고 있습니다.</p>
-                </div>
+            <div class="news-item" data-title="BizSupport Pro 개발 착수" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+              <div style="background: linear-gradient(135deg, #fd7e14 0%, #c35a00 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-chart-line" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div style="padding: 1.5rem; flex: 1;">
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">BizSupport Pro 개발 착수</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2026.01.02</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">기업 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼 BizSupport Pro의 개발을 본격적으로 시작했습니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 중심으로 개발을 진행하고 있습니다.</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="중소기업 디지털 전환 지원 프로그램 시작">
-              <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
-                <div style="background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
-                  <i class="fas fa-handshake" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">중소기업 디지털 전환 지원 프로그램 시작</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2024.11.15</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">중소기업의 디지털 전환을 돕기 위해 무료 컨설팅과 교육 프로그램을 제공하는 '아이티무유 성장 파트너십'을 시작했습니다. 매월 10개 기업을 선정하여 맞춤형 솔루션 도입을 지원합니다.</p>
-                </div>
+            <div class="news-item" data-title="중소기업 디지털 전환 지원 프로그램 시작" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+              <div style="background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-handshake" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div style="padding: 1.5rem; flex: 1;">
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">중소기업 디지털 전환 지원 프로그램 시작</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2024.11.15</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">중소기업의 디지털 전환을 돕기 위해 무료 컨설팅과 교육 프로그램을 제공하는 '아이티무유 성장 파트너십'을 시작했습니다. 매월 10개 기업을 선정하여 맞춤형 솔루션 도입을 지원합니다.</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="연매출 7천만원 달성 및 성장세 지속">
-              <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
-                <div style="background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
-                  <i class="fas fa-trophy" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">연매출 7천만원 달성 및 성장세 지속</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2024.11.01</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 연매출 7천만원을 달성하며 안정적인 성장세를 이어가고 있으며, 2026년 목표인 1억원 달성을 향해 나아가고 있습니다. 고객사 수가 전년 대비 150% 증가하며 시장 입지를 넓히고 있습니다.</p>
-                </div>
+            <div class="news-item" data-title="연매출 7천만원 달성 및 성장세 지속" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+              <div style="background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-trophy" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div style="padding: 1.5rem; flex: 1;">
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">연매출 7천만원 달성 및 성장세 지속</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2024.11.01</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 연매출 7천만원을 달성하며 안정적인 성장세를 이어가고 있으며, 2026년 목표인 1억원 달성을 향해 나아가고 있습니다. 고객사 수가 전년 대비 150% 증가하며 시장 입지를 넓히고 있습니다.</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="클라우드 기반 협업 플랫폼 출시">
-              <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s; height: 100%;">
-                <div style="background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%); height: 150px; display: flex; align-items: center; justify-content: center;">
-                  <i class="fas fa-cloud" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <div style="padding: 1.5rem;">
-                  <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">클라우드 기반 협업 플랫폼 출시</h3>
-                  <p style="color: #999; font-size: 0.85rem; margin-bottom: 1rem;">2024.10.15</p>
-                  <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">언제 어디서나 팀원들과 실시간으로 협업할 수 있는 클라우드 기반 플랫폼을 새롭게 출시했습니다. 모바일 앱 지원으로 이동 중에도 업무가 가능합니다.</p>
-                </div>
+            <div class="news-item" data-title="클라우드 기반 협업 플랫폼 출시" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+              <div style="background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-cloud" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div style="padding: 1.5rem; flex: 1;">
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">클라우드 기반 협업 플랫폼 출시</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2024.10.15</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">언제 어디서나 팀원들과 실시간으로 협업할 수 있는 클라우드 기반 플랫폼을 새롭게 출시했습니다. 모바일 앱 지원으로 이동 중에도 업무가 가능합니다.</p>
               </div>
             </div>
           </div>
@@ -696,7 +670,7 @@ function getCompanyNewsHTML() {
         for (let item of newsItems) {
           const title = item.getAttribute('data-title').toLowerCase();
           if (title.includes(searchValue)) {
-            item.style.display = 'block';
+            item.style.display = 'flex';
           } else {
             item.style.display = 'none';
           }
