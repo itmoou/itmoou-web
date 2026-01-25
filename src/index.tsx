@@ -172,7 +172,7 @@ function getFooter() {
   `
 }
 
-function getBaseHTML(title: string, content: string) {
+function getBaseHTML(title: string, content: string, bodyClass: string = '') {
   return `
     <!DOCTYPE html>
     <html lang="ko">
@@ -190,7 +190,7 @@ function getBaseHTML(title: string, content: string) {
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <link href="/static/styles.css" rel="stylesheet">
     </head>
-    <body>
+    <body${bodyClass ? ` class="${bodyClass}"` : ''}>
         ${getHeader()}
         ${content}
         ${getFooter()}
@@ -358,7 +358,7 @@ function getMainHTML() {
         <a href="/company/news" style="display: inline-block; padding: 1rem 2rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s;">더 많은 소식 보기</a>
       </div>
     </section>
-  `)
+  `, 'home-page')
 }
 
 function getCompanyHTML() {

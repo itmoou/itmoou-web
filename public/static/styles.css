@@ -49,9 +49,14 @@ body {
   align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: var(--text-dark);
   text-decoration: none;
   transition: color 0.3s ease;
+}
+
+/* 메인 페이지(슬라이더 있는 페이지)에서만 흰색 */
+body.home-page .logo {
+  color: white;
 }
 
 .logo img {
@@ -71,14 +76,18 @@ body {
 }
 
 .nav-link {
-  color: white;
+  color: var(--text-dark);
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
   transition: color 0.3s ease;
   padding: 0.5rem 1rem;
   display: block;
-  transition: color 0.3s ease;
+}
+
+/* 메인 페이지(슬라이더 있는 페이지)에서만 흰색 */
+body.home-page .nav-link {
+  color: white;
 }
 
 .nav-link:hover {
