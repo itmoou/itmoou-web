@@ -160,9 +160,7 @@ function getFooter() {
             <p class="footer-address">(우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호<br>
             사업자등록번호 : 229-81-43410<br>
             E-mail <a href="mailto:sales@itmoou.com" class="footer-link">sales@itmoou.com</a></p>
-          </div>
-          <div class="footer-section footer-social">
-            <div class="social-links">
+            <div class="social-links" style="margin-top: 2rem;">
               <a href="https://www.instagram.com/itmoou/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
               <a href="https://www.linkedin.com/in/moou-it-6414573a8/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
               <a href="https://www.youtube.com/@%EC%95%84%EC%9D%B4%ED%8B%B0%EB%AC%B4%EC%9C%A0" target="_blank" rel="noopener noreferrer" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>

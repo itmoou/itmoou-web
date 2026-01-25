@@ -289,7 +289,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 4rem;
+  gap: 6rem;
   padding-bottom: 2rem;
 }
 
@@ -303,13 +303,9 @@ body {
 
 .footer-info {
   flex: 1 1 auto;
-  max-width: 650px;
-  margin-left: 2rem;
-}
-
-.footer-social {
-  flex: 0 0 auto;
+  max-width: none;
   margin-left: auto;
+  text-align: left;
 }
 
 .footer-main-info {
