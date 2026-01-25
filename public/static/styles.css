@@ -49,8 +49,9 @@ body {
   align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--primary-blue);
+  color: white;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .logo img {
@@ -70,10 +71,11 @@ body {
 }
 
 .nav-link {
-  color: var(--text-dark);
+  color: white;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
+  transition: color 0.3s ease;
   padding: 0.5rem 1rem;
   display: block;
   transition: color 0.3s ease;

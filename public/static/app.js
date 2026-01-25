@@ -35,6 +35,25 @@ class Slider {
     this.currentSlide = index;
     this.slides[index].classList.add('active');
     this.dots[index].classList.add('active');
+    
+    // Change header text color based on slide
+    // slide1(0), slide2(1): white text
+    // slide3(2): black text
+    const header = document.querySelector('.header');
+    const logo = header.querySelector('.logo');
+    const navLinks = header.querySelectorAll('.nav-link');
+    
+    if (window.scrollY === 0) { // Only change color when at top of page
+      if (index === 2) { // slide3
+        // Black text for slide3
+        if (logo) logo.style.color = '#003366';
+        navLinks.forEach(link => link.style.color = '#333');
+      } else { // slide1, slide2
+        // White text for slide1 and slide2
+        if (logo) logo.style.color = 'white';
+        navLinks.forEach(link => link.style.color = 'white');
+      }
+    }
   }
 
   nextSlide() {
@@ -96,6 +115,9 @@ function setupHeaderScroll() {
   const header = document.querySelector('.header');
   if (!header) return;
   
+  const logo = header.querySelector('.logo');
+  const navLinks = header.querySelectorAll('.nav-link');
+  
   window.addEventListener('scroll', () => {
     const scrollPosition = window.pageYOffset;
     
@@ -108,10 +130,27 @@ function setupHeaderScroll() {
       header.style.background = `rgba(255, 255, 255, ${opacity * 0.95})`;
       header.style.backdropFilter = 'blur(10px)';
       header.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${opacity * 0.1})`;
+      
+      // Change to dark text when scrolled
+      if (logo) logo.style.color = '#003366';
+      navLinks.forEach(link => link.style.color = '#333');
     } else {
       header.style.background = 'transparent';
       header.style.backdropFilter = 'none';
       header.style.boxShadow = 'none';
+      
+      // Get current slide to determine text color
+      const slider = window.sliderInstance;
+      if (slider) {
+        const currentSlide = slider.currentSlide;
+        if (currentSlide === 2) { // slide3
+          if (logo) logo.style.color = '#003366';
+          navLinks.forEach(link => link.style.color = '#333');
+        } else { // slide1, slide2
+          if (logo) logo.style.color = 'white';
+          navLinks.forEach(link => link.style.color = 'white');
+        }
+      }
     }
   });
 }
@@ -130,8 +169,8 @@ async function fetchData(endpoint) {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize slider
-  new Slider();
+  // Initialize slider and store instance globally
+  window.sliderInstance = new Slider();
   
   // Setup smooth scrolling
   setupSmoothScroll();
