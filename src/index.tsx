@@ -144,7 +144,7 @@ function getFooter() {
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-section">
-            <h3>IT moou</h3>
+            <img src="/images/footericon.png" alt="IT moou" style="height: 40px; margin-bottom: 1rem;">
             <p>대표이사 : 심영민<br>
             충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호</p>
           </div>

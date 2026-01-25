@@ -273,7 +273,7 @@ body {
 
 /* Footer */
 .footer {
-  background: var(--dark-blue);
+  background: #000000;
   color: var(--white);
   padding: 3rem 0 1rem;
 }
