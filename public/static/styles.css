@@ -306,7 +306,7 @@ body {
   max-width: none;
   margin-left: auto;
   padding-left: 4rem;
-  text-align: left;
+  text-align: right;
 }
 
 .footer-main-info {
@@ -329,6 +329,7 @@ body {
   color: rgba(255,255,255,0.5);
   font-size: 0.9rem;
   margin-top: 1rem;
+  white-space: nowrap;
 }
 
 .footer-small {
@@ -359,6 +360,7 @@ body {
   display: flex;
   gap: 0.8rem;
   margin-top: 0.5rem;
+  justify-content: flex-end;
 }
 
 .social-link {
