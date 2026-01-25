@@ -149,23 +149,22 @@ function getFooter() {
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-section footer-logo">
-            <img src="/images/footericon.png" alt="IT moou" style="height: 60px; margin-bottom: 1.5rem;">
+            <img src="/images/footericon.png" alt="IT moou" style="height: 90px; margin-bottom: 1.5rem;">
             <p class="footer-main-info">대표번호<br><span class="footer-phone">043.715.8553</span></p>
-            <p class="footer-copyright">2025 IT moou, INC. ALL RIGHTS RESERVED.</p>
+            <p class="footer-copyright">2025 ITmoou Co., Ltd. ALL RIGHTS RESERVED.</p>
           </div>
           <div class="footer-section footer-info">
             <p class="footer-small">대표이사 : 심영민<br>
             개인정보 보호책임자 : 심영민<br>
             <a href="/privacy-policy" class="footer-link">개인정보처리방침</a></p>
-            <p class="footer-address">(우) 16690 경기도 수원시 영통구 대리대로 1556번길 8 1동 6층 (대리동) ITmoou(아이티무유 주식회사)<br>
-            사업자등록번호 : 136 86 13315<br>
+            <p class="footer-address">(우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호<br>
+            사업자등록번호 : 229-81-43410<br>
             E-mail <a href="mailto:sales@itmoou.com" class="footer-link">sales@itmoou.com</a></p>
           </div>
           <div class="footer-section footer-social">
             <div class="social-links">
-              <a href="https://www.facebook.com/itmoou" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
               <a href="https://www.instagram.com/itmoou/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="https://twitter.com/itmoou" target="_blank" rel="noopener noreferrer" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="https://www.linkedin.com/in/moou-it-6414573a8/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
               <a href="https://www.youtube.com/@%EC%95%84%EC%9D%B4%ED%8B%B0%EB%AC%B4%EC%9C%A0" target="_blank" rel="noopener noreferrer" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
           </div>

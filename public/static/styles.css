@@ -289,7 +289,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 3rem;
+  gap: 4rem;
   padding-bottom: 2rem;
 }
 
@@ -298,16 +298,18 @@ body {
 }
 
 .footer-logo {
-  flex: 0 0 250px;
+  flex: 0 0 280px;
 }
 
 .footer-info {
   flex: 1 1 auto;
-  max-width: 600px;
+  max-width: 650px;
+  margin-left: 2rem;
 }
 
 .footer-social {
   flex: 0 0 auto;
+  margin-left: auto;
 }
 
 .footer-main-info {
