@@ -121,9 +121,9 @@ body {
 
 /* Main Slider */
 .main-slider {
-  margin-top: 80px;
+  margin-top: 0;
   position: relative;
-  height: 600px;
+  height: 680px;
   overflow: hidden;
 }
 
