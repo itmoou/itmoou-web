@@ -54,11 +54,6 @@ body {
   transition: color 0.3s ease;
 }
 
-/* 메인 페이지(슬라이더 있는 페이지)에서만 흰색 */
-body.home-page .logo {
-  color: white;
-}
-
 .logo img {
   height: 40px;
   margin-right: 10px;
@@ -83,11 +78,6 @@ body.home-page .logo {
   transition: color 0.3s ease;
   padding: 0.5rem 1rem;
   display: block;
-}
-
-/* 메인 페이지(슬라이더 있는 페이지)에서만 흰색 */
-body.home-page .nav-link {
-  color: white;
 }
 
 .nav-link:hover {

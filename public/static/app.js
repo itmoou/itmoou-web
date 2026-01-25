@@ -118,6 +118,29 @@ function setupHeaderScroll() {
   const logo = header.querySelector('.logo');
   const navLinks = header.querySelectorAll('.nav-link');
   
+  // 초기 색상 설정 함수
+  function setInitialColors() {
+    const slider = window.sliderInstance;
+    if (slider && slider.slides && slider.slides.length > 0) {
+      // 메인 페이지: 슬라이드에 따라 초기 색상 설정
+      const currentSlide = slider.currentSlide || 0;
+      if (currentSlide === 2) { // slide3
+        if (logo) logo.style.color = '#003366';
+        navLinks.forEach(link => link.style.color = '#333');
+      } else { // slide1, slide2
+        if (logo) logo.style.color = 'white';
+        navLinks.forEach(link => link.style.color = 'white');
+      }
+    } else {
+      // 다른 페이지: 검정색으로 설정
+      if (logo) logo.style.color = '#003366';
+      navLinks.forEach(link => link.style.color = '#333');
+    }
+  }
+  
+  // 페이지 로드 시 초기 색상 설정
+  setInitialColors();
+  
   window.addEventListener('scroll', () => {
     const scrollPosition = window.pageYOffset;
     
@@ -141,7 +164,7 @@ function setupHeaderScroll() {
       
       // Get current slide to determine text color
       const slider = window.sliderInstance;
-      if (slider) {
+      if (slider && slider.slides && slider.slides.length > 0) {
         // 메인 페이지 (슬라이더 있음): 슬라이드에 따라 색상 변경
         const currentSlide = slider.currentSlide;
         if (currentSlide === 2) { // slide3
