@@ -103,13 +103,15 @@ function setupHeaderScroll() {
     const maxScroll = 300;
     const opacity = Math.min(scrollPosition / maxScroll, 1);
     
-    // Apply background color with opacity
+    // Apply white background color with opacity
     if (scrollPosition > 10) {
-      header.style.background = `rgba(0, 0, 0, ${opacity * 0.95})`;
+      header.style.background = `rgba(255, 255, 255, ${opacity * 0.95})`;
       header.style.backdropFilter = 'blur(10px)';
+      header.style.boxShadow = `0 2px 10px rgba(0, 0, 0, ${opacity * 0.1})`;
     } else {
       header.style.background = 'transparent';
       header.style.backdropFilter = 'none';
+      header.style.boxShadow = 'none';
     }
   });
 }
