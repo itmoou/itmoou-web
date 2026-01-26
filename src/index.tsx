@@ -286,28 +286,29 @@ function getBaseHTML(title: string, content: string, bodyClass: string = '', lan
 }
 
 function getMainHTML(lang: Language = 'ko') {
-  return getBaseHTML('홈', `
+  const t = getTranslation(lang)
+  return getBaseHTML(t.home.title, `
     <div class="main-slider">
       <div class="slider-container">
         <div class="slide active">
           <img src="/images/slide1.jpg" alt="IT moou Slide 1">
           <div class="slide-content">
-            <h2>기업 SaaS 솔루션 기업</h2>
-            <p>글로벌 물류 SaaS 솔루션, 경영지원 AI 솔루션, 아이티무유를 소개합니다</p>
+            <h2>${t.home.slide1Title}</h2>
+            <p>${t.home.slide1Desc}</p>
           </div>
         </div>
         <div class="slide">
           <img src="/images/slide2.jpg" alt="IT moou Slide 2">
           <div class="slide-content">
-            <h2>혁신적인 AI&빅데이터 기술</h2>
-            <p>첨단 기술로 기업의 미래를 만들어갑니다</p>
+            <h2>${t.home.slide2Title}</h2>
+            <p>${t.home.slide2Desc}</p>
           </div>
         </div>
         <div class="slide">
           <img src="/images/slide3.jpg" alt="IT moou Slide 3">
           <div class="slide-content">
-            <h2>글로벌 SaaS 기업</h2>
-            <p>전 세계 고객의 신뢰를 받는 기업</p>
+            <h2>${t.home.slide3Title}</h2>
+            <p>${t.home.slide3Desc}</p>
           </div>
         </div>
       </div>
@@ -320,26 +321,26 @@ function getMainHTML(lang: Language = 'ko') {
 
     <section class="content-section" style="background: #f9f9f9;">
       <div class="section-header">
-        <h2 class="section-title">왜 우리를 선택해야 할까요?</h2>
-        <p class="section-subtitle">고객의 성공이 우리의 목표입니다</p>
+        <h2 class="section-title">${t.home.whyUs}</h2>
+        <p class="section-subtitle">${t.home.whyUsSubtitle}</p>
       </div>
       <div class="grid-3">
         <div class="card">
           <div class="card-content">
-            <h3 class="card-title"><i class="fas fa-microchip" style="color: #0052A5; margin-right: 0.5rem;"></i>첨단 기술</h3>
-            <p class="card-text">최신 빅데이터 기술과 AI를 활용한 혁신적인 기업형 업무 솔루션을 제공합니다.</p>
+            <h3 class="card-title"><i class="fas fa-microchip" style="color: #0052A5; margin-right: 0.5rem;"></i>${t.home.advancedTech}</h3>
+            <p class="card-text">${t.home.advancedTechDesc}</p>
           </div>
         </div>
         <div class="card">
           <div class="card-content">
-            <h3 class="card-title"><i class="fas fa-headset" style="color: #0052A5; margin-right: 0.5rem;"></i>전문 지원</h3>
-            <p class="card-text">전문 지식을 가지고 있는 기술 서비스로 고객의 성공을 함께하겠습니다.</p>
+            <h3 class="card-title"><i class="fas fa-headset" style="color: #0052A5; margin-right: 0.5rem;"></i>${t.home.expertSupport}</h3>
+            <p class="card-text">${t.home.expertSupportDesc}</p>
           </div>
         </div>
         <div class="card">
           <div class="card-content">
-            <h3 class="card-title"><i class="fas fa-globe" style="color: #0052A5; margin-right: 0.5rem;"></i>글로벌 네트워크</h3>
-            <p class="card-text">전 세계 파트너와의 협력을 통해 최상의 서비스를 제공합니다.</p>
+            <h3 class="card-title"><i class="fas fa-globe" style="color: #0052A5; margin-right: 0.5rem;"></i>${t.home.globalNetwork}</h3>
+            <p class="card-text">${t.home.globalNetworkDesc}</p>
           </div>
         </div>
       </div>
@@ -347,7 +348,7 @@ function getMainHTML(lang: Language = 'ko') {
 
     <section class="content-section">
       <div class="section-header">
-        <h2 class="section-title">우리의 솔루션</h2>
+        <h2 class="section-title">${t.home.ourSolutions}</h2>
         <p class="section-subtitle">기업의 성장을 위한 혁신적인 B2B 솔루션을 제공합니다</p>
       </div>
       <div class="grid-3">
@@ -440,18 +441,19 @@ function getMainHTML(lang: Language = 'ko') {
         </div>
       </div>
       <div class="text-center mt-4" style="margin-top: 2rem;">
-        <a href="/company/news" style="display: inline-block; padding: 1rem 2rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s;">더 많은 소식 보기</a>
+        <a href="/company/news" style="display: inline-block; padding: 1rem 2rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s;">${t.home.viewMore}</a>
       </div>
     </section>
   `, 'home-page', lang)
 }
 
 function getCompanyHTML(lang: Language = 'ko') {
-  return getBaseHTML('회사소개', `
+  const t = getTranslation(lang)
+  return getBaseHTML(t.company.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">회사소개</h1>
-        <p style="font-size: 1.2rem;">글로벌 물류 SaaS 솔루션, 경영지원 AI 솔루션, 아이티무유를 소개합니다</p>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.company.title}</h1>
+        <p style="font-size: 1.2rem;">${t.company.subtitle}</p>
       </section>
 
       <section class="content-section">
@@ -495,10 +497,11 @@ function getCompanyHTML(lang: Language = 'ko') {
 }
 
 function getCEOHTML(lang: Language = 'ko') {
-  return getBaseHTML('CEO 메시지', `
+  const t = getTranslation(lang)
+  return getBaseHTML(t.ceo.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">CEO 메시지</h1>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.ceo.title}</h1>
         <p style="font-size: 1.2rem;">대표이사 심영민</p>
       </section>
 
@@ -538,10 +541,11 @@ function getCEOHTML(lang: Language = 'ko') {
 }
 
 function getHistoryHTML(lang: Language = 'ko') {
-  return getBaseHTML('연혁', `
+  const t = getTranslation(lang)
+  return getBaseHTML(t.history.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">연혁</h1>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.history.title}</h1>
         <p style="font-size: 1.2rem;">IT moou의 성장 역사</p>
       </section>
 
@@ -576,10 +580,11 @@ function getHistoryHTML(lang: Language = 'ko') {
 }
 
 function getESGHTML(lang: Language = 'ko') {
-  return getBaseHTML('ESG 경영', `
+  const t = getTranslation(lang)
+  return getBaseHTML(t.esg.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">ESG 경영</h1>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.esg.title}</h1>
         <p style="font-size: 1.2rem;">지속가능한 미래를 위한 SD 바이오센서의 약속</p>
       </section>
 
@@ -610,11 +615,12 @@ function getESGHTML(lang: Language = 'ko') {
 }
 
 function getLocationHTML(lang: Language = 'ko') {
-  return getBaseHTML('오시는 길', `
+  const t = getTranslation(lang)
+  return getBaseHTML(t.location.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">오시는 길</h1>
-        <p style="font-size: 1.2rem;">IT moou를 찾아오시는 길을 안내합니다</p>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.location.title}</h1>
+        <p style="font-size: 1.2rem;">${t.location.subtitle}</p>
       </section>
 
       <section class="content-section">
@@ -916,7 +922,7 @@ function getLabHTML(lang: Language = 'ko') {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">연구소</h1>
-        <p style="font-size: 1.2rem;">혁신적인 기술 개발의 중심</p>
+        <p style="font-size: 1.2rem;">${t.ceo.subtitle}</p>
       </section>
 
       <section class="content-section">
@@ -1235,7 +1241,7 @@ function getPrivacyPolicyHTML(lang: Language = 'ko') {
             <p style="margin-bottom: 0.5rem;"><strong>개인정보 보호책임자:</strong> 심영민</p>
             <p style="margin-bottom: 0.5rem;"><strong>직책:</strong> 대표이사</p>
             <p style="margin-bottom: 0.5rem;"><strong>연락처:</strong> 043-715-8553</p>
-            <p><strong>이메일:</strong> cs@itmoou.com</p>
+            <p><strong>${t.location.email}:</strong> cs@itmoou.com</p>
           </div>
 
           <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">10. 개인정보침해에 대한 신고와 상담</h2>

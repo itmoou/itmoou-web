@@ -42,9 +42,17 @@ export const en: TranslationType = {
     expertSupportDesc: 'We ensure customer success through professional technical services and expertise.',
     globalNetwork: 'Global Network',
     globalNetworkDesc: 'We provide the best services through collaboration with partners worldwide.',
+    ourSolutions: 'Our Solutions',
+    ourSolutionsSubtitle: 'We provide innovative B2B solutions for enterprise growth',
+    logiNexioDesc: 'With cutting-edge technology and solutions, we solve everything from manufacturing logistics to customer delivery in one place. Supports various functions including pallet automation, logistics document automation, and forwarder contracts.',
+    bizSupportDesc: 'A comprehensive business support platform that maximizes enterprise work efficiency. Provides project management, real-time collaboration tools, data analysis and reporting functions.',
+    learnMore: 'Learn More →',
+    successStories: 'Success Stories',
+    successStoriesSubtitle: 'Companies across various industries are experiencing success with our solutions',
     companyNewsTitle: 'Company News',
     companyNewsSubtitle: 'Discover ITmoou stories experienced by B2B customers.',
     viewMore: 'View More News',
+    visitSupport: 'Visit Support Center',
   },
   
   // Company

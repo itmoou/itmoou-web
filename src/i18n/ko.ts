@@ -40,9 +40,17 @@ export const ko = {
     expertSupportDesc: '전문 지식을 가지고 있는 기술 서비스로 고객의 성공을 함께하겠습니다.',
     globalNetwork: '글로벌 네트워크',
     globalNetworkDesc: '전 세계 파트너와의 협력을 통해 최상의 서비스를 제공합니다.',
+    ourSolutions: '우리의 솔루션',
+    ourSolutionsSubtitle: '기업의 성장을 위한 혁신적인 B2B 솔루션을 제공합니다',
+    logiNexioDesc: '최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다. 팔레트 자동화, 물류 서류 자동화, 포워더 계약 등 다양한 기능을 지원합니다.',
+    bizSupportDesc: '기업의 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼입니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 제공합니다.',
+    learnMore: '자세히 보기 →',
+    successStories: '고객 성공 사례',
+    successStoriesSubtitle: '다양한 산업 분야의 기업들이 우리 솔루션으로 성공을 경험하고 있습니다',
     companyNewsTitle: '회사소식',
     companyNewsSubtitle: 'B2B 고객이 경험하는 아이티무유의 이야기를 들려드립니다.',
     viewMore: '더 많은 소식 보기',
+    visitSupport: '지원센터 방문',
   },
   
   // 회사소개
