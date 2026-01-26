@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { serveStatic } from 'hono/cloudflare-workers'
+import { getTranslation, getLocalizedPath, type Language } from './i18n'
 
 const app = new Hono()
 
@@ -82,58 +83,133 @@ app.get('/support/contact', (c) => {
   return c.html(getContactHTML())
 })
 
+// English routes
+app.get('/en', (c) => {
+  return c.html(getMainHTML('en'))
+})
+
+app.get('/en/company', (c) => {
+  return c.html(getCompanyHTML('en'))
+})
+
+app.get('/en/company/ceo', (c) => {
+  return c.html(getCEOHTML('en'))
+})
+
+app.get('/en/company/history', (c) => {
+  return c.html(getHistoryHTML('en'))
+})
+
+app.get('/en/company/esg', (c) => {
+  return c.html(getESGHTML('en'))
+})
+
+app.get('/en/company/location', (c) => {
+  return c.html(getLocationHTML('en'))
+})
+
+app.get('/en/company/news', (c) => {
+  return c.html(getCompanyNewsHTML('en'))
+})
+
+app.get('/en/solutions/loginexio', (c) => {
+  return c.html(getLogiNexioHTML('en'))
+})
+
+app.get('/en/solutions/bizsupport', (c) => {
+  return c.html(getBizSupportHTML('en'))
+})
+
+app.get('/en/rnd/lab', (c) => {
+  return c.html(getLabHTML('en'))
+})
+
+app.get('/en/rnd/activities', (c) => {
+  return c.html(getActivitiesHTML('en'))
+})
+
+app.get('/en/careers/talent', (c) => {
+  return c.html(getTalentHTML('en'))
+})
+
+app.get('/en/careers', (c) => {
+  return c.redirect('https://recruit.itmoou.com')
+})
+
+app.get('/en/support/customer', (c) => {
+  return c.html(getCustomerSupportHTML('en'))
+})
+
+app.get('/en/support/contact', (c) => {
+  return c.html(getContactHTML('en'))
+})
+
+app.get('/en/privacy-policy', (c) => {
+  return c.html(getPrivacyPolicyHTML('en'))
+})
+
 // API routes
 app.get('/api/hello', (c) => {
   return c.json({ message: 'Hello from IT moou API!' })
 })
 
 // Helper functions for HTML templates
-function getHeader() {
+function getHeader(lang: Language = 'ko') {
+  const t = getTranslation(lang)
+  const currentPath = lang === 'en' ? '/en' : ''
+  
   return `
     <header class="header">
       <div class="header-container">
-        <a href="/" class="logo">
+        <a href="${currentPath}/" class="logo">
           <img src="/images/logo.png" alt="IT moou" style="height: 80px;">
         </a>
         <nav>
           <ul class="main-nav">
             <li class="nav-item">
-              <a href="/company" class="nav-link">회사소개</a>
+              <a href="${currentPath}/company" class="nav-link">${t.nav.company}</a>
               <div class="dropdown">
-                <a href="/company" class="dropdown-item">IT moou</a>
-                <a href="/company/ceo" class="dropdown-item">CEO 메시지</a>
-                <a href="/company/news" class="dropdown-item">회사소식</a>
-                <a href="/company/history" class="dropdown-item">연혁</a>
-                <a href="/company/esg" class="dropdown-item">ESG</a>
-                <a href="/company/location" class="dropdown-item">오시는 길</a>
+                <a href="${currentPath}/company" class="dropdown-item">${t.nav.companyInfo}</a>
+                <a href="${currentPath}/company/ceo" class="dropdown-item">${t.nav.ceoMessage}</a>
+                <a href="${currentPath}/company/news" class="dropdown-item">${t.nav.companyNews}</a>
+                <a href="${currentPath}/company/history" class="dropdown-item">${t.nav.history}</a>
+                <a href="${currentPath}/company/esg" class="dropdown-item">${t.nav.esg}</a>
+                <a href="${currentPath}/company/location" class="dropdown-item">${t.nav.location}</a>
               </div>
             </li>
             <li class="nav-item">
-              <a href="/solutions/loginnexio" class="nav-link">솔루션</a>
+              <a href="${currentPath}/solutions/loginexio" class="nav-link">${t.nav.solutions}</a>
               <div class="dropdown">
-                <a href="/solutions/loginexio" class="dropdown-item">LogiNexio</a>
-                <a href="/solutions/bizsupport" class="dropdown-item">BizSupport Pro</a>
+                <a href="${currentPath}/solutions/loginexio" class="dropdown-item">${t.nav.logiNexio}</a>
+                <a href="${currentPath}/solutions/bizsupport" class="dropdown-item">${t.nav.bizSupport}</a>
               </div>
             </li>
             <li class="nav-item">
-              <a href="/rnd/lab" class="nav-link">연구개발</a>
+              <a href="${currentPath}/rnd/lab" class="nav-link">${t.nav.rd}</a>
               <div class="dropdown">
-                <a href="/rnd/lab" class="dropdown-item">연구소</a>
-                <a href="/rnd/activities" class="dropdown-item">연구개발 활동</a>
+                <a href="${currentPath}/rnd/lab" class="dropdown-item">${t.nav.lab}</a>
+                <a href="${currentPath}/rnd/activities" class="dropdown-item">${t.nav.rdActivity}</a>
               </div>
             </li>
             <li class="nav-item">
-              <a href="/careers/talent" class="nav-link">채용정보</a>
+              <a href="${currentPath}/careers/talent" class="nav-link">${t.nav.careers}</a>
               <div class="dropdown">
-                <a href="/careers/talent" class="dropdown-item">인재상</a>
-                <a href="https://recruit.itmoou.com" class="dropdown-item" target="_blank" rel="noopener noreferrer">채용공고</a>
+                <a href="${currentPath}/careers/talent" class="dropdown-item">${t.nav.talent}</a>
+                <a href="https://recruit.itmoou.com" class="dropdown-item" target="_blank" rel="noopener noreferrer">${t.nav.jobs}</a>
               </div>
             </li>
             <li class="nav-item">
-              <a href="/support/customer" class="nav-link">지원센터</a>
+              <a href="${currentPath}/support/customer" class="nav-link">${t.nav.support}</a>
               <div class="dropdown">
-                <a href="/support/customer" class="dropdown-item">고객지원</a>
-                <a href="/support/contact" class="dropdown-item">Contact Us</a>
+                <a href="${currentPath}/support/customer" class="dropdown-item">${t.nav.customer}</a>
+                <a href="${currentPath}/support/contact" class="dropdown-item">${t.nav.contact}</a>
+              </div>
+            </li>
+            <li class="nav-item language-switcher">
+              <a href="#" class="nav-link"><i class="fas fa-globe"></i></a>
+              <div class="dropdown">
+                <a href="${lang === 'en' ? '/' : ''}" class="dropdown-item ${lang === 'ko' ? 'active' : ''}">🇰🇷 한국어</a>
+                <a href="${lang === 'ko' ? '/en' : ''}" class="dropdown-item ${lang === 'en' ? 'active' : ''}">🇺🇸 English</a>
               </div>
             </li>
           </ul>
@@ -143,23 +219,26 @@ function getHeader() {
   `
 }
 
-function getFooter() {
+function getFooter(lang: Language = 'ko') {
+  const t = getTranslation(lang)
+  const currentPath = lang === 'en' ? '/en' : ''
+  
   return `
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-section footer-logo">
             <img src="/images/footericon.png" alt="IT moou" style="height: 90px; margin-bottom: 1.5rem;">
-            <p class="footer-main-info">대표번호<br><span class="footer-phone">043.715.8553</span></p>
-            <p class="footer-copyright">2025 ITmoou Co., Ltd. ALL RIGHTS RESERVED.</p>
+            <p class="footer-main-info">${t.footer.phone}<br><span class="footer-phone">043.715.8553</span></p>
+            <p class="footer-copyright">${t.footer.copyright}</p>
           </div>
           <div class="footer-section footer-info">
-            <p class="footer-small">대표이사 : 심영민<br>
-            개인정보 보호책임자 : 심영민<br>
-            <a href="/privacy-policy" class="footer-link">개인정보처리방침</a></p>
-            <p class="footer-address">(우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호<br>
-            사업자등록번호 : 229-81-43410<br>
-            E-mail <a href="mailto:sales@itmoou.com" class="footer-link">sales@itmoou.com</a></p>
+            <p class="footer-small">${t.footer.ceo} : 심영민<br>
+            ${t.footer.privacyOfficer} : 심영민<br>
+            <a href="${currentPath}/privacy-policy" class="footer-link">${t.footer.privacyPolicy}</a></p>
+            <p class="footer-address">${t.location.addressDetail}<br>
+            ${t.footer.businessNumber} : 229-81-43410<br>
+            ${t.footer.email} <a href="mailto:sales@itmoou.com" class="footer-link">sales@itmoou.com</a></p>
             <div class="social-links" style="margin-top: 2rem;">
               <a href="https://www.instagram.com/itmoou/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
               <a href="https://www.linkedin.com/in/moou-it-6414573a8/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -172,10 +251,10 @@ function getFooter() {
   `
 }
 
-function getBaseHTML(title: string, content: string, bodyClass: string = '') {
+function getBaseHTML(title: string, content: string, bodyClass: string = '', lang: Language = 'ko') {
   return `
     <!DOCTYPE html>
-    <html lang="ko">
+    <html lang="${lang}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -191,17 +270,17 @@ function getBaseHTML(title: string, content: string, bodyClass: string = '') {
         <link href="/static/styles.css" rel="stylesheet">
     </head>
     <body${bodyClass ? ` class="${bodyClass}"` : ''}>
-        ${getHeader()}
+        ${getHeader(lang)}
         ${content}
-        ${getFooter()}
+        ${getFooter(lang)}
         <script src="/static/app.js"></script>
     </body>
     </html>
   `
 }
 
-function getMainHTML() {
-  return getBaseHTML('홈', `
+function getMainHTML(lang: Language = 'ko') {
+  return getBaseHTML('홈', `, '', lang)
     <div class="main-slider">
       <div class="slider-container">
         <div class="slide active">
@@ -361,8 +440,8 @@ function getMainHTML() {
   `, 'home-page')
 }
 
-function getCompanyHTML() {
-  return getBaseHTML('회사소개', `
+function getCompanyHTML(lang: Language = 'ko') {
+  return getBaseHTML('회사소개', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">회사소개</h1>
@@ -409,8 +488,8 @@ function getCompanyHTML() {
   `)
 }
 
-function getCEOHTML() {
-  return getBaseHTML('CEO 메시지', `
+function getCEOHTML(lang: Language = 'ko') {
+  return getBaseHTML('CEO 메시지', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">CEO 메시지</h1>
@@ -452,8 +531,8 @@ function getCEOHTML() {
   `)
 }
 
-function getHistoryHTML() {
-  return getBaseHTML('연혁', `
+function getHistoryHTML(lang: Language = 'ko') {
+  return getBaseHTML('연혁', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">연혁</h1>
@@ -490,8 +569,8 @@ function getHistoryHTML() {
   `)
 }
 
-function getESGHTML() {
-  return getBaseHTML('ESG 경영', `
+function getESGHTML(lang: Language = 'ko') {
+  return getBaseHTML('ESG 경영', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">ESG 경영</h1>
@@ -524,8 +603,8 @@ function getESGHTML() {
   `)
 }
 
-function getLocationHTML() {
-  return getBaseHTML('오시는 길', `
+function getLocationHTML(lang: Language = 'ko') {
+  return getBaseHTML('오시는 길', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">오시는 길</h1>
@@ -591,8 +670,8 @@ function getLocationHTML() {
   `)
 }
 
-function getCompanyNewsHTML() {
-  return getBaseHTML('회사소식', `
+function getCompanyNewsHTML(lang: Language = 'ko') {
+  return getBaseHTML('회사소식', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">회사소식</h1>
@@ -705,8 +784,8 @@ function getCompanyNewsHTML() {
   `)
 }
 
-function getLogiNexioHTML() {
-  return getBaseHTML('LogiNexio', `
+function getLogiNexioHTML(lang: Language = 'ko') {
+  return getBaseHTML('LogiNexio', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">LogiNexio</h1>
@@ -773,8 +852,8 @@ function getLogiNexioHTML() {
   `)
 }
 
-function getBizSupportHTML() {
-  return getBaseHTML('BizSupport Pro', `
+function getBizSupportHTML(lang: Language = 'ko') {
+  return getBaseHTML('BizSupport Pro', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">BizSupport Pro</h1>
@@ -826,8 +905,8 @@ function getBizSupportHTML() {
   `)
 }
 
-function getLabHTML() {
-  return getBaseHTML('연구소', `
+function getLabHTML(lang: Language = 'ko') {
+  return getBaseHTML('연구소', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">연구소</h1>
@@ -866,8 +945,8 @@ function getLabHTML() {
   `)
 }
 
-function getActivitiesHTML() {
-  return getBaseHTML('연구개발 활동', `
+function getActivitiesHTML(lang: Language = 'ko') {
+  return getBaseHTML('연구개발 활동', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">연구개발 활동</h1>
@@ -903,8 +982,8 @@ function getActivitiesHTML() {
   `)
 }
 
-function getTalentHTML() {
-  return getBaseHTML('인재상', `
+function getTalentHTML(lang: Language = 'ko') {
+  return getBaseHTML('인재상', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">인재상</h1>
@@ -962,8 +1041,8 @@ function getTalentHTML() {
   `)
 }
 
-function getCustomerSupportHTML() {
-  return getBaseHTML('고객지원', `
+function getCustomerSupportHTML(lang: Language = 'ko') {
+  return getBaseHTML('고객지원', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">고객지원</h1>
@@ -1008,8 +1087,8 @@ function getCustomerSupportHTML() {
   `)
 }
 
-function getContactHTML() {
-  return getBaseHTML('Contact Us', `
+function getContactHTML(lang: Language = 'ko') {
+  return getBaseHTML('Contact Us', `, '', lang)
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">Contact Us</h1>
@@ -1064,8 +1143,8 @@ function getContactHTML() {
   `)
 }
 
-function getPrivacyPolicyHTML() {
-  return getBaseHTML('개인정보 처리방침', `
+function getPrivacyPolicyHTML(lang: Language = 'ko') {
+  return getBaseHTML('개인정보 처리방침', `, '', lang)
     <div class="main-content">
       <section class="hero-section" style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); padding: 4rem 2rem; text-align: center;">
         <h1 class="hero-title" style="color: white; font-size: 3rem; margin-bottom: 1rem;">개인정보 처리방침</h1>

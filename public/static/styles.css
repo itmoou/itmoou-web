@@ -120,6 +120,23 @@ body {
   color: var(--primary-blue);
 }
 
+.dropdown-item.active {
+  background: var(--primary-blue);
+  color: white;
+  font-weight: bold;
+}
+
+/* Language Switcher */
+.language-switcher .nav-link {
+  font-size: 1.2rem;
+}
+
+.language-switcher .dropdown {
+  right: 0;
+  left: auto;
+  min-width: 160px;
+}
+
 /* Main Slider */
 .main-slider {
   margin-top: 0;
