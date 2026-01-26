@@ -177,9 +177,18 @@ body {
   display: block;
 }
 
+.mobile-nav-header {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .mobile-menu-toggle {
     display: flex;
+  }
+  
+  /* PC에서만 보이는 언어 선택 숨기기 */
+  .language-switcher {
+    display: none !important;
   }
   
   .mobile-nav {
@@ -194,11 +203,77 @@ body {
     transition: right 0.3s ease;
     z-index: 999;
     overflow-y: auto;
-    padding-top: 80px;
+    padding-top: 0;
   }
   
   .mobile-nav.active {
     right: 0;
+  }
+  
+  /* 모바일 네비게이션 헤더 */
+  .mobile-nav-header {
+    display: block;
+    position: sticky;
+    top: 0;
+    background: white;
+    border-bottom: 1px solid #f0f0f0;
+    z-index: 10;
+  }
+  
+  .mobile-nav-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .mobile-language-toggle,
+  .mobile-menu-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+  }
+  
+  .mobile-language-toggle:hover,
+  .mobile-menu-close:hover {
+    color: var(--primary-blue);
+  }
+  
+  .mobile-language-dropdown {
+    display: none;
+    background: #f9f9f9;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .mobile-language-dropdown.active {
+    display: block;
+  }
+  
+  .mobile-language-item {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  
+  .mobile-language-item:hover {
+    background: var(--light-blue);
+  }
+  
+  .mobile-language-item.active {
+    background: var(--primary-blue);
+    color: white;
+    font-weight: bold;
   }
   
   .mobile-nav .main-nav {

@@ -176,6 +176,20 @@ function getHeader(lang: Language = 'ko') {
           <span></span>
         </button>
         <nav class="mobile-nav">
+          <div class="mobile-nav-header">
+            <div class="mobile-nav-actions">
+              <a href="#" class="mobile-language-toggle">
+                <i class="fas fa-globe"></i>
+              </a>
+              <button class="mobile-menu-close" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="mobile-language-dropdown">
+              <a href="${lang === 'en' ? '/' : ''}" class="mobile-language-item ${lang === 'ko' ? 'active' : ''}">🇰🇷 한국어</a>
+              <a href="${lang === 'ko' ? '/en' : ''}" class="mobile-language-item ${lang === 'en' ? 'active' : ''}">🇺🇸 English</a>
+            </div>
+          </div>
           <ul class="main-nav">
             <li class="nav-item">
               <a href="${currentPath}/company" class="nav-link">${t.nav.company}</a>
