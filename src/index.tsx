@@ -83,71 +83,6 @@ app.get('/support/contact', (c) => {
   return c.html(getContactHTML())
 })
 
-// English routes
-app.get('/en', (c) => {
-  return c.html(getMainHTML('en'))
-})
-
-app.get('/en/company', (c) => {
-  return c.html(getCompanyHTML('en'))
-})
-
-app.get('/en/company/ceo', (c) => {
-  return c.html(getCEOHTML('en'))
-})
-
-app.get('/en/company/history', (c) => {
-  return c.html(getHistoryHTML('en'))
-})
-
-app.get('/en/company/esg', (c) => {
-  return c.html(getESGHTML('en'))
-})
-
-app.get('/en/company/location', (c) => {
-  return c.html(getLocationHTML('en'))
-})
-
-app.get('/en/company/news', (c) => {
-  return c.html(getCompanyNewsHTML('en'))
-})
-
-app.get('/en/solutions/loginexio', (c) => {
-  return c.html(getLogiNexioHTML('en'))
-})
-
-app.get('/en/solutions/bizsupport', (c) => {
-  return c.html(getBizSupportHTML('en'))
-})
-
-app.get('/en/rnd/lab', (c) => {
-  return c.html(getLabHTML('en'))
-})
-
-app.get('/en/rnd/activities', (c) => {
-  return c.html(getActivitiesHTML('en'))
-})
-
-app.get('/en/careers/talent', (c) => {
-  return c.html(getTalentHTML('en'))
-})
-
-app.get('/en/careers', (c) => {
-  return c.redirect('https://recruit.itmoou.com')
-})
-
-app.get('/en/support/customer', (c) => {
-  return c.html(getCustomerSupportHTML('en'))
-})
-
-app.get('/en/support/contact', (c) => {
-  return c.html(getContactHTML('en'))
-})
-
-app.get('/en/privacy-policy', (c) => {
-  return c.html(getPrivacyPolicyHTML('en'))
-})
-
 // API routes
 app.get('/api/hello', (c) => {
   return c.json({ message: 'Hello from IT moou API!' })
@@ -280,7 +215,7 @@ function getBaseHTML(title: string, content: string, bodyClass: string = '', lan
 }
 
 function getMainHTML(lang: Language = 'ko') {
-  return getBaseHTML('홈', `, '', lang)
+  return getBaseHTML('홈', `
     <div class="main-slider">
       <div class="slider-container">
         <div class="slide active">
@@ -437,11 +372,11 @@ function getMainHTML(lang: Language = 'ko') {
         <a href="/company/news" style="display: inline-block; padding: 1rem 2rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s;">더 많은 소식 보기</a>
       </div>
     </section>
-  `, 'home-page')
+  `, 'home-page', lang)
 }
 
 function getCompanyHTML(lang: Language = 'ko') {
-  return getBaseHTML('회사소개', `, '', lang)
+  return getBaseHTML('회사소개', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">회사소개</h1>
@@ -485,11 +420,11 @@ function getCompanyHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getCEOHTML(lang: Language = 'ko') {
-  return getBaseHTML('CEO 메시지', `, '', lang)
+  return getBaseHTML('CEO 메시지', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">CEO 메시지</h1>
@@ -528,11 +463,11 @@ function getCEOHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getHistoryHTML(lang: Language = 'ko') {
-  return getBaseHTML('연혁', `, '', lang)
+  return getBaseHTML('연혁', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">연혁</h1>
@@ -566,11 +501,11 @@ function getHistoryHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getESGHTML(lang: Language = 'ko') {
-  return getBaseHTML('ESG 경영', `, '', lang)
+  return getBaseHTML('ESG 경영', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">ESG 경영</h1>
@@ -600,11 +535,11 @@ function getESGHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getLocationHTML(lang: Language = 'ko') {
-  return getBaseHTML('오시는 길', `, '', lang)
+  return getBaseHTML('오시는 길', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">오시는 길</h1>
@@ -667,11 +602,11 @@ function getLocationHTML(lang: Language = 'ko') {
         }
       </style>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getCompanyNewsHTML(lang: Language = 'ko') {
-  return getBaseHTML('회사소식', `, '', lang)
+  return getBaseHTML('회사소식', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">회사소식</h1>
@@ -781,11 +716,11 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
         }
       }
     </script>
-  `)
+  `, '', lang)
 }
 
 function getLogiNexioHTML(lang: Language = 'ko') {
-  return getBaseHTML('LogiNexio', `, '', lang)
+  return getBaseHTML('LogiNexio', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">LogiNexio</h1>
@@ -849,11 +784,11 @@ function getLogiNexioHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getBizSupportHTML(lang: Language = 'ko') {
-  return getBaseHTML('BizSupport Pro', `, '', lang)
+  return getBaseHTML('BizSupport Pro', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">BizSupport Pro</h1>
@@ -902,11 +837,11 @@ function getBizSupportHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getLabHTML(lang: Language = 'ko') {
-  return getBaseHTML('연구소', `, '', lang)
+  return getBaseHTML('연구소', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">연구소</h1>
@@ -942,11 +877,11 @@ function getLabHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getActivitiesHTML(lang: Language = 'ko') {
-  return getBaseHTML('연구개발 활동', `, '', lang)
+  return getBaseHTML('연구개발 활동', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">연구개발 활동</h1>
@@ -979,11 +914,11 @@ function getActivitiesHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getTalentHTML(lang: Language = 'ko') {
-  return getBaseHTML('인재상', `, '', lang)
+  return getBaseHTML('인재상', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">인재상</h1>
@@ -1038,11 +973,11 @@ function getTalentHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getCustomerSupportHTML(lang: Language = 'ko') {
-  return getBaseHTML('고객지원', `, '', lang)
+  return getBaseHTML('고객지원', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">고객지원</h1>
@@ -1084,11 +1019,11 @@ function getCustomerSupportHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getContactHTML(lang: Language = 'ko') {
-  return getBaseHTML('Contact Us', `, '', lang)
+  return getBaseHTML('Contact Us', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">Contact Us</h1>
@@ -1140,11 +1075,11 @@ function getContactHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 function getPrivacyPolicyHTML(lang: Language = 'ko') {
-  return getBaseHTML('개인정보 처리방침', `, '', lang)
+  return getBaseHTML('개인정보 처리방침', `
     <div class="main-content">
       <section class="hero-section" style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); padding: 4rem 2rem; text-align: center;">
         <h1 class="hero-title" style="color: white; font-size: 3rem; margin-bottom: 1rem;">개인정보 처리방침</h1>
@@ -1282,7 +1217,7 @@ function getPrivacyPolicyHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `)
+  `, '', lang)
 }
 
 export default app
