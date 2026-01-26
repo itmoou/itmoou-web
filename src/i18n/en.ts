@@ -105,12 +105,12 @@ export const en: TranslationType = {
   // CEO Message
   ceo: {
     title: 'CEO Message',
-    subtitle: 'CEO Shim Young-min',
+    subtitle: 'CEO Sim Young-min',
     greeting: 'CEO Greeting',
     name: 'Sim Young-min',
     ceoTitle: 'CEO',
     ceoName: 'CEO Sim Young-min',
-    message1: 'Hello. I am Shim Young-min, CEO of IT moou.',
+    message1: 'Hello. I am Sim Young-min, CEO of IT moou.',
     message2: 'Thank you sincerely to everyone who has visited ITmoou. Under the slogan "Move the world with technology," we are constantly striving for stable growth and future value of companies.',
     message3: 'ITmoou has focused on improving complex tasks more accurately and efficiently through enterprise operation SaaS that encompasses logistics solutions and business support solutions.',
     message4: 'We will continue to be a better experience and confident growth partner for our customers through continuous research and development and quality innovation.',
