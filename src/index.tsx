@@ -435,9 +435,9 @@ function getMainHTML(lang: Language = 'ko') {
           <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news5Date}</p>
         </div>
         <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">연매출 7천만원 달성 및 성장세 지속</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 연매출 7천만원을 달성하며 안정적인 성장세를 이어가고 있으며, 2026년 목표인 1억원 달성을 향해 나아가고 있습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.11.01</p>
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news6Title}</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news6Desc}</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news6Date}</p>
         </div>
       </div>
       <div class="text-center mt-4" style="margin-top: 2rem;">
@@ -629,17 +629,17 @@ function getLocationHTML(lang: Language = 'ko') {
             <!-- 왼쪽: 정보 -->
             <div>
               <div style="margin-bottom: 3rem;">
-                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt"></i> 주소</h3>
+                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt"></i> ${t.location.address}</h3>
                 <p style="color: #666; line-height: 1.8;">
-                  (우) 28576 충청북도 청주시 흥덕구 공단로126번길 51 청주산단스타트업센터 502호
+                  ${t.location.addressDetail}
                 </p>
               </div>
               
               <div style="margin-bottom: 3rem;">
-                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-phone"></i> 연락처</h3>
+                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-phone"></i> ${t.location.contact}</h3>
                 <p style="color: #666; line-height: 1.8;">
-                  대표번호: 043.715.8553<br>
-                  이메일: cs@itmoou.com
+                  ${t.location.phone}: 043.715.8553<br>
+                  ${t.location.email}: cs@itmoou.com
                 </p>
               </div>
 
@@ -716,7 +716,7 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
               <div style="padding: 1.5rem; flex: 1;">
                 <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news2Title}</h3>
                 <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news2Date}</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news2Desc} AI 기반 최적 배치 알고리즘으로 공간 활용도를 40% 향상시켰습니다.</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news2Desc}</p>
               </div>
             </div>
 
@@ -725,9 +725,9 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
                 <i class="fas fa-file-alt" style="font-size: 3rem; color: white;"></i>
               </div>
               <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">AI 기반 수출 서류 자동화 솔루션 업그레이드</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2024.12.20</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">최신 AI 기술을 적용하여 수출 서류 작성 시간을 60% 단축하고 오류율을 80% 감소시킨 업그레이드 버전을 출시했습니다. 자연어 처리 기술로 다양한 형식의 문서를 자동으로 인식하고 변환합니다.</p>
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news3Title}</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news3Date}</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news3Desc}</p>
               </div>
             </div>
 
@@ -736,9 +736,9 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
                 <i class="fas fa-chart-line" style="font-size: 3rem; color: white;"></i>
               </div>
               <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">BizSupport Pro 개발 착수</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2026.01.02</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">기업 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼 BizSupport Pro의 개발을 본격적으로 시작했습니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 중심으로 개발을 진행하고 있습니다.</p>
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news4Title}</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news4Date}</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news4Desc}</p>
               </div>
             </div>
 
@@ -747,31 +747,31 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
                 <i class="fas fa-handshake" style="font-size: 3rem; color: white;"></i>
               </div>
               <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">중소기업 디지털 전환 지원 프로그램 시작</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2024.11.15</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">중소기업의 디지털 전환을 돕기 위해 무료 컨설팅과 교육 프로그램을 제공하는 '아이티무유 성장 파트너십'을 시작했습니다. 매월 10개 기업을 선정하여 맞춤형 솔루션 도입을 지원합니다.</p>
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news5Title}</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news5Date}</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news5Desc}</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="연매출 7천만원 달성 및 성장세 지속" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+            <div class="news-item" data-title="${t.home.news6Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
               <div style="background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-trophy" style="font-size: 3rem; color: white;"></i>
               </div>
               <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">연매출 7천만원 달성 및 성장세 지속</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2024.11.01</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 연매출 7천만원을 달성하며 안정적인 성장세를 이어가고 있으며, 2026년 목표인 1억원 달성을 향해 나아가고 있습니다. 고객사 수가 전년 대비 150% 증가하며 시장 입지를 넓히고 있습니다.</p>
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news6Title}</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news6Date}</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news6Desc}</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="클라우드 기반 협업 플랫폼 출시" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+            <div class="news-item" data-title="${t.home.news7Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
               <div style="background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-cloud" style="font-size: 3rem; color: white;"></i>
               </div>
               <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">클라우드 기반 협업 플랫폼 출시</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2024.10.15</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">언제 어디서나 팀원들과 실시간으로 협업할 수 있는 클라우드 기반 플랫폼을 새롭게 출시했습니다. 모바일 앱 지원으로 이동 중에도 업무가 가능합니다.</p>
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news7Title}</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news7Date}</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news7Desc}</p>
               </div>
             </div>
           </div>
