@@ -83,6 +83,76 @@ app.get('/support/contact', (c) => {
   return c.html(getContactHTML())
 })
 
+// Privacy Policy
+app.get('/privacy-policy', (c) => {
+  return c.html(getPrivacyPolicyHTML())
+})
+
+// English routes
+app.get('/en', (c) => {
+  return c.html(getMainHTML('en'))
+})
+
+app.get('/en/company', (c) => {
+  return c.html(getCompanyHTML('en'))
+})
+
+app.get('/en/company/ceo', (c) => {
+  return c.html(getCEOHTML('en'))
+})
+
+app.get('/en/company/history', (c) => {
+  return c.html(getHistoryHTML('en'))
+})
+
+app.get('/en/company/esg', (c) => {
+  return c.html(getESGHTML('en'))
+})
+
+app.get('/en/company/location', (c) => {
+  return c.html(getLocationHTML('en'))
+})
+
+app.get('/en/company/news', (c) => {
+  return c.html(getCompanyNewsHTML('en'))
+})
+
+app.get('/en/solutions/loginexio', (c) => {
+  return c.html(getLogiNexioHTML('en'))
+})
+
+app.get('/en/solutions/bizsupport', (c) => {
+  return c.html(getBizSupportHTML('en'))
+})
+
+app.get('/en/rnd/lab', (c) => {
+  return c.html(getLabHTML('en'))
+})
+
+app.get('/en/rnd/activities', (c) => {
+  return c.html(getActivitiesHTML('en'))
+})
+
+app.get('/en/careers/talent', (c) => {
+  return c.html(getTalentHTML('en'))
+})
+
+app.get('/en/careers', (c) => {
+  return c.redirect('https://recruit.itmoou.com')
+})
+
+app.get('/en/support/customer', (c) => {
+  return c.html(getCustomerSupportHTML('en'))
+})
+
+app.get('/en/support/contact', (c) => {
+  return c.html(getContactHTML('en'))
+})
+
+app.get('/en/privacy-policy', (c) => {
+  return c.html(getPrivacyPolicyHTML('en'))
+})
+
 // API routes
 app.get('/api/hello', (c) => {
   return c.json({ message: 'Hello from IT moou API!' })
