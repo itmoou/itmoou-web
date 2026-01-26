@@ -522,7 +522,7 @@ function getCEOHTML(lang: Language = 'ko') {
                 ${t.ceo.message4}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                변화하는 환경 속에서 혁신과 도전 정신으로 새로운 미래를 열어가는 아이티무유가 되겠습니다. 여러분의 지속적인 관심과 성원을 부탁드립니다.
+                ${t.ceo.message5}
               </p>
               <p style="margin-top: 3rem;">
                 <strong style="color: #0052A5; font-size: 1.2rem;">${t.ceo.signature}</strong>
@@ -568,8 +568,8 @@ function getHistoryHTML(lang: Language = 'ko') {
             <div style="margin-bottom: 3rem;">
               <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2024</h3>
               <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• 아이티무유 주식회사 설립</li>
-                <li>• LogiNexio 개발 착수</li>
+                <li>• ${t.history.item2024_1}</li>
+                <li>• ${t.history.item2024_2}</li>
               </ul>
             </div>
           </div>
