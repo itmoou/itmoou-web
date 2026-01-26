@@ -87,8 +87,14 @@ export const en: TranslationType = {
     title: 'Company',
     subtitle: 'Introducing ITmoou - Global logistics SaaS and business management AI solutions',
     aboutTitle: 'Innovative AI & Big Data Solution Company',
-    aboutIntro: 'ITmoou develops innovative enterprise solutions based on AI and big data technology with the slogan "Technology is the solution to the world".',
-    aboutDesc: 'ITmoou is a company that can realize your own business capabilities to create a real competitive gap. We are also a company that can build the solutions you want. We provide various solutions from our own technology to project technology.',
+    aboutIntro: 'ITmoou is a company that has secured logistics and business management solutions for enterprises, starting with the development of logistics solutions to realize the future value of companies through innovation with the slogan "Move the world with technology."',
+    aboutDesc: 'Based on logistics and business consulting capabilities, ITmoou supplies the market with all-in-one solutions such as palletizing, export document automation, forwarder contact, and shipping required for the logistics industry. We are also preparing to grow as Korea\'s largest business solution company that increases corporate value and grows together with customized AI solutions to help management.',
+    visionTitle: 'Vision',
+    visionDesc: 'Building a digital operating OS that standardizes the operations of small and medium-sized export companies worldwide with data and AI',
+    missionTitle: 'Mission',
+    missionDesc: 'Providing a one-stop SaaS that can process all business tasks at once without errors',
+    coreValuesTitle: 'Core Values',
+    coreValuesDesc: 'Innovation, Customer Success, Integrity',
     techLeader: 'Korea\'s largest logistics technology',
     innovationTitle: 'Continuous Innovation and Development',
   },
@@ -98,19 +104,35 @@ export const en: TranslationType = {
     title: 'CEO Message',
     subtitle: 'Center of innovative technology development',
     greeting: 'CEO Greeting',
-    message: 'ITmoou is a company that makes all possibilities of enterprises a reality...',
+    message: 'ITmoou is a company that makes all possibilities of enterprises a reality. We are growing together with our customers based on innovative technology and professional services.',
+    signature: 'CEO, IT moou Co., Ltd.',
   },
   
   // History
   history: {
     title: 'History',
     subtitle: 'IT moou\'s growth journey',
+    year2024: '2024',
+    item2024_1: 'Selected as a beneficiary of the government\'s innovation support program',
+    item2024_2: 'Started SME digital transformation support program',
+    item2024_3: 'AI-based export document automation solution upgrade',
+    year2025: '2025',
+    item2025_1: 'Successful development of proprietary palletizing technology',
+    item2025_2: 'Global logistics market entry plan announced',
+    year2026: '2026',
+    item2026_1: 'BizSupport Pro development launched',
   },
   
   // ESG
   esg: {
     title: 'ESG',
     subtitle: 'We practice sustainable management',
+    environmentTitle: 'Environment',
+    environmentDesc: 'We contribute to environmental protection by developing eco-friendly logistics solutions and reducing carbon emissions.',
+    socialTitle: 'Social',
+    socialDesc: 'We fulfill our social responsibility through support programs for small and medium-sized enterprises and local community contribution activities.',
+    governanceTitle: 'Governance',
+    governanceDesc: 'We practice transparent management based on ethical management and compliance.',
   },
   
   // Location
@@ -132,6 +154,7 @@ export const en: TranslationType = {
     title: 'Company News',
     subtitle: 'Stay updated with ITmoou news.',
     searchPlaceholder: 'Search by title...',
+    latestNews: 'Latest News',
   },
   
   // Solutions

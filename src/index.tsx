@@ -458,14 +458,14 @@ function getCompanyHTML(lang: Language = 'ko') {
 
       <section class="content-section">
         <div class="section-header">
-          <h2 class="section-title">혁신적인 AI&빅데이터 솔루션 기업</h2>
+          <h2 class="section-title">${t.company.aboutTitle}</h2>
         </div>
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666;">
           <p style="margin-bottom: 1.5rem;">
-            아이티무유는 <strong style="color: #0052A5;">'기술로 세상을 움직이다'</strong>이라는 슬로건과 함께 혁신을 통한 기업의 미래가치 실현을 위해 물류 솔루션 개발로 시작한 기업의 물류 및 경영 솔루션을 확보한 기업입니다.
+            ${t.company.aboutIntro}
           </p>
           <p style="margin-bottom: 1.5rem;">
-            아이티무유는 물류와 경영 자문의 역량을 바탕으로 물류 산업에 필요한 팔레타이징, 수출 서류 자동화, 포워더 컨택 및 선적 등의 올인원 솔루션을 시장에 공급합니다. 또한 경영에 도움이 될 수 있도록 기업 맞춤형 AI 솔루션으로 기업의 가치를 높이고 같이 성장하는 <strong style="color: #0052A5;">대한민국 최대의 비즈니스 솔루션 기업</strong>으로 성장을 준비하고 있습니다.
+            ${t.company.aboutDesc}
           </p>
         </div>
       </section>
@@ -474,19 +474,24 @@ function getCompanyHTML(lang: Language = 'ko') {
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-eye"></i> Vision</h3>
-              <p class="card-text">데이터와 AI로 전 세계 중소 수출 기업의 운영을 표준화하는 디지털 운영 OS 구축</p>
+              <h3 class="card-title"><i class="fas fa-eye"></i> ${t.company.visionTitle}</h3>
+              <p class="card-text">${t.company.visionDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-bullseye"></i> Mission</h3>
-              <p class="card-text">모든 기업의 업무를 한번에, 오류 없이 처리할 수 있는 원스톱 SaaS 제공</p>
+              <h3 class="card-title"><i class="fas fa-bullseye"></i> ${t.company.missionTitle}</h3>
+              <p class="card-text">${t.company.missionDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-heart"></i> Core Values</h3>
+              <h3 class="card-title"><i class="fas fa-heart"></i> ${t.company.coreValuesTitle}</h3>
+              <p class="card-text">${t.company.coreValuesDesc}</p>
+            </div>
+          </div>
+        </div>
+      </section>
               <p class="card-text">정확, 효율, 투명, 연결, 고객중심</p>
             </div>
           </div>
@@ -684,43 +689,43 @@ function getLocationHTML(lang: Language = 'ko') {
 
 function getCompanyNewsHTML(lang: Language = 'ko') {
   const t = getTranslation(lang)
-  return getBaseHTML('회사소식', `
+  return getBaseHTML(t.news.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">회사소식</h1>
-        <p style="font-size: 1.2rem;">아이티무유 소식을 들려드립니다.</p>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.news.title}</h1>
+        <p style="font-size: 1.2rem;">${t.news.subtitle}</p>
       </section>
 
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto;">
           <div style="margin-bottom: 2rem;">
-            <input type="text" id="searchInput" placeholder="제목으로 검색하세요..." style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;" onkeyup="filterNews()">
+            <input type="text" id="searchInput" placeholder="${t.news.searchPlaceholder}" style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;" onkeyup="filterNews()">
           </div>
 
           <div id="newsList" style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <div class="news-item" data-title="글로벌 물류 시장 진출 계획 발표" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+            <div class="news-item" data-title="${t.home.news1Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
               <div style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-globe" style="font-size: 3rem; color: white;"></i>
               </div>
               <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">글로벌 물류 시장 진출 계획 발표</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2025.01.15</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">아이티무유는 2026년 상반기 아시아 물류 시장 진출을 목표로 LogiNexio 플랫폼의 다국어 지원 및 현지화 작업을 진행하고 있습니다. 베트남, 태국 등 동남아시아 주요 국가를 중심으로 시장 조사를 완료하고 현지 파트너십을 구축 중입니다.</p>
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news1Title}</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news1Date}</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news1Desc}</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="독자 팔레타이징 기술 개발 성공" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+            <div class="news-item" data-title="${t.home.news2Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
               <div style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-boxes" style="font-size: 3rem; color: white;"></i>
               </div>
               <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">독자 팔레타이징 기술 개발 성공</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">2025.01.10</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 자체 개발한 팔레타이징 기술이 국내 제조업체에서 높은 평가를 받으며 물류 자동화 분야에서 기술력을 인정받고 있습니다. AI 기반 최적 배치 알고리즘으로 공간 활용도를 40% 향상시켰습니다.</p>
+                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news2Title}</h3>
+                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news2Date}</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news2Desc} AI 기반 최적 배치 알고리즘으로 공간 활용도를 40% 향상시켰습니다.</p>
               </div>
             </div>
 
-            <div class="news-item" data-title="AI 기반 수출 서류 자동화 솔루션 업그레이드" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+            <div class="news-item" data-title="${t.home.news3Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
               <div style="background: linear-gradient(135deg, #6f42c1 0%, #4e2a84 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-file-alt" style="font-size: 3rem; color: white;"></i>
               </div>
@@ -731,7 +736,7 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
               </div>
             </div>
 
-            <div class="news-item" data-title="BizSupport Pro 개발 착수" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+            <div class="news-item" data-title="${t.home.news4Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
               <div style="background: linear-gradient(135deg, #fd7e14 0%, #c35a00 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-chart-line" style="font-size: 3rem; color: white;"></i>
               </div>
@@ -742,7 +747,7 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
               </div>
             </div>
 
-            <div class="news-item" data-title="중소기업 디지털 전환 지원 프로그램 시작" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+            <div class="news-item" data-title="${t.home.news5Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
               <div style="background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-handshake" style="font-size: 3rem; color: white;"></i>
               </div>

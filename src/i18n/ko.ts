@@ -85,8 +85,14 @@ export const ko = {
     title: '회사소개',
     subtitle: '글로벌 물류 SaaS 솔루션, 경영지원 AI 솔루션, 아이티무유를 소개합니다',
     aboutTitle: '혁신적인 AI&빅데이터 솔루션 기업',
-    aboutIntro: '아이티무유는 "기술로 세상을 솔루션이다"라는 슬로건과 함께 AI 및 빅데이터 기술을 기반으로 혁신적 기업형 업무 솔루션을 개발하고 있습니다.',
-    aboutDesc: '아이티무유는 본격적 경쟁 격차를 만들 수 있는 나만의 비즈니스 능력 실현 가능한 기업입니다. 또한 여러분이 원하는 방 솔루션을 구축할 수 있도록 기업당 입니다. 향유 자체 기술로 프로젝트 기술까지는 다양한 솔루션 잎니다.',
+    aboutIntro: '아이티무유는 \'기술로 세상을 움직이다\'이라는 슬로건과 함께 혁신을 통한 기업의 미래가치 실현을 위해 물류 솔루션 개발로 시작한 기업의 물류 및 경영 솔루션을 확보한 기업입니다.',
+    aboutDesc: '아이티무유는 물류와 경영 자문의 역량을 바탕으로 물류 산업에 필요한 팔레타이징, 수출 서류 자동화, 포워더 컨택 및 선적 등의 올인원 솔루션을 시장에 공급합니다. 또한 경영에 도움이 될 수 있도록 기업 맞춤형 AI 솔루션으로 기업의 가치를 높이고 같이 성장하는 대한민국 최대의 비즈니스 솔루션 기업으로 성장을 준비하고 있습니다.',
+    visionTitle: 'Vision',
+    visionDesc: '데이터와 AI로 전 세계 중소 수출 기업의 운영을 표준화하는 디지털 운영 OS 구축',
+    missionTitle: 'Mission',
+    missionDesc: '모든 기업의 업무를 한번에, 오류 없이 처리할 수 있는 원스톱 SaaS 제공',
+    coreValuesTitle: 'Core Values',
+    coreValuesDesc: '혁신, 고객 성공, 정직',
     techLeader: '대한민국 최대의 물류 기술',
     innovationTitle: '지속적인 혁신과 개발',
   },
@@ -96,19 +102,35 @@ export const ko = {
     title: 'CEO 메시지',
     subtitle: '혁신적인 기술 개발의 중심',
     greeting: 'CEO 인사말',
-    message: 'ITmoou는 기업이 가진 모든 가능성을 현실화 하는 기업입니다...',
+    message: 'ITmoou는 기업이 가진 모든 가능성을 현실화 하는 기업입니다. 혁신적인 기술과 전문적인 서비스를 바탕으로 고객과 함께 성장하고 있습니다.',
+    signature: '대표이사, 아이티무유',
   },
   
   // 연혁
   history: {
     title: '연혁',
     subtitle: 'IT moou의 성장 과정',
+    year2024: '2024년',
+    item2024_1: '정부 혁신지원 프로그램 선정',
+    item2024_2: '중소기업 디지털 전환 지원 프로그램 시작',
+    item2024_3: 'AI 기반 수출 서류 자동화 솔루션 업그레이드',
+    year2025: '2025년',
+    item2025_1: '독자 팔레타이징 기술 개발 성공',
+    item2025_2: '글로벌 물류 시장 진출 계획 발표',
+    year2026: '2026년',
+    item2026_1: 'BizSupport Pro 개발 착수',
   },
   
   // ESG
   esg: {
     title: 'ESG',
     subtitle: '지속가능한 경영을 실천합니다',
+    environmentTitle: 'Environment (환경)',
+    environmentDesc: '친환경 물류 솔루션 개발과 탄소 배출 감소를 통해 환경 보호에 기여합니다.',
+    socialTitle: 'Social (사회)',
+    socialDesc: '중소기업 지원 프로그램과 지역사회 공헌 활동을 통해 사회적 책임을 다합니다.',
+    governanceTitle: 'Governance (지배구조)',
+    governanceDesc: '윤리경영과 컴플라이언스를 바탕으로 투명한 경영을 실천합니다.',
   },
   
   // 오시는 길
@@ -130,6 +152,7 @@ export const ko = {
     title: '회사소식',
     subtitle: '아이티무유 소식을 들려드립니다.',
     searchPlaceholder: '제목으로 검색하세요...',
+    latestNews: '최신 소식',
   },
   
   // 솔루션
