@@ -524,6 +524,9 @@ function getCEOHTML(lang: Language = 'ko') {
               <p style="margin-bottom: 1.5rem;">
                 ${t.ceo.message5}
               </p>
+              <p style="margin-bottom: 1.5rem;">
+                ${t.ceo.message6}
+              </p>              
               <p style="margin-top: 3rem;">
                 <strong style="color: #0052A5; font-size: 1.2rem;">${t.ceo.signature}</strong>
               </p>
