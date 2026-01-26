@@ -592,20 +592,20 @@ function getESGHTML(lang: Language = 'ko') {
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title" style="color: #00A651;"><i class="fas fa-leaf"></i> Environment</h3>
-              <p class="card-text">친환경 제조 공정과 탄소 중립 목표 달성을 위해 노력하고 있습니다. 지속 가능한 환경 보호를 위한 다양한 활동을 전개합니다.</p>
+              <h3 class="card-title" style="color: #00A651;"><i class="fas fa-leaf"></i> ${t.esg.environmentTitle}</h3>
+              <p class="card-text">${t.esg.environmentDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title" style="color: #0052A5;"><i class="fas fa-users"></i> Social</h3>
-              <p class="card-text">임직원의 복지 향상과 지역사회 기여를 통해 사회적 책임을 다하고 있습니다. 상생과 협력의 가치를 실천합니다.</p>
+              <h3 class="card-title" style="color: #0052A5;"><i class="fas fa-users"></i> ${t.esg.socialTitle}</h3>
+              <p class="card-text">${t.esg.socialDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title" style="color: #FF6B00;"><i class="fas fa-balance-scale"></i> Governance</h3>
-              <p class="card-text">투명한 경영과 윤리적 기업 문화를 구축하여 이해관계자의 신뢰를 얻고 있습니다. 공정하고 책임있는 지배구조를 운영합니다.</p>
+              <h3 class="card-title" style="color: #FF6B00;"><i class="fas fa-balance-scale"></i> ${t.esg.governanceTitle}</h3>
+              <p class="card-text">${t.esg.governanceDesc}</p>
             </div>
           </div>
         </div>
@@ -644,10 +644,10 @@ function getLocationHTML(lang: Language = 'ko') {
               </div>
 
               <div>
-                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-car"></i> 자가용</h3>
+                <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-car"></i> ${t.location.byCar}</h3>
                 <p style="color: #666; line-height: 1.8;">
-                  중부고속도로 → 서청주IC → 청주산단스타트업센터<br>
-                  주차: 건물 뒷편 주차장 이용 가능
+                  ${t.location.carDirection}<br>
+                  ${t.location.parking}
                 </p>
               </div>
             </div>
