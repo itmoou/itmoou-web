@@ -102,6 +102,9 @@ export const ko = {
     title: 'CEO 메시지',
     subtitle: '대표이사 심영민',
     greeting: 'CEO 인사말',
+    name: '심영민',
+    ceoTitle: '대표이사',
+    ceoName: 'CEO 심영민',
     message1: '안녕하십니까. IT moou 대표이사 심영민입니다.',
     message2: '저희 아이티무유를 찾아주신 모든 분들께 진심으로 감사의 말씀을 드립니다. 저희는 \'기술로 세상을 움직이다\'라는 슬로건 아래 기업의 안정적인 성장과 미래가치를 위해 끊임없이 노력하고 있습니다.',
     message3: '아이티무유는 물류 솔루션과 경영지원 솔루션을 아우르는 기업 운영 SaaS를 통해 복잡한 업무를 더 정확하고 효율적으로 개선하는 데 집중해왔습니다.',
@@ -197,6 +200,7 @@ export const ko = {
   footer: {
     phone: '대표번호',
     ceo: '대표이사',
+    ceoName: '심영민',
     privacyOfficer: '개인정보 보호책임자',
     privacyPolicy: '개인정보처리방침',
     address: '주소',

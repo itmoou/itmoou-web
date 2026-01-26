@@ -239,8 +239,8 @@ function getFooter(lang: Language = 'ko') {
             <p class="footer-copyright">${t.footer.copyright}</p>
           </div>
           <div class="footer-section footer-info">
-            <p class="footer-small">${t.footer.ceo} : 심영민<br>
-            ${t.footer.privacyOfficer} : 심영민<br>
+            <p class="footer-small">${t.footer.ceo} : ${t.footer.ceoName}<br>
+            ${t.footer.privacyOfficer} : ${t.footer.ceoName}<br>
             <a href="${currentPath}/privacy-policy" class="footer-link">${t.footer.privacyPolicy}</a></p>
             <p class="footer-address">${t.location.addressDetail}<br>
             ${t.footer.businessNumber} : 229-81-43410<br>
@@ -525,13 +525,13 @@ function getCEOHTML(lang: Language = 'ko') {
                 변화하는 환경 속에서 혁신과 도전 정신으로 새로운 미래를 열어가는 아이티무유가 되겠습니다. 여러분의 지속적인 관심과 성원을 부탁드립니다.
               </p>
               <p style="margin-top: 3rem;">
-                <strong style="color: #0052A5; font-size: 1.2rem;">대표이사 심영민</strong>
+                <strong style="color: #0052A5; font-size: 1.2rem;">${t.ceo.signature}</strong>
               </p>
             </div>
             <div style="flex: 0 0 250px; text-align: center;">
-              <img src="/images/ceo.jpg" alt="CEO 심영민" style="width: 100%; border-radius: 10px; object-fit: cover; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-              <h3 style="font-size: 1.2rem; color: #0052A5; margin-top: 1rem;">심영민</h3>
-              <p style="color: #666; font-size: 0.9rem;">대표이사</p>
+              <img src="/images/ceo.jpg" alt="${t.ceo.ceoName}" style="width: 100%; border-radius: 10px; object-fit: cover; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <h3 style="font-size: 1.2rem; color: #0052A5; margin-top: 1rem;">${t.ceo.name}</h3>
+              <p style="color: #666; font-size: 0.9rem;">${t.ceo.ceoTitle}</p>
             </div>
           </div>
         </div>
