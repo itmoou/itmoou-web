@@ -114,8 +114,9 @@ export const en: TranslationType = {
     message2: 'Thank you sincerely to everyone who has visited ITmoou. Under the slogan "Move the world with technology," we are constantly striving for stable growth and future value of companies.',
     message3: 'ITmoou has focused on improving complex tasks more accurately and efficiently through enterprise operation SaaS that encompasses logistics solutions and business support solutions.',
     message4: 'We will continue to be a better experience and confident growth partner for our customers through continuous research and development and quality innovation.',
-    message5: 'Thank you.',
-    signature: 'CEO Shim Young-min, IT moou Co., Ltd.',
+    message5: 'We will become ITmoou that opens a new future with the spirit of innovation and challenge in the changing environment. We ask for your continued interest and support.',
+    message6: 'Thank you.',
+    signature: 'CEO Sim Young-min, IT moou Co., Ltd.',
   },
   
   // History
@@ -123,8 +124,8 @@ export const en: TranslationType = {
     title: 'History',
     subtitle: 'IT moou\'s growth journey',
     year2024: '2024',
-    item2024_1: 'Selected as a beneficiary of the government\'s innovation support program',
-    item2024_2: 'Started SME digital transformation support program',
+    item2024_1: 'Establishment of ITmoou Co., Ltd',
+    item2024_2: 'LogiNexio Starts Development',
     item2024_3: 'AI-based export document automation solution upgrade',
     item2024_4: 'Selected as a promising startup company by the Ministry of SMEs and Startups',
     item2024_5: 'Signed strategic partnership MOU with global logistics company',
