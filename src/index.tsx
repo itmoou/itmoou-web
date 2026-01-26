@@ -349,22 +349,22 @@ function getMainHTML(lang: Language = 'ko') {
     <section class="content-section">
       <div class="section-header">
         <h2 class="section-title">${t.home.ourSolutions}</h2>
-        <p class="section-subtitle">기업의 성장을 위한 혁신적인 B2B 솔루션을 제공합니다</p>
+        <p class="section-subtitle">${t.home.ourSolutionsSubtitle}</p>
       </div>
       <div class="grid-3">
         <div class="card">
           <div class="card-content">
             <h3 class="card-title">LogiNexio</h3>
-            <p class="card-text">최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다. 팔레트 자동화, 물류 서류 자동화, 포워더 계약 등 다양한 기능을 지원합니다.</p>
-            <a href="/solutions/loginexio" style="color: #0052A5; text-decoration: none;">자세히 보기 →</a>
+            <p class="card-text">${t.home.logiNexioDesc}</p>
+            <a href="${getLocalizedPath('/solutions/loginexio', lang)}" style="color: #0052A5; text-decoration: none;">${t.home.learnMore}</a>
           </div>
         </div>
         <div class="card">
           <img src="/images/bizsupport.jpg" alt="BizSupport Pro" class="card-image" style="display: none;">
           <div class="card-content">
             <h3 class="card-title">BizSupport Pro</h3>
-            <p class="card-text">기업의 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼입니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅 기능을 제공합니다.</p>
-            <a href="/solutions/bizsupport" style="color: #0052A5; text-decoration: none;">자세히 보기 →</a>
+            <p class="card-text">${t.home.bizSupportDesc}</p>
+            <a href="${getLocalizedPath('/solutions/bizsupport', lang)}" style="color: #0052A5; text-decoration: none;">${t.home.learnMore}</a>
           </div>
         </div>
       </div>
@@ -372,67 +372,67 @@ function getMainHTML(lang: Language = 'ko') {
 
     <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; max-width: 1400px; margin: 0 auto; padding: 4rem 2rem 10rem 2rem;">
       <div class="section-header">
-        <h2 class="section-title" style="color: white;">고객 성공 사례</h2>
-        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">다양한 산업 분야의 기업들이 우리 솔루션으로 성공을 경험하고 있습니다</p>
+        <h2 class="section-title" style="color: white;">${t.home.successStories}</h2>
+        <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">${t.home.successStoriesSubtitle}</p>
       </div>
       <div class="grid-3">
         <div class="card">
           <div class="card-content">
-            <h3 class="card-title">제조업 A사</h3>
-            <p class="card-text">"LogiNexio 도입 후 물류 효율이 45% 증가했으며, 수출에 걸리는 시간이 대폭 감소하여 직원들의 업무 효율성이 20% 증가했습니다."</p>
-            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- 물류 본부장</p>
+            <h3 class="card-title">${t.home.successCase1Title}</h3>
+            <p class="card-text">${t.home.successCase1Desc}</p>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">${t.home.successCase1Role}</p>
           </div>
         </div>
         <div class="card">
           <div class="card-content">
-            <h3 class="card-title">금융업 B사</h3>
-            <p class="card-text">"BizSupport Pro로 통합 프로젝트 관리 후 업무 생산성이 70% 향상되고, 팀 간 협업이 원활해졌습니다."</p>
-            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- 프로젝트 매니저</p>
+            <h3 class="card-title">${t.home.successCase2Title}</h3>
+            <p class="card-text">${t.home.successCase2Desc}</p>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">${t.home.successCase2Role}</p>
           </div>
         </div>
         <div class="card">
           <div class="card-content">
-            <h3 class="card-title">유통업 C사</h3>
-            <p class="card-text">"통합 솔루션 도입으로 운영 비용이 40% 절감되고, 실무 생산성이 크게 향상되었습니다."</p>
-            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">- 운영 본부장</p>
+            <h3 class="card-title">${t.home.successCase3Title}</h3>
+            <p class="card-text">${t.home.successCase3Desc}</p>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">${t.home.successCase3Role}</p>
           </div>
         </div>
       </div>
       <div class="text-center mt-4">
-        <a href="/support/contact" style="display: inline-block; padding: 1rem 2rem; background: white; color: #0052A5; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s;">지원센터 방문</a>
+        <a href="${getLocalizedPath('/support/contact', lang)}" style="display: inline-block; padding: 1rem 2rem; background: white; color: #0052A5; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s;">${t.home.visitSupport}</a>
       </div>
     </section>
 
     <section class="content-section" style="background: white; padding: 4rem 2rem;">
       <div class="section-header">
-        <h2 class="section-title">회사소식</h2>
-        <p class="section-subtitle">B2B 고객이 경험하는 아이티무유만의 이야기를 들려드립니다.</p>
+        <h2 class="section-title">${t.home.companyNewsTitle}</h2>
+        <p class="section-subtitle">${t.home.companyNewsSubtitle}</p>
       </div>
       <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
         <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">글로벌 물류 시장 진출 계획 발표</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">아이티무유는 2026년 상반기 아시아 물류 시장 진출을 목표로 LogiNexio 플랫폼의 다국어 지원 및 현지화 작업을 진행하고 있습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2025.01.15</p>
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news1Title}</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news1Desc}</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news1Date}</p>
         </div>
         <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">독자 팔레타이징 기술 개발 성공</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">2025년 자체 개발한 팔레타이징 기술이 국내 제조업체에서 높은 평가를 받으며 물류 자동화 분야에서 기술력을 인정받고 있습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2025.01.10</p>
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news2Title}</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news2Desc}</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news2Date}</p>
         </div>
         <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">AI 기반 수출 서류 자동화 솔루션 업그레이드</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">최신 AI 기술을 적용하여 수출 서류 작성 시간을 60% 단축하고 오류율을 80% 감소시킨 업그레이드 버전을 출시했습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.12.20</p>
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news3Title}</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news3Desc}</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news3Date}</p>
         </div>
         <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">BizSupport Pro 개발 착수</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">기업 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼 BizSupport Pro의 개발을 본격적으로 시작했습니다. 프로젝트 관리와 실시간 협업 도구를 중심으로 개발 중입니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2026.01.02</p>
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news4Title}</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news4Desc}</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news4Date}</p>
         </div>
         <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">중소기업 디지털 전환 지원 프로그램 시작</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">중소기업의 디지털 전환을 돕기 위해 무료 컨설팅과 교육 프로그램을 제공하는 '아이티무유 성장 파트너십'을 시작했습니다.</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">2024.11.15</p>
+          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news5Title}</h3>
+          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news5Desc}</p>
+          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news5Date}</p>
         </div>
         <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
           <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">연매출 7천만원 달성 및 성장세 지속</h3>
