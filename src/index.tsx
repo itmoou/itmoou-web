@@ -492,11 +492,6 @@ function getCompanyHTML(lang: Language = 'ko') {
           </div>
         </div>
       </section>
-              <p class="card-text">정확, 효율, 투명, 연결, 고객중심</p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   `, '', lang)
 }
@@ -507,7 +502,7 @@ function getCEOHTML(lang: Language = 'ko') {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.ceo.title}</h1>
-        <p style="font-size: 1.2rem;">대표이사 심영민</p>
+        <p style="font-size: 1.2rem;">${t.ceo.subtitle}</p>
       </section>
 
       <section class="content-section">
@@ -515,16 +510,16 @@ function getCEOHTML(lang: Language = 'ko') {
           <div style="display: flex; gap: 3rem; align-items: flex-start;">
             <div style="flex: 1; line-height: 1.8; color: #666;">
               <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
-                안녕하십니까. IT moou 대표이사 심영민입니다.
+                ${t.ceo.message1}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                저희 아이티무유를 찾아주신 모든 분들께 진심으로 감사의 말씀을 드립니다. 저희는 '기술로 세상을 움직이다'라는 슬로건 아래 기업의 안정적인 성장과 미래가치를 위해 끊임없이 노력하고 있습니다.
+                ${t.ceo.message2}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                아이티무유는 물류 솔루션과 경영지원 솔루션을 아우르는 기업 운영 SaaS를 통해 복잡한 업무를 더 정확하고 효율적으로 개선하는 데 집중해왔습니다.
+                ${t.ceo.message3}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                앞으로도 지속적인 연구개발과 품질 혁신을 통해 고객에게 더 나은 경험과 확신 있는 성장 파트너가 되겠습니다.
+                ${t.ceo.message4}
               </p>
               <p style="margin-bottom: 1.5rem;">
                 변화하는 환경 속에서 혁신과 도전 정신으로 새로운 미래를 열어가는 아이티무유가 되겠습니다. 여러분의 지속적인 관심과 성원을 부탁드립니다.
@@ -551,7 +546,7 @@ function getHistoryHTML(lang: Language = 'ko') {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.history.title}</h1>
-        <p style="font-size: 1.2rem;">IT moou의 성장 역사</p>
+        <p style="font-size: 1.2rem;">${t.history.subtitle}</p>
       </section>
 
       <section class="content-section">
@@ -560,21 +555,21 @@ function getHistoryHTML(lang: Language = 'ko') {
             <div style="margin-bottom: 3rem;">
               <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2026</h3>
               <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• 연 매출 1억원 달성</li>
+                <li>• ${t.history.item2026_1}</li>
               </ul>
             </div>
             <div style="margin-bottom: 3rem;">
               <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2025</h3>
               <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• 연 매출 7천만원 달성</li>
-                <li>• 독자 팔레타이징 기술 개발</li>
+                <li>• ${t.history.item2025_1}</li>
+                <li>• ${t.history.item2025_2}</li>
               </ul>
             </div>
             <div style="margin-bottom: 3rem;">
               <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2024</h3>
               <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• IT moou 설립</li>
-                <li>• LogiNexio 개발 착수</li>
+                <li>• IT moou Founded</li>
+                <li>• LogiNexio Development Started</li>
               </ul>
             </div>
           </div>
@@ -590,7 +585,7 @@ function getESGHTML(lang: Language = 'ko') {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.esg.title}</h1>
-        <p style="font-size: 1.2rem;">지속가능한 미래를 위한 SD 바이오센서의 약속</p>
+        <p style="font-size: 1.2rem;">${t.esg.subtitle}</p>
       </section>
 
       <section class="content-section">

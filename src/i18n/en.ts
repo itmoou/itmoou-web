@@ -102,10 +102,14 @@ export const en: TranslationType = {
   // CEO Message
   ceo: {
     title: 'CEO Message',
-    subtitle: 'Center of innovative technology development',
+    subtitle: 'CEO Shim Young-min',
     greeting: 'CEO Greeting',
-    message: 'ITmoou is a company that makes all possibilities of enterprises a reality. We are growing together with our customers based on innovative technology and professional services.',
-    signature: 'CEO, IT moou Co., Ltd.',
+    message1: 'Hello. I am Shim Young-min, CEO of IT moou.',
+    message2: 'Thank you sincerely to everyone who has visited ITmoou. Under the slogan "Move the world with technology," we are constantly striving for stable growth and future value of companies.',
+    message3: 'ITmoou has focused on improving complex tasks more accurately and efficiently through enterprise operation SaaS that encompasses logistics solutions and business support solutions.',
+    message4: 'We will continue to be a better experience and confident growth partner for our customers through continuous research and development and quality innovation.',
+    message5: 'Thank you.',
+    signature: 'CEO Shim Young-min, IT moou Co., Ltd.',
   },
   
   // History
@@ -116,11 +120,15 @@ export const en: TranslationType = {
     item2024_1: 'Selected as a beneficiary of the government\'s innovation support program',
     item2024_2: 'Started SME digital transformation support program',
     item2024_3: 'AI-based export document automation solution upgrade',
+    item2024_4: 'Selected as a promising startup company by the Ministry of SMEs and Startups',
+    item2024_5: 'Signed strategic partnership MOU with global logistics company',
     year2025: '2025',
     item2025_1: 'Successful development of proprietary palletizing technology',
     item2025_2: 'Global logistics market entry plan announced',
+    item2025_3: 'Launched enterprise AI solution \'BizSupport Pro\'',
     year2026: '2026',
     item2026_1: 'BizSupport Pro development launched',
+    item2026_2: 'Started collaboration with major domestic manufacturers',
   },
   
   // ESG
@@ -128,11 +136,11 @@ export const en: TranslationType = {
     title: 'ESG',
     subtitle: 'We practice sustainable management',
     environmentTitle: 'Environment',
-    environmentDesc: 'We contribute to environmental protection by developing eco-friendly logistics solutions and reducing carbon emissions.',
+    environmentDesc: 'We contribute to environmental protection by developing eco-friendly logistics solutions and reducing carbon emissions. We optimize logistics routes through AI technology and minimize unnecessary packaging materials.',
     socialTitle: 'Social',
-    socialDesc: 'We fulfill our social responsibility through support programs for small and medium-sized enterprises and local community contribution activities.',
+    socialDesc: 'We fulfill our social responsibility through support programs for small and medium-sized enterprises and local community contribution activities. We support the digital transformation of SMEs and strengthen local employment through job creation.',
     governanceTitle: 'Governance',
-    governanceDesc: 'We practice transparent management based on ethical management and compliance.',
+    governanceDesc: 'We practice transparent management based on ethical management and compliance. We protect the rights and interests of all stakeholders through fair trade and information disclosure.',
   },
   
   // Location
