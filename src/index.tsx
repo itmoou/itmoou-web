@@ -568,8 +568,8 @@ function getHistoryHTML(lang: Language = 'ko') {
             <div style="margin-bottom: 3rem;">
               <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2024</h3>
               <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• IT moou Founded</li>
-                <li>• LogiNexio Development Started</li>
+                <li>• 아이티무유 주식회사 설립</li>
+                <li>• LogiNexio 개발 착수</li>
               </ul>
             </div>
           </div>
