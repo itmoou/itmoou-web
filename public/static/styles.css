@@ -150,6 +150,7 @@ body {
   padding: 0;
   z-index: 1001;
   position: relative;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .mobile-menu-toggle span {
@@ -158,6 +159,13 @@ body {
   background-color: var(--text-dark);
   border-radius: 3px;
   transition: all 0.3s ease;
+}
+
+/* 사이드바가 열리면 햄버거 버튼 숨기기 */
+.mobile-menu-toggle.active {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* 햄버거 버튼은 항상 3줄 모양 유지 (X로 변하지 않음) */
