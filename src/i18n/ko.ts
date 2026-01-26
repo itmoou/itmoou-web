@@ -172,17 +172,62 @@ export const ko = {
   // 솔루션
   solutions: {
     logiNexioTitle: 'LogiNexio',
-    logiNexioSubtitle: '글로벌 물류 SaaS 플랫폼',
+    logiNexioSubtitle: '최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결',
+    logiNexioDesc: '최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다.',
+    logiNexioFeatures: '주요 기능',
+    
+    // LogiNexio 기능
+    palletTitle: '팔레트 자동화',
+    palletDesc: '물류 팔레트 관리를 자동화하여 효율적인 창고 운영을 지원합니다. AI 기반 최적화로 공간 활용도를 극대화하고, 실시간 재고 추적으로 정확한 물류 관리가 가능합니다.',
+    documentTitle: '물류 서류 자동화',
+    documentDesc: '수출입 서류, 운송장 등 물류 관련 서류를 자동으로 생성하고 관리합니다. 복잡한 서류 작업을 간소화하여 업무 효율성을 대폭 향상시킵니다.',
+    forwarderTitle: '포워더 계약 관리',
+    forwarderDesc: '글로벌 포워더와의 계약 및 운송 관리를 통합하여 처리합니다. 최적의 운송 경로와 비용을 자동으로 제안하여 물류 비용을 절감합니다.',
+    trackingTitle: '실시간 물류 추적',
+    trackingDesc: '제조부터 고객 인도까지 전체 물류 흐름을 실시간으로 추적합니다. GPS 기반 위치 추적과 예상 도착 시간 알림으로 고객 만족도를 향상시킵니다.',
+    
     bizSupportTitle: 'BizSupport Pro',
-    bizSupportSubtitle: '기업 경영지원 AI 솔루션',
+    bizSupportSubtitle: '기업의 업무 효율성을 극대화하는 종합 비즈니스 플랫폼',
+    bizSupportDesc: '기업의 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼입니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅, 워크플로우 자동화 기능을 하나의 플랫폼에서 제공하여 업무 생산성을 획기적으로 향상시킵니다.',
+    bizSupportFeatures: '주요 기능',
+    
+    // BizSupport Pro 기능
+    projectTitle: '통합 프로젝트 관리',
+    projectDesc: '프로젝트의 전체 라이프사이클을 효율적으로 관리하고 추적할 수 있습니다.',
+    collaborationTitle: '실시간 협업 도구',
+    collaborationDesc: '팀원 간 실시간 커뮤니케이션과 파일 공유로 협업 효율을 높입니다.',
+    analyticsTitle: '데이터 분석 및 리포팅',
+    analyticsDesc: '비즈니스 데이터를 시각화하고 인사이트를 제공합니다.',
+    workflowTitle: '워크플로우 자동화',
+    workflowDesc: '반복적인 업무를 자동화하여 생산성을 향상시킵니다.',
   },
   
   // 연구개발
   rd: {
     labTitle: '연구소',
     labSubtitle: '혁신적인 기술 개발의 중심',
+    labDesc: '아이티무유 연구소는 기업의 물류 흐름 및 경영 분야의 혁신적인 기술을 개발하는 핵심 조직입니다. 우수한 연구 개발 인력을 바탕으로 차세대 기업형 기술을 개발하고 있습니다.',
+    labFeatures: '핵심 역량',
+    
+    // 연구소 기능
+    facilityTitle: '첨단 연구 시설',
+    facilityDesc: '최신 연구 장비와 시설을 갖춘 세계적 수준의 연구 환경을 제공합니다.',
+    expertTitle: '전문 연구 인력',
+    expertDesc: '해당 분야 최고의 전문가들이 연구개발을 주도하고 있습니다.',
+    cooperationTitle: '산학협력',
+    cooperationDesc: '국내외 대학 및 연구기관과의 긴밀한 협력 네트워크를 구축하고 있습니다.',
+    
     activityTitle: '연구개발 활동',
-    activitySubtitle: '미래를 위한 끊임없는 도전',
+    activitySubtitle: '지속적인 혁신으로 미래를 준비합니다',
+    activityFeatures: '주요 연구 분야',
+    
+    // 연구개발 활동
+    logisticsOptTitle: '물류 최적화 기술',
+    logisticsOptDesc: '차세대 AI 개발을 통한 정확도 향상',
+    bigdataTitle: '빅데이터 처리 시스템',
+    bigdataDesc: '빅데이터를 활용한 기업 맞춤 데이터 처리 솔루션 개발',
+    bizSolutionTitle: '경영지원 솔루션',
+    bizSolutionDesc: '기업 내부의 빅데이터를 활용하여 AI가 기업의 최적화 해법을 제시',
   },
   
   // 채용정보

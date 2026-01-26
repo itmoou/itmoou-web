@@ -174,17 +174,62 @@ export const en: TranslationType = {
   // Solutions
   solutions: {
     logiNexioTitle: 'LogiNexio',
-    logiNexioSubtitle: 'Global Logistics SaaS Platform',
+    logiNexioSubtitle: 'Solve everything from manufacturing logistics to customer delivery in one place with cutting-edge technology and solutions',
+    logiNexioDesc: 'With cutting-edge technology and solutions, you can solve everything from manufacturing logistics to customer delivery in one place.',
+    logiNexioFeatures: 'Key Features',
+    
+    // LogiNexio Features
+    palletTitle: 'Pallet Automation',
+    palletDesc: 'Automates logistics pallet management to support efficient warehouse operations. AI-based optimization maximizes space utilization, and real-time inventory tracking enables accurate logistics management.',
+    documentTitle: 'Logistics Document Automation',
+    documentDesc: 'Automatically generates and manages logistics-related documents such as import/export documents and waybills. Simplifies complex paperwork to significantly improve work efficiency.',
+    forwarderTitle: 'Forwarder Contract Management',
+    forwarderDesc: 'Integrates contract and shipping management with global forwarders. Automatically suggests optimal shipping routes and costs to reduce logistics expenses.',
+    trackingTitle: 'Real-time Logistics Tracking',
+    trackingDesc: 'Tracks the entire logistics flow from manufacturing to customer delivery in real time. GPS-based location tracking and estimated arrival notifications improve customer satisfaction.',
+    
     bizSupportTitle: 'BizSupport Pro',
-    bizSupportSubtitle: 'Enterprise Business Management AI Solution',
+    bizSupportSubtitle: 'Comprehensive business platform that maximizes enterprise work efficiency',
+    bizSupportDesc: 'A comprehensive business support platform that maximizes enterprise work efficiency. Provides project management, real-time collaboration tools, data analysis and reporting, and workflow automation in one platform to dramatically improve work productivity.',
+    bizSupportFeatures: 'Key Features',
+    
+    // BizSupport Pro Features
+    projectTitle: 'Integrated Project Management',
+    projectDesc: 'Efficiently manage and track the entire lifecycle of projects.',
+    collaborationTitle: 'Real-time Collaboration Tools',
+    collaborationDesc: 'Enhance collaboration efficiency with real-time communication and file sharing among team members.',
+    analyticsTitle: 'Data Analysis and Reporting',
+    analyticsDesc: 'Visualize business data and provide insights.',
+    workflowTitle: 'Workflow Automation',
+    workflowDesc: 'Automate repetitive tasks to improve productivity.',
   },
   
   // R&D
   rd: {
     labTitle: 'Laboratory',
     labSubtitle: 'Center of innovative technology development',
+    labDesc: 'The ITmoou Laboratory is a core organization that develops innovative technologies in the field of corporate logistics flow and management. Based on excellent research and development personnel, we are developing next-generation enterprise technologies.',
+    labFeatures: 'Core Capabilities',
+    
+    // Lab Features
+    facilityTitle: 'Advanced Research Facilities',
+    facilityDesc: 'Provides world-class research environment with state-of-the-art research equipment and facilities.',
+    expertTitle: 'Professional Research Personnel',
+    expertDesc: 'Top experts in the field are leading research and development.',
+    cooperationTitle: 'Industry-Academia Cooperation',
+    cooperationDesc: 'Building close cooperation networks with domestic and international universities and research institutions.',
+    
     activityTitle: 'R&D Activities',
-    activitySubtitle: 'Endless challenges for the future',
+    activitySubtitle: 'Preparing for the future with continuous innovation',
+    activityFeatures: 'Major Research Areas',
+    
+    // R&D Activities
+    logisticsOptTitle: 'Logistics Optimization Technology',
+    logisticsOptDesc: 'Improving accuracy through next-generation AI development',
+    bigdataTitle: 'Big Data Processing System',
+    bigdataDesc: 'Developing customized data processing solutions using big data',
+    bizSolutionTitle: 'Business Support Solution',
+    bizSolutionDesc: 'AI provides optimization solutions for enterprises using internal big data',
   },
   
   // Careers

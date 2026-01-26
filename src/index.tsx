@@ -799,65 +799,65 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
 
 function getLogiNexioHTML(lang: Language = 'ko') {
   const t = getTranslation(lang)
-  return getBaseHTML('LogiNexio', `
+  return getBaseHTML(t.solutions.logiNexioTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">LogiNexio</h1>
-        <p style="font-size: 1.2rem;">최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결</p>
+        <p style="font-size: 1.2rem;">${t.solutions.logiNexioSubtitle}</p>
       </section>
 
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
           <p style="margin-bottom: 1.5rem; text-align: center; font-size: 1.1rem;">
-            최첨단 기술 및 솔루션으로 기업의 제조 물류부터, 고객 인도까지 한번에 한곳에서 해결할 수 있습니다.
+            ${t.solutions.logiNexioDesc}
           </p>
         </div>
 
         <div class="section-header">
-          <h2 class="section-title">주요 기능</h2>
+          <h2 class="section-title">${t.solutions.logiNexioFeatures}</h2>
         </div>
         <div style="max-width: 1000px; margin: 0 auto;">
           <!-- 팔레트 자동화 -->
           <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <div style="flex: 1;">
-              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-boxes" style="margin-right: 0.5rem;"></i> 팔레트 자동화</h3>
-              <p style="color: #666; line-height: 1.8;">물류 팔레트 관리를 자동화하여 효율적인 창고 운영을 지원합니다. AI 기반 최적화로 공간 활용도를 극대화하고, 실시간 재고 추적으로 정확한 물류 관리가 가능합니다.</p>
+              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-boxes" style="margin-right: 0.5rem;"></i> ${t.solutions.palletTitle}</h3>
+              <p style="color: #666; line-height: 1.8;">${t.solutions.palletDesc}</p>
             </div>
             <div style="flex: 0 0 250px;">
-              <img src="/images/pallet.png" alt="팔레트 자동화" style="width: 100%; border-radius: 8px; object-fit: cover;">
+              <img src="/images/pallet.png" alt="${t.solutions.palletTitle}" style="width: 100%; border-radius: 8px; object-fit: cover;">
             </div>
           </div>
 
           <!-- 물류 서류 자동화 -->
           <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex-direction: row-reverse;">
             <div style="flex: 1;">
-              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i> 물류 서류 자동화</h3>
-              <p style="color: #666; line-height: 1.8;">수출입 서류, 운송장 등 물류 관련 서류를 자동으로 생성하고 관리합니다. 복잡한 서류 작업을 간소화하여 업무 효율성을 대폭 향상시킵니다.</p>
+              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i> ${t.solutions.documentTitle}</h3>
+              <p style="color: #666; line-height: 1.8;">${t.solutions.documentDesc}</p>
             </div>
             <div style="flex: 0 0 250px;">
-              <img src="/images/docu.png" alt="물류 서류 자동화" style="width: 100%; border-radius: 8px; object-fit: cover;">
+              <img src="/images/docu.png" alt="${t.solutions.documentTitle}" style="width: 100%; border-radius: 8px; object-fit: cover;">
             </div>
           </div>
 
           <!-- 포워더 계약 관리 -->
           <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <div style="flex: 1;">
-              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-handshake" style="margin-right: 0.5rem;"></i> 포워더 계약 관리</h3>
-              <p style="color: #666; line-height: 1.8;">글로벌 포워더와의 계약 및 운송 관리를 통합하여 처리합니다. 최적의 운송 경로와 비용을 자동으로 제안하여 물류 비용을 절감합니다.</p>
+              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-handshake" style="margin-right: 0.5rem;"></i> ${t.solutions.forwarderTitle}</h3>
+              <p style="color: #666; line-height: 1.8;">${t.solutions.forwarderDesc}</p>
             </div>
             <div style="flex: 0 0 250px;">
-              <img src="/images/foward.png" alt="포워더 계약 관리" style="width: 100%; border-radius: 8px; object-fit: cover;">
+              <img src="/images/foward.png" alt="${t.solutions.forwarderTitle}" style="width: 100%; border-radius: 8px; object-fit: cover;">
             </div>
           </div>
 
           <!-- 실시간 물류 추적 -->
           <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex-direction: row-reverse;">
             <div style="flex: 1;">
-              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> 실시간 물류 추적</h3>
-              <p style="color: #666; line-height: 1.8;">제조부터 고객 인도까지 전체 물류 흐름을 실시간으로 추적합니다. GPS 기반 위치 추적과 예상 도착 시간 알림으로 고객 만족도를 향상시킵니다.</p>
+              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> ${t.solutions.trackingTitle}</h3>
+              <p style="color: #666; line-height: 1.8;">${t.solutions.trackingDesc}</p>
             </div>
             <div style="flex: 0 0 250px;">
-              <img src="/images/locate.png" alt="실시간 물류 추적" style="width: 100%; border-radius: 8px; object-fit: cover;">
+              <img src="/images/locate.png" alt="${t.solutions.trackingTitle}" style="width: 100%; border-radius: 8px; object-fit: cover;">
             </div>
           </div>
         </div>
@@ -868,11 +868,11 @@ function getLogiNexioHTML(lang: Language = 'ko') {
 
 function getBizSupportHTML(lang: Language = 'ko') {
   const t = getTranslation(lang)
-  return getBaseHTML('BizSupport Pro', `
+  return getBaseHTML(t.solutions.bizSupportTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">BizSupport Pro</h1>
-        <p style="font-size: 1.2rem;">기업의 업무 효율성을 극대화하는 종합 비즈니스 플랫폼</p>
+        <p style="font-size: 1.2rem;">${t.solutions.bizSupportSubtitle}</p>
       </section>
 
       <section class="content-section">
@@ -882,7 +882,7 @@ function getBizSupportHTML(lang: Language = 'ko') {
 
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
           <p style="margin-bottom: 1.5rem;">
-            기업의 업무 효율성을 극대화하는 종합 비즈니스 지원 플랫폼입니다. 프로젝트 관리, 실시간 협업 도구, 데이터 분석 및 리포팅, 워크플로우 자동화 기능을 하나의 플랫폼에서 제공하여 업무 생산성을 획기적으로 향상시킵니다.
+            ${t.solutions.bizSupportDesc}
           </p>
         </div>
 
@@ -892,26 +892,26 @@ function getBizSupportHTML(lang: Language = 'ko') {
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-tasks"></i> 통합 프로젝트 관리</h3>
-              <p class="card-text">프로젝트의 전체 라이프사이클을 효율적으로 관리하고 추적할 수 있습니다.</p>
+              <h3 class="card-title"><i class="fas fa-tasks"></i> ${t.solutions.projectTitle}</h3>
+              <p class="card-text">${t.solutions.projectDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-users"></i> 실시간 협업 도구</h3>
-              <p class="card-text">팀원 간 실시간 커뮤니케이션과 파일 공유로 협업 효율을 높입니다.</p>
+              <h3 class="card-title"><i class="fas fa-users"></i> ${t.solutions.collaborationTitle}</h3>
+              <p class="card-text">${t.solutions.collaborationDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-chart-line"></i> 데이터 분석 및 리포팅</h3>
-              <p class="card-text">비즈니스 데이터를 시각화하고 인사이트를 제공합니다.</p>
+              <h3 class="card-title"><i class="fas fa-chart-line"></i> ${t.solutions.analyticsTitle}</h3>
+              <p class="card-text">${t.solutions.analyticsDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-cogs"></i> 워크플로우 자동화</h3>
-              <p class="card-text">반복적인 업무를 자동화하여 생산성을 향상시킵니다.</p>
+              <h3 class="card-title"><i class="fas fa-cogs"></i> ${t.solutions.workflowTitle}</h3>
+              <p class="card-text">${t.solutions.workflowDesc}</p>
             </div>
           </div>
         </div>
@@ -932,27 +932,27 @@ function getLabHTML(lang: Language = 'ko') {
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666;">
           <p style="margin-bottom: 1.5rem;">
-            아이티무유 연구소는 기업의 물류 흐름 및 경영 분야의 혁신적인 기술을 개발하는 핵심 조직입니다. 우수한 연구 개발 인력을 바탕으로 차세대 기업형 기술을 개발하고 있습니다.
+            ${t.rd.labDesc}
           </p>
         </div>
 
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-microscope"></i> 첨단 연구 시설</h3>
-              <p class="card-text">최신 연구 장비와 시설을 갖춘 세계적 수준의 연구 환경을 제공합니다.</p>
+              <h3 class="card-title"><i class="fas fa-microscope"></i> ${t.rd.facilityTitle}</h3>
+              <p class="card-text">${t.rd.facilityDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-user-graduate"></i> 전문 연구 인력</h3>
-              <p class="card-text">해당 분야 최고의 전문가들이 연구개발을 주도하고 있습니다.</p>
+              <h3 class="card-title"><i class="fas fa-user-graduate"></i> ${t.rd.expertTitle}</h3>
+              <p class="card-text">${t.rd.expertDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-handshake"></i> 산학협력</h3>
-              <p class="card-text">국내외 대학 및 연구기관과의 긴밀한 협력 네트워크를 구축하고 있습니다.</p>
+              <h3 class="card-title"><i class="fas fa-handshake"></i> ${t.rd.cooperationTitle}</h3>
+              <p class="card-text">${t.rd.cooperationDesc}</p>
             </div>
           </div>
         </div>
@@ -963,34 +963,34 @@ function getLabHTML(lang: Language = 'ko') {
 
 function getActivitiesHTML(lang: Language = 'ko') {
   const t = getTranslation(lang)
-  return getBaseHTML('연구개발 활동', `
+  return getBaseHTML(t.rd.activityTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">연구개발 활동</h1>
-        <p style="font-size: 1.2rem;">지속적인 혁신으로 미래를 준비합니다</p>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.rd.activityTitle}</h1>
+        <p style="font-size: 1.2rem;">${t.rd.activitySubtitle}</p>
       </section>
 
       <section class="content-section">
         <div class="section-header">
-          <h2 class="section-title">주요 연구 분야</h2>
+          <h2 class="section-title">${t.rd.activityFeatures}</h2>
         </div>
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-truck"></i> 물류 최적화 기술</h3>
-              <p class="card-text">차세대 AI 개발을 통한 정확도 향상</p>
+              <h3 class="card-title"><i class="fas fa-truck"></i> ${t.rd.logisticsOptTitle}</h3>
+              <p class="card-text">${t.rd.logisticsOptDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-database"></i> 빅데이터 처리 시스템</h3>
-              <p class="card-text">빅데이터를 활용한 기업 맞춤 데이터 처리 솔루션 개발</p>
+              <h3 class="card-title"><i class="fas fa-database"></i> ${t.rd.bigdataTitle}</h3>
+              <p class="card-text">${t.rd.bigdataDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-chart-line"></i> 경영지원 솔루션</h3>
-              <p class="card-text">기업 내부의 빅데이터를 활용하여 AI가 기업의 최적화 해법을 제시</p>
+              <h3 class="card-title"><i class="fas fa-chart-line"></i> ${t.rd.bizSolutionTitle}</h3>
+              <p class="card-text">${t.rd.bizSolutionDesc}</p>
             </div>
           </div>
         </div>
