@@ -1187,136 +1187,136 @@ function getContactHTML(lang: Language = 'ko') {
 
 function getPrivacyPolicyHTML(lang: Language = 'ko') {
   const t = getTranslation(lang)
-  return getBaseHTML('개인정보 처리방침', `
+  return getBaseHTML(t.privacy.title, `
     <div class="main-content">
       <section class="hero-section" style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); padding: 4rem 2rem; text-align: center;">
-        <h1 class="hero-title" style="color: white; font-size: 3rem; margin-bottom: 1rem;">개인정보 처리방침</h1>
-        <p class="hero-subtitle" style="color: rgba(255,255,255,0.9); font-size: 1.2rem;">아이티무유 주식회사 개인정보 보호 정책</p>
+        <h1 class="hero-title" style="color: white; font-size: 3rem; margin-bottom: 1rem;">${t.privacy.title}</h1>
+        <p class="hero-subtitle" style="color: rgba(255,255,255,0.9); font-size: 1.2rem;">${t.privacy.subtitle}</p>
       </section>
 
       <section style="max-width: 900px; margin: 4rem auto; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <div style="line-height: 1.8; color: #333;">
-          <p style="margin-bottom: 2rem; font-size: 1.1rem;">본 개인정보 처리방침은 아이티무유 주식회사(이하 "회사")가 이용자의 소중한 개인정보 및 권익을 보호하고 개인정보와 관련한 이용자의 고충을 원활하게 처리할 수 있도록 하기 위한 지침입니다. 회사는 이용자의 동의를 기반으로 개인정보를 수집·이용·제공하며 관련 법령을 준수합니다.</p>
+          <p style="margin-bottom: 2rem; font-size: 1.1rem;">${t.privacy.intro}</p>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">1. 개인정보의 수집</h2>
-          <p style="margin-bottom: 1rem;">① 회사는 서비스를 제공하기 위하여 필요한 최소한의 개인정보만 수집합니다.</p>
-          <p style="margin-bottom: 1rem;">② 회사는 서비스를 제공하기 위해 필요한 필수항목을 이용자의 동의 하에 처리합니다.</p>
-          <p style="margin-bottom: 1rem;">③ 법령상 특별한 규정이 있는 경우 및 법령상 의무를 준수하기 위한 경우에는 이용자의 개인정보 수집 및 이용에 대하여 동의를 받지 않고 수집할 수 있습니다.</p>
-          <p style="margin-bottom: 1rem;">④ 회사는 관련 법령에 따른 개인정보의 보유 및 이용기간 또는 정보 주체로부터 개인정보 수집 시 동의 받은 개인정보 보유 및 이용기간 내에서 개인정보를 처리합니다.</p>
-          <p style="margin-bottom: 1rem;">⑤ 회사가 이용자로부터 수집하는 개인정보 항목 및 수집·이용 목적은 다음과 같습니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section1Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section1Content1}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section1Content2}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section1Content3}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section1Content4}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section1Content5}</p>
           <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-            <li><strong>필수수집 항목:</strong> 이름, 주소, 성별, 생년월일, 이메일 주소, 휴대폰번호, 암호화된 본인확인 정보</li>
-            <li><strong>수집·이용 목적:</strong> 서비스 부정이용 방지, 고충처리 및 분쟁 조정</li>
-            <li><strong>보유 및 이용기간:</strong> 수집·이용 목적이 달성되면 지체 없이 파기(단, 관련 법령에 따라 필요한 항목에 한하여 일정 기간 보관함)</li>
+            <li><strong>${t.privacy.section1Items}:</strong> ${t.privacy.section1ItemsValue}</li>
+            <li><strong>${t.privacy.section1Purpose}:</strong> ${t.privacy.section1PurposeValue}</li>
+            <li><strong>${t.privacy.section1Retention}:</strong> ${t.privacy.section1RetentionValue}</li>
           </ul>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">2. 개인정보의 이용목적</h2>
-          <p style="margin-bottom: 1rem;">회사가 수집하는 이용자의 개인정보는 아래의 목적으로만 수집 및 이용합니다. 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며 이용 목적이 변경될 시에는 사전에 별도로 이용자에게 동의를 받는 등 필요한 조치를 이행합니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section2Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section2Intro}</p>
           <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-            <li>① 서비스 제공, 서비스 유지 및 개선, 신규 서비스 제공, 안정적인 서비스 이용 환경 제공</li>
-            <li>② 부정 이용 방지, 법률 및 서비스 약관 위반 행위 제한, 서비스 이용 관련 상담과 분쟁 처리, 분쟁 조정을 위한 기록 보존, 개별 통지</li>
-            <li>③ 서비스 이용 통계, 서비스 접속·이용 기록 등 분석을 통한 맞춤형 서비스 제공</li>
-            <li>④ 마케팅 정보 안내 및 참여기회 제공, 광고성 정보 제공</li>
+            <li>${t.privacy.section2Item1}</li>
+            <li>${t.privacy.section2Item2}</li>
+            <li>${t.privacy.section2Item3}</li>
+            <li>${t.privacy.section2Item4}</li>
           </ul>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">3. 개인정보의 제3자 제공에 관한 사항</h2>
-          <p style="margin-bottom: 1rem;">회사는 원칙적으로 이용자의 개인정보를 제3자에게 제공하거나 외부에 공개하지 않습니다. 단, 다음의 경우에는 예외로 합니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section3Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section3Intro}</p>
           <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-            <li>서비스 이용을 위하여 이용자가 사전에 제공에 동의를 한 경우</li>
-            <li>법률에 특별한 규정이 있거나 법령상 의무 준수를 위해 불가피한 경우</li>
-            <li>이용자의 사전 동의를 받을 수 없는 상태에서 이용자 또는 제3자의 생명이나 안전에 급박한 위험이 확인되어 이를 해소하기 위한 경우</li>
+            <li>${t.privacy.section3Item1}</li>
+            <li>${t.privacy.section3Item2}</li>
+            <li>${t.privacy.section3Item3}</li>
           </ul>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">4. 개인정보의 위탁</h2>
-          <p style="margin-bottom: 1rem;">① 개인정보의 처리 위탁이란 개인정보를 제공하는 자의 업무 처리를 위하여 개인정보를 외부 수탁자에게 위탁하는 것을 의미합니다. 개인정보가 위탁된 이후에도 위탁자(개인정보를 제공한 자)는 수탁자에 대한 관리, 감독 책임이 있습니다.</p>
-          <p style="margin-bottom: 1rem;">② 회사는 이용자의 개인정보를 처리 위탁할 수 있으며, 이 경우 그 위탁에 관한 정보를 지체 없이 본 개인정보 처리방침을 통하여 공개하도록 하겠습니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section4Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section4Content1}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section4Content2}</p>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">5. 추가적인 이용·제공 판단기준</h2>
-          <p style="margin-bottom: 1rem;">회사가 정보주체의 동의 없이 개인정보를 이용 또는 제공하는 경우에는 개인정보보호책임자가 다음의 사항을 고려하여 개인정보의 추가적인 이용 또는 제공을 하고 있는지 여부를 점검합니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section5Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section5Intro}</p>
           <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-            <li>당초 수집 목적과 관련성이 있는지 여부</li>
-            <li>개인정보를 수집한 정황 또는 처리 관행에 비추어 볼 때 개인정보의 추가적인 이용 또는 제공에 대한 예측 가능성이 있는지 여부</li>
-            <li>정보주체의 이익을 부당하게 침해하는지 여부</li>
-            <li>가명처리 또는 암호화 등 안전성 확보에 필요한 조치를 하였는지 여부</li>
+            <li>${t.privacy.section5Item1}</li>
+            <li>${t.privacy.section5Item2}</li>
+            <li>${t.privacy.section5Item3}</li>
+            <li>${t.privacy.section5Item4}</li>
           </ul>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">6. 이용자의 권리와 권리행사 방법</h2>
-          <p style="margin-bottom: 1rem;">이용자는 개인정보주체로서 다음과 같은 권리를 행사할 수 있습니다.</p>
-          <p style="margin-bottom: 1rem;">① 이용자는 회사에 대하여 서면, 전자우편 등을 통하여 언제든지 자신의 개인정보 열람, 정정, 삭제, 처리정지 요구 등의 권리를 행사할 수 있습니다.</p>
-          <p style="margin-bottom: 1rem;">② 이용자가 개인정보의 오류에 대하여 회사에 정정을 요청하거나 처리 정지를 요구한 경우, 정정을 완료하기 전까지 또는 처리정지 요구 철회가 있기 전까지 회사는 해당 개인정보를 이용 또는 제공하지 않습니다.</p>
-          <p style="margin-bottom: 1rem;">③ 본 조의 권리행사는 개인정보 관련 법령 및 다른 법령의 규정에 따라 제한될 수 있습니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section6Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section6Intro}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section6Content1}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section6Content2}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section6Content3}</p>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">7. 만 14세 미만의 아동인 이용자 및 그 법정대리인의 권리 행사</h2>
-          <p style="margin-bottom: 1rem;">① 회사는 아동 이용자의 개인정보를 수집·이용·제공 등 처리하기 위하여 그 법정대리인의 동의를 요청하여야 합니다.</p>
-          <p style="margin-bottom: 1rem;">② 아동 이용자 및 그 법정대리인은 개인정보 관련 법령 및 이 개인정보 처리방침에 따라 회사에 본인 및 그 법정대리인으로서 아동 이용자의 개인정보에 대한 열람·정정·삭제 등 개인정보 보호를 위하여 필요한 조치를 요청할 수 있고, 회사는 이에 지체 없이 응하여야 합니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section7Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section7Content1}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section7Content2}</p>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">8. 개인정보의 파기 및 보관</h2>
-          <p style="margin-bottom: 1rem;">① 회사는 원칙적으로 이용자의 개인정보 처리목적이 달성된 경우에는 지체 없이 해당 개인정보를 파기합니다.</p>
-          <p style="margin-bottom: 1rem;">② 전자적 파일 형태인 경우 복구 및 재생되지 않도록 안전하게 삭제하고, 그 밖에 기록물, 인쇄물, 서면 등 종이에 기록·저장된 개인정보의 경우 분쇄하거나 소각하여 파기합니다.</p>
-          <p style="margin-bottom: 1rem;">③ 관련법령에서 일정 기간 정보 보관을 규정하는 경우에는 해당 기간 동안 규정에 따라 개인정보를 안전하게 보관합니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section8Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section8Content1}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section8Content2}</p>
+          <p style="margin-bottom: 1rem;">${t.privacy.section8Content3}</p>
           
           <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 6px; margin-top: 1.5rem; margin-bottom: 1.5rem;">
-            <strong style="color: #0052A5;">관련 법령에 따른 보관:</strong>
+            <strong style="color: #0052A5;">${t.privacy.section8LawTitle}</strong>
             <ul style="margin-left: 2rem; margin-top: 0.5rem; line-height: 2;">
-              <li><strong>전자상거래법:</strong> 계약/청약철회 기록 (5년), 대금결제 기록 (5년), 소비자 불만 기록 (3년)</li>
-              <li><strong>전자금융거래법:</strong> 전자금융 거래 기록 (5년)</li>
-              <li><strong>국세기본법:</strong> 거래 장부 및 증빙서류 (5년)</li>
-              <li><strong>통신비밀보호법:</strong> 서비스 접속 기록 (3개월)</li>
+              <li>${t.privacy.section8Law1}</li>
+              <li>${t.privacy.section8Law2}</li>
+              <li>${t.privacy.section8Law3}</li>
+              <li>${t.privacy.section8Law4}</li>
             </ul>
           </div>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">9. 개인정보 보호책임자</h2>
-          <p style="margin-bottom: 1rem;">회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하여 운영하고 있습니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section9Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section9Intro}</p>
           
           <div style="background: #f0f8ff; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #0052A5; margin-top: 1.5rem; margin-bottom: 1.5rem;">
-            <p style="margin-bottom: 0.5rem;"><strong>개인정보 보호책임자:</strong> 심영민</p>
-            <p style="margin-bottom: 0.5rem;"><strong>직책:</strong> 대표이사</p>
-            <p style="margin-bottom: 0.5rem;"><strong>연락처:</strong> 043-715-8553</p>
+            <p style="margin-bottom: 0.5rem;"><strong>${t.privacy.section9Officer}:</strong> ${t.privacy.section9OfficerName}</p>
+            <p style="margin-bottom: 0.5rem;"><strong>${t.privacy.section9Position}:</strong> ${t.ceo.ceoTitle}</p>
+            <p style="margin-bottom: 0.5rem;"><strong>${t.privacy.section9Contact}:</strong> 043-715-8553</p>
             <p><strong>${t.location.email}:</strong> cs@itmoou.com</p>
           </div>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">10. 개인정보침해에 대한 신고와 상담</h2>
-          <p style="margin-bottom: 1rem;">정보주체는 기타 개인정보침해에 대한 신고나 상담이 필요하신 경우에는 아래 기관에 문의하실 수 있습니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section10Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section10Intro}</p>
           <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-            <li><strong>개인정보침해신고센터:</strong> privacy.kisa.or.kr | 국번없이 118</li>
-            <li><strong>대검찰청 사이버수사과:</strong> spo.go.kr | 국번없이 1301</li>
-            <li><strong>경찰청 사이버안전국:</strong> cyberbureau.police.go.kr | 국번없이 182</li>
+            <li>${t.privacy.section10Item1}</li>
+            <li>${t.privacy.section10Item2}</li>
+            <li>${t.privacy.section10Item3}</li>
           </ul>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">11. 개인정보 처리방침의 변경</h2>
-          <p style="margin-bottom: 1rem;">회사의 개인정보 처리방침은 관련 법령과 내부 방침에 따라 변경될 수 있습니다. 회사는 개인정보 처리방침이 추가, 수정, 삭제 등 변경되는 경우에는 시행일 7일 전부터 홈페이지를 통하여 공지합니다. 단, 이용자 권리에 중요한 변경이 있는 경우에는 시행일 30일 전부터 공지합니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section11Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section11Content}</p>
 
-          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">12. 개인정보의 안전성 확보 조치</h2>
-          <p style="margin-bottom: 1rem;">회사는 관련 법령에 따라 다음과 같이 개인정보의 안전성 확보에 필요한 기술적/관리적 및 물리적 조치를 하고 있습니다.</p>
+          <h2 style="color: #0052A5; margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #0052A5; padding-bottom: 0.5rem;">${t.privacy.section12Title}</h2>
+          <p style="margin-bottom: 1rem;">${t.privacy.section12Intro}</p>
           
           <div style="margin-left: 2rem;">
-            <h3 style="color: #003366; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">관리적 조치</h3>
+            <h3 style="color: #003366; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">${t.privacy.section12AdminTitle}</h3>
             <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-              <li>개인정보 취급 직원의 최소화 및 교육</li>
-              <li>내부관리계획의 수립 및 시행</li>
+              <li>${t.privacy.section12Admin1}</li>
+              <li>${t.privacy.section12Admin2}</li>
             </ul>
 
-            <h3 style="color: #003366; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">기술적 조치</h3>
+            <h3 style="color: #003366; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">${t.privacy.section12TechTitle}</h3>
             <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-              <li>해킹 등에 대비한 기술적 대책</li>
-              <li>침입차단 시스템 이용</li>
-              <li>개인정보의 암호화</li>
-              <li>접속기록의 보관 및 위/변조 방지</li>
+              <li>${t.privacy.section12Tech1}</li>
+              <li>${t.privacy.section12Tech2}</li>
+              <li>${t.privacy.section12Tech3}</li>
+              <li>${t.privacy.section12Tech4}</li>
             </ul>
 
-            <h3 style="color: #003366; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">물리적 조치</h3>
+            <h3 style="color: #003366; font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">${t.privacy.section12PhysicalTitle}</h3>
             <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-              <li>개인정보에 대한 접근 제한</li>
+              <li>${t.privacy.section12Physical1}</li>
             </ul>
           </div>
 
           <div style="background: #e8f4f8; padding: 1.5rem; border-radius: 6px; margin-top: 3rem; text-align: center;">
-            <h3 style="color: #0052A5; margin-bottom: 1rem;">부칙</h3>
-            <p style="font-weight: bold; font-size: 1.1rem;">본 개인정보 처리방침은 2026. 1. 2 부터 시행됩니다.</p>
+            <h3 style="color: #0052A5; margin-bottom: 1rem;">${t.privacy.addendumTitle}</h3>
+            <p style="font-weight: bold; font-size: 1.1rem;">${t.privacy.addendumContent}</p>
           </div>
 
           <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd;">
-            <p style="color: #666; margin-bottom: 1rem;">문의사항이 있으시면 아래로 연락주세요</p>
+            <p style="color: #666; margin-bottom: 1rem;">${t.privacy.contactQuestion}</p>
             <p style="font-size: 1.1rem; color: #0052A5;">
               <i class="fas fa-phone"></i> 043-715-8553 | 
               <i class="fas fa-envelope"></i> cs@itmoou.com
