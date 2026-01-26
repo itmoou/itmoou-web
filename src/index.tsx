@@ -162,11 +162,12 @@ app.get('/api/hello', (c) => {
 function getHeader(lang: Language = 'ko') {
   const t = getTranslation(lang)
   const currentPath = lang === 'en' ? '/en' : ''
+  const homePath = lang === 'en' ? '/en' : '/'
   
   return `
     <header class="header">
       <div class="header-container">
-        <a href="${currentPath}/" class="logo">
+        <a href="${homePath}" class="logo">
           <img src="/images/logo.png" alt="IT moou" style="height: 80px;">
         </a>
         <nav>
