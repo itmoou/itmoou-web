@@ -235,15 +235,66 @@ export const en: TranslationType = {
   // Careers
   careers: {
     talentTitle: 'Talent',
-    talentSubtitle: 'Looking for talent to grow together',
+    talentSubtitle: 'The talent IT moou is looking for',
+    ourTalent: 'The Talent We Seek',
+    
+    // Talent qualities
+    innovationTitle: 'Innovative Thinking',
+    innovationDesc: 'Creative talent who constantly challenges with new ideas',
+    teamworkTitle: 'Collaboration Skills',
+    teamworkDesc: 'Talent who values teamwork and grows together',
+    expertiseTitle: 'Professionalism',
+    expertiseDesc: 'Talent who develops expertise in their field',
+    responsibilityTitle: 'Responsibility',
+    responsibilityDesc: 'Responsible talent who does their best in their work',
+    globalTitle: 'Global Mindset',
+    globalDesc: 'Global talent who works on the world stage',
+    learningTitle: 'Passion for Learning',
+    learningDesc: 'Talent with passion to continuously learn and grow',
+    
+    viewJobs: 'View Job Openings',
   },
   
   // Support
   support: {
     customerTitle: 'Customer Support',
-    customerSubtitle: 'We are here to help you',
+    customerSubtitle: 'Always ready for you',
+    
+    // Customer Support Services
+    techSupportTitle: 'Technical Support',
+    techSupportDesc: 'We quickly resolve technical issues that occur while using the product.',
+    techSupportContact: 'Phone: 043-715-8553',
+    
+    trainingTitle: 'Product Training',
+    trainingDesc: 'We provide training programs for effective use of products.',
+    trainingContact: 'Email: cs@itmoou.com',
+    
+    maintenanceTitle: 'Maintenance',
+    maintenanceDesc: 'Regular maintenance keeps products at optimal performance.',
+    maintenanceContact: 'Email: service@itmoou.com',
+    
+    operatingHours: 'Operating Hours',
+    weekdays: 'Weekdays: 09:00 - 18:00',
+    lunchTime: 'Lunch Break: 12:00 - 13:00',
+    weekends: 'Weekends and Holidays: Closed',
+    
     contactTitle: 'Contact Us',
-    contactSubtitle: 'Please leave your inquiry',
+    contactSubtitle: 'Please leave your inquiry and we will respond quickly',
+    
+    // Contact Form
+    nameLabel: 'Name *',
+    emailLabel: 'Email *',
+    phoneLabel: 'Phone Number',
+    inquiryTypeLabel: 'Inquiry Type *',
+    inquiryTypePlaceholder: 'Please select',
+    inquiryTypeProduct: 'Product Inquiry',
+    inquiryTypeSolution: 'Solution Inquiry',
+    inquiryTypeSupport: 'Technical Support',
+    inquiryTypePartnership: 'Partnership',
+    inquiryTypeEtc: 'Other',
+    messageLabel: 'Message *',
+    submitButton: 'Submit Inquiry',
+    orContact: 'Or contact us directly',
   },
   
   // Footer

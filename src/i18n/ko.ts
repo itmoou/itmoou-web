@@ -233,15 +233,66 @@ export const ko = {
   // 채용정보
   careers: {
     talentTitle: '인재상',
-    talentSubtitle: '함께 성장할 인재를 찾습니다',
+    talentSubtitle: 'IT moou가 찾는 인재',
+    ourTalent: '우리가 찾는 인재',
+    
+    // 인재상
+    innovationTitle: '혁신적 사고',
+    innovationDesc: '새로운 아이디어로 끊임없이 도전하는 창의적인 인재',
+    teamworkTitle: '협업 능력',
+    teamworkDesc: '팀워크를 중시하고 함께 성장하는 인재',
+    expertiseTitle: '전문성',
+    expertiseDesc: '자신의 분야에서 전문성을 갖추고 발전하는 인재',
+    responsibilityTitle: '책임감',
+    responsibilityDesc: '맡은 일에 최선을 다하는 책임감 있는 인재',
+    globalTitle: '글로벌 마인드',
+    globalDesc: '세계를 무대로 활동하는 글로벌 인재',
+    learningTitle: '학습 열정',
+    learningDesc: '지속적으로 배우고 성장하려는 열정을 가진 인재',
+    
+    viewJobs: '채용공고 보기',
   },
   
   // 지원센터
   support: {
     customerTitle: '고객지원',
-    customerSubtitle: '궁금하신 사항을 도와드립니다',
+    customerSubtitle: '언제나 고객님을 위해 준비되어 있습니다',
+    
+    // 고객지원 서비스
+    techSupportTitle: '기술 지원',
+    techSupportDesc: '제품 사용 중 발생하는 기술적 문제를 신속하게 해결해드립니다.',
+    techSupportContact: '전화: 043-715-8553',
+    
+    trainingTitle: '제품 교육',
+    trainingDesc: '제품의 효과적인 사용을 위한 교육 프로그램을 제공합니다.',
+    trainingContact: '이메일: cs@itmoou.com',
+    
+    maintenanceTitle: '유지보수',
+    maintenanceDesc: '정기적인 유지보수로 제품의 최적 성능을 유지합니다.',
+    maintenanceContact: '이메일: service@itmoou.com',
+    
+    operatingHours: '운영 시간',
+    weekdays: '평일: 09:00 - 18:00',
+    lunchTime: '점심시간: 12:00 - 13:00',
+    weekends: '주말 및 공휴일: 휴무',
+    
     contactTitle: 'Contact Us',
-    contactSubtitle: '문의사항을 남겨주세요',
+    contactSubtitle: '문의사항을 남겨주시면 빠르게 답변드리겠습니다',
+    
+    // 문의 양식
+    nameLabel: '이름 *',
+    emailLabel: '이메일 *',
+    phoneLabel: '전화번호',
+    inquiryTypeLabel: '문의 유형 *',
+    inquiryTypePlaceholder: '선택해주세요',
+    inquiryTypeProduct: '제품 문의',
+    inquiryTypeSolution: '솔루션 문의',
+    inquiryTypeSupport: '기술 지원',
+    inquiryTypePartnership: '파트너십',
+    inquiryTypeEtc: '기타',
+    messageLabel: '문의 내용 *',
+    submitButton: '문의하기',
+    orContact: '또는 직접 연락주세요',
   },
   
   // 푸터

@@ -887,7 +887,7 @@ function getBizSupportHTML(lang: Language = 'ko') {
         </div>
 
         <div class="section-header">
-          <h2 class="section-title">주요 기능</h2>
+          <h2 class="section-title">${t.solutions.bizSupportFeatures}</h2>
         </div>
         <div class="grid-3">
           <div class="card">
@@ -1001,58 +1001,58 @@ function getActivitiesHTML(lang: Language = 'ko') {
 
 function getTalentHTML(lang: Language = 'ko') {
   const t = getTranslation(lang)
-  return getBaseHTML('인재상', `
+  return getBaseHTML(t.careers.talentTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">인재상</h1>
-        <p style="font-size: 1.2rem;">IT moou가 찾는 인재</p>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.careers.talentTitle}</h1>
+        <p style="font-size: 1.2rem;">${t.careers.talentSubtitle}</p>
       </section>
 
       <section class="content-section">
         <div class="section-header">
-          <h2 class="section-title">우리가 찾는 인재</h2>
+          <h2 class="section-title">${t.careers.ourTalent}</h2>
         </div>
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-lightbulb"></i> 혁신적 사고</h3>
-              <p class="card-text">새로운 아이디어로 끊임없이 도전하는 창의적인 인재</p>
+              <h3 class="card-title"><i class="fas fa-lightbulb"></i> ${t.careers.innovationTitle}</h3>
+              <p class="card-text">${t.careers.innovationDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-handshake"></i> 협업 능력</h3>
-              <p class="card-text">팀워크를 중시하고 함께 성장하는 인재</p>
+              <h3 class="card-title"><i class="fas fa-handshake"></i> ${t.careers.teamworkTitle}</h3>
+              <p class="card-text">${t.careers.teamworkDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-star"></i> 전문성</h3>
-              <p class="card-text">자신의 분야에서 전문성을 갖추고 발전하는 인재</p>
+              <h3 class="card-title"><i class="fas fa-star"></i> ${t.careers.expertiseTitle}</h3>
+              <p class="card-text">${t.careers.expertiseDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-heart"></i> 책임감</h3>
-              <p class="card-text">맡은 일에 최선을 다하는 책임감 있는 인재</p>
+              <h3 class="card-title"><i class="fas fa-heart"></i> ${t.careers.responsibilityTitle}</h3>
+              <p class="card-text">${t.careers.responsibilityDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-globe"></i> 글로벌 마인드</h3>
-              <p class="card-text">세계를 무대로 활동하는 글로벌 인재</p>
+              <h3 class="card-title"><i class="fas fa-globe"></i> ${t.careers.globalTitle}</h3>
+              <p class="card-text">${t.careers.globalDesc}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-graduation-cap"></i> 학습 열정</h3>
-              <p class="card-text">지속적으로 배우고 성장하려는 열정을 가진 인재</p>
+              <h3 class="card-title"><i class="fas fa-graduation-cap"></i> ${t.careers.learningTitle}</h3>
+              <p class="card-text">${t.careers.learningDesc}</p>
             </div>
           </div>
         </div>
 
         <div style="margin-top: 4rem; text-align: center;">
-          <a href="/careers" style="display: inline-block; padding: 1rem 3rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; transition: all 0.3s;">채용공고 보기</a>
+          <a href="/careers" style="display: inline-block; padding: 1rem 3rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; transition: all 0.3s;">${t.careers.viewJobs}</a>
         </div>
       </section>
     </div>
@@ -1061,44 +1061,44 @@ function getTalentHTML(lang: Language = 'ko') {
 
 function getCustomerSupportHTML(lang: Language = 'ko') {
   const t = getTranslation(lang)
-  return getBaseHTML('고객지원', `
+  return getBaseHTML(t.support.customerTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem;">고객지원</h1>
-        <p style="font-size: 1.2rem;">언제나 고객님을 위해 준비되어 있습니다</p>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.support.customerTitle}</h1>
+        <p style="font-size: 1.2rem;">${t.support.customerSubtitle}</p>
       </section>
 
       <section class="content-section">
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-headset"></i> 기술 지원</h3>
-              <p class="card-text">제품 사용 중 발생하는 기술적 문제를 신속하게 해결해드립니다.</p>
-              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">전화: 043-715-8553</p>
+              <h3 class="card-title"><i class="fas fa-headset"></i> ${t.support.techSupportTitle}</h3>
+              <p class="card-text">${t.support.techSupportDesc}</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">${t.support.techSupportContact}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-book"></i> 제품 교육</h3>
-              <p class="card-text">제품의 효과적인 사용을 위한 교육 프로그램을 제공합니다.</p>
-              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">이메일: cs@itmoou.com</p>
+              <h3 class="card-title"><i class="fas fa-book"></i> ${t.support.trainingTitle}</h3>
+              <p class="card-text">${t.support.trainingDesc}</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">${t.support.trainingContact}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-tools"></i> 유지보수</h3>
-              <p class="card-text">정기적인 유지보수로 제품의 최적 성능을 유지합니다.</p>
-              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">이메일: service@itmoou.com</p>
+              <h3 class="card-title"><i class="fas fa-tools"></i> ${t.support.maintenanceTitle}</h3>
+              <p class="card-text">${t.support.maintenanceDesc}</p>
+              <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">${t.support.maintenanceContact}</p>
             </div>
           </div>
         </div>
 
         <div style="max-width: 900px; margin: 4rem auto; padding: 2rem; background: #f9f9f9; border-radius: 8px;">
-          <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem; text-align: center;"><i class="fas fa-clock"></i> 운영 시간</h3>
+          <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem; text-align: center;"><i class="fas fa-clock"></i> ${t.support.operatingHours}</h3>
           <p style="text-align: center; color: #666; line-height: 1.8;">
-            평일: 09:00 - 18:00<br>
-            점심시간: 12:00 - 13:00<br>
-            주말 및 공휴일: 휴무
+            ${t.support.weekdays}<br>
+            ${t.support.lunchTime}<br>
+            ${t.support.weekends}
           </p>
         </div>
       </section>
@@ -1112,46 +1112,46 @@ function getContactHTML(lang: Language = 'ko') {
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">Contact Us</h1>
-        <p style="font-size: 1.2rem;">문의사항을 남겨주시면 빠르게 답변드리겠습니다</p>
+        <p style="font-size: 1.2rem;">${t.support.contactSubtitle}</p>
       </section>
 
       <section class="content-section">
         <div style="max-width: 600px; margin: 0 auto;">
           <form style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">이름 *</label>
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.nameLabel}</label>
               <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
             </div>
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">이메일 *</label>
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.emailLabel}</label>
               <input type="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
             </div>
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">전화번호</label>
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.phoneLabel}</label>
               <input type="tel" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
             </div>
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">문의 유형 *</label>
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.inquiryTypeLabel}</label>
               <select required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
-                <option value="">선택해주세요</option>
-                <option value="product">제품 문의</option>
-                <option value="solution">솔루션 문의</option>
-                <option value="support">기술 지원</option>
-                <option value="partnership">파트너십</option>
-                <option value="etc">기타</option>
+                <option value="">${t.support.inquiryTypePlaceholder}</option>
+                <option value="product">${t.support.inquiryTypeProduct}</option>
+                <option value="solution">${t.support.inquiryTypeSolution}</option>
+                <option value="support">${t.support.inquiryTypeSupport}</option>
+                <option value="partnership">${t.support.inquiryTypePartnership}</option>
+                <option value="etc">${t.support.inquiryTypeEtc}</option>
               </select>
             </div>
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">문의 내용 *</label>
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.messageLabel}</label>
               <textarea required rows="6" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; resize: vertical;"></textarea>
             </div>
             <div style="text-align: center;">
-              <button type="submit" style="padding: 1rem 3rem; background: #0052A5; color: white; border: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s;">문의하기</button>
+              <button type="submit" style="padding: 1rem 3rem; background: #0052A5; color: white; border: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s;">${t.support.submitButton}</button>
             </div>
           </form>
 
           <div style="margin-top: 3rem; text-align: center; color: #666;">
-            <p style="margin-bottom: 1rem;">또는 직접 연락주세요</p>
+            <p style="margin-bottom: 1rem;">${t.support.orContact}</p>
             <p style="font-size: 1.1rem;">
               <i class="fas fa-phone"></i> 043-715-8553<br>
               <i class="fas fa-envelope"></i> cs@itmoou.com
