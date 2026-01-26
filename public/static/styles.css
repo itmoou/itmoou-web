@@ -182,6 +182,30 @@ body {
   display: none;
 }
 
+/* PC에서 모바일 네비게이션 요소 숨김 */
+@media (min-width: 769px) {
+  .mobile-nav-header {
+    display: none !important;
+  }
+  
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+  
+  .mobile-nav-actions {
+    display: none !important;
+  }
+  
+  .mobile-language-dropdown {
+    display: none !important;
+  }
+  
+  .mobile-language-toggle,
+  .mobile-menu-close {
+    display: none !important;
+  }
+}
+
 @media (max-width: 768px) {
   .mobile-menu-toggle {
     display: flex;
