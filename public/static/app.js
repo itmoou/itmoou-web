@@ -42,16 +42,27 @@ class Slider {
     const header = document.querySelector('.header');
     const logo = header.querySelector('.logo');
     const navLinks = header.querySelectorAll('.nav-link');
+    const menuToggle = header.querySelector('.mobile-menu-toggle');
     
     if (window.scrollY === 0) { // Only change color when at top of page
       if (index === 2) { // slide3
         // Black text for slide3
         if (logo) logo.style.color = '#003366';
         navLinks.forEach(link => link.style.color = '#333');
+        if (menuToggle) {
+          menuToggle.querySelectorAll('span').forEach(span => {
+            span.style.backgroundColor = '#333';
+          });
+        }
       } else { // slide1, slide2
         // White text for slide1 and slide2
         if (logo) logo.style.color = 'white';
         navLinks.forEach(link => link.style.color = 'white');
+        if (menuToggle) {
+          menuToggle.querySelectorAll('span').forEach(span => {
+            span.style.backgroundColor = 'white';
+          });
+        }
       }
     }
   }
@@ -96,18 +107,72 @@ function setupSmoothScroll() {
 
 // Mobile menu toggle
 function setupMobileMenu() {
-  const navItems = document.querySelectorAll('.nav-item');
+  // 햄버거 메뉴 토글
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const mobileNav = document.querySelector('.mobile-nav');
   
-  navItems.forEach(item => {
-    item.addEventListener('click', function(e) {
-      if (window.innerWidth <= 768) {
-        const dropdown = this.querySelector('.dropdown');
-        if (dropdown) {
-          dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        }
+  if (menuToggle && mobileNav) {
+    // 오버레이 생성
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-menu-overlay';
+    document.body.appendChild(overlay);
+    
+    // 햄버거 버튼 클릭
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      menuToggle.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // 오버레이 클릭 시 메뉴 닫기
+    overlay.addEventListener('click', function() {
+      menuToggle.classList.remove('active');
+      mobileNav.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    
+    // 메뉴 항목 클릭 시 드롭다운 토글
+    const navItems = mobileNav.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      const navLink = item.querySelector('.nav-link');
+      const dropdown = item.querySelector('.dropdown');
+      
+      if (navLink && dropdown) {
+        navLink.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // 다른 nav-item의 active 클래스 제거
+            navItems.forEach(otherItem => {
+              if (otherItem !== item) {
+                otherItem.classList.remove('active');
+              }
+            });
+            
+            // 현재 nav-item의 active 토글
+            item.classList.toggle('active');
+          }
+        });
       }
     });
-  });
+    
+    // 드롭다운 항목 클릭 시 메뉴 닫기
+    const dropdownItems = mobileNav.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(dropdownItem => {
+      dropdownItem.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          menuToggle.classList.remove('active');
+          mobileNav.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+  }
 }
 
 // Header scroll effect - change background opacity
@@ -117,6 +182,7 @@ function setupHeaderScroll() {
   
   const logo = header.querySelector('.logo');
   const navLinks = header.querySelectorAll('.nav-link');
+  const menuToggle = header.querySelector('.mobile-menu-toggle');
   
   // 초기 색상 설정 함수
   function setInitialColors() {
@@ -127,14 +193,29 @@ function setupHeaderScroll() {
       if (currentSlide === 2) { // slide3
         if (logo) logo.style.color = '#003366';
         navLinks.forEach(link => link.style.color = '#333');
+        if (menuToggle) {
+          menuToggle.querySelectorAll('span').forEach(span => {
+            span.style.backgroundColor = '#333';
+          });
+        }
       } else { // slide1, slide2
         if (logo) logo.style.color = 'white';
         navLinks.forEach(link => link.style.color = 'white');
+        if (menuToggle) {
+          menuToggle.querySelectorAll('span').forEach(span => {
+            span.style.backgroundColor = 'white';
+          });
+        }
       }
     } else {
       // 다른 페이지: 검정색으로 설정
       if (logo) logo.style.color = '#003366';
       navLinks.forEach(link => link.style.color = '#333');
+      if (menuToggle) {
+        menuToggle.querySelectorAll('span').forEach(span => {
+          span.style.backgroundColor = '#333';
+        });
+      }
     }
   }
   
@@ -157,6 +238,11 @@ function setupHeaderScroll() {
       // Change to dark text when scrolled
       if (logo) logo.style.color = '#003366';
       navLinks.forEach(link => link.style.color = '#333');
+      if (menuToggle) {
+        menuToggle.querySelectorAll('span').forEach(span => {
+          span.style.backgroundColor = '#333';
+        });
+      }
     } else {
       header.style.background = 'transparent';
       header.style.backdropFilter = 'none';
@@ -170,14 +256,29 @@ function setupHeaderScroll() {
         if (currentSlide === 2) { // slide3
           if (logo) logo.style.color = '#003366';
           navLinks.forEach(link => link.style.color = '#333');
+          if (menuToggle) {
+            menuToggle.querySelectorAll('span').forEach(span => {
+              span.style.backgroundColor = '#333';
+            });
+          }
         } else { // slide1, slide2
           if (logo) logo.style.color = 'white';
           navLinks.forEach(link => link.style.color = 'white');
+          if (menuToggle) {
+            menuToggle.querySelectorAll('span').forEach(span => {
+              span.style.backgroundColor = 'white';
+            });
+          }
         }
       } else {
         // 다른 페이지 (슬라이더 없음): 항상 검정색 유지
         if (logo) logo.style.color = '#003366';
         navLinks.forEach(link => link.style.color = '#333');
+        if (menuToggle) {
+          menuToggle.querySelectorAll('span').forEach(span => {
+            span.style.backgroundColor = '#333';
+          });
+        }
       }
     }
   });

@@ -170,7 +170,12 @@ function getHeader(lang: Language = 'ko') {
         <a href="${homePath}" class="logo">
           <img src="/images/logo.png" alt="IT moou" style="height: 80px;">
         </a>
-        <nav>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="mobile-nav">
           <ul class="main-nav">
             <li class="nav-item">
               <a href="${currentPath}/company" class="nav-link">${t.nav.company}</a>
