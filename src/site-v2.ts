@@ -36,12 +36,12 @@ function v2Head(path: string, title: string, desc: string): string {
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="apple-touch-icon" href="/apple-icon-180x180.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="/static/site-v2.css?v=20260720b">
+<link rel="stylesheet" href="/static/site-v2.css?v=20260720c">
 </head>
 <body>`
 }
 
-const V2_TAIL = `<script src="/static/site-v2.js?v=20260720b"></script>
+const V2_TAIL = `<script src="/static/site-v2.js?v=20260720c"></script>
 </body>
 </html>`
 
