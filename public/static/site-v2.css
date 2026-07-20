@@ -149,27 +149,29 @@
   /* ───── 히어로: 브랜드 컬러 선언 (우아한형제들 문법) ───── */
   .hero {
     position: relative; overflow: hidden;
-    background: linear-gradient(160deg, #0052a5 0%, #003d7c 90%);
-    color: #fff;
+    background:
+      radial-gradient(1100px 540px at 50% -12%, color-mix(in srgb, var(--brand) 13%, var(--bg)), transparent 68%),
+      var(--bg);
+    color: var(--ink);
     padding: 140px 0 150px;
   }
   .hero .routes {
     position: absolute; inset: 0; width: 100%; height: 100%;
     pointer-events: none; opacity: 0.4;
   }
-  .hero .routes path { fill: none; stroke: rgba(255, 255, 255, 0.2); stroke-width: 1.3; }
-  .hero .routes path.lit { stroke: rgba(255, 255, 255, 0.4); stroke-dasharray: 4 10; animation: sail 30s linear infinite; }
+  .hero .routes path { fill: none; stroke: color-mix(in srgb, var(--brand) 22%, transparent); stroke-width: 1.3; }
+  .hero .routes path.lit { stroke: color-mix(in srgb, var(--brand) 40%, transparent); stroke-dasharray: 4 10; animation: sail 30s linear infinite; }
   @keyframes sail { to { stroke-dashoffset: -700; } }
-  .hero .routes circle { fill: rgba(255, 255, 255, 0.55); }
+  .hero .routes circle { fill: color-mix(in srgb, var(--brand) 55%, transparent); }
   .hero .routes text {
-    fill: rgba(255, 255, 255, 0.4); font-size: 9px;
+    fill: color-mix(in srgb, var(--brand) 45%, transparent); font-size: 9px;
     font-family: ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.12em;
   }
   .hero-inner { position: relative; text-align: center; }
   .hero .eng {
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 0.82rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.65); margin: 0 0 26px;
+    color: var(--brand); margin: 0 0 26px;
   }
   .hero h1 {
     margin: 0 auto 26px;
@@ -179,11 +181,11 @@
   }
   .hero p.lede {
     margin: 0 auto; max-width: 32em;
-    font-size: 1.12rem; color: rgba(255, 255, 255, 0.82); line-height: 1.75;
+    font-size: 1.12rem; color: var(--ink-soft); line-height: 1.75;
   }
   .hero .scroll-hint {
     position: absolute; left: 50%; bottom: -108px; transform: translateX(-50%);
-    color: rgba(255,255,255,0.6); font-size: 0.78rem; letter-spacing: 0.14em;
+    color: var(--ink-faint); font-size: 0.78rem; letter-spacing: 0.14em;
   }
   html.js .hero .scroll-hint { animation: floaty 2.6s ease-in-out infinite; }
   @keyframes floaty { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 7px); } }
@@ -191,8 +193,8 @@
   html.js .hero .eng { animation: riseIn 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
   html.js .hero h1 { animation: riseIn 0.9s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
   html.js .hero p.lede { animation: riseIn 0.9s 0.26s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-  .hero .routes .shipdot { fill: #ffffff; }
-  .hero .routes .shipglow { fill: rgba(255, 255, 255, 0.25); }
+  .hero .routes .shipdot { fill: var(--brand); }
+  .hero .routes .shipglow { fill: color-mix(in srgb, var(--brand) 22%, transparent); }
 
   /* ───── 큰 문장 (당근 문법) ───── */
   .statement { padding: 150px 0 146px; }
