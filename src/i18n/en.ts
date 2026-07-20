@@ -5,7 +5,7 @@ export const en: TranslationType = {
   // Header/Navigation
   nav: {
     company: 'Company',
-    companyInfo: 'IT moou',
+    companyInfo: 'ITMoou',
     ceoMessage: 'CEO Message',
     history: 'History',
     esg: 'ESG',
@@ -23,6 +23,7 @@ export const en: TranslationType = {
     support: 'Support',
     customer: 'Customer Support',
     contact: 'Contact Us',
+    announcements: 'Notices',
   },
   
   // Home page
@@ -308,7 +309,7 @@ export const en: TranslationType = {
     address: 'Address',
     businessNumber: 'Business Registration Number',
     email: 'E-mail',
-    copyright: '2025 ITmoou Co., Ltd. ALL RIGHTS RESERVED.',
+    copyright: '© 2026 ITmoou Co., Ltd. ALL RIGHTS RESERVED.',
   },
   
   // Privacy Policy

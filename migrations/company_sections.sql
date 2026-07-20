@@ -1,0 +1,15 @@
+INSERT OR IGNORE INTO page_sections (page, section_key, content) VALUES
+('company','subtitle','글로벌 물류 SaaS 솔루션, 경영지원 AI 솔루션, 아이티무유를 소개합니다'),
+('company','about_title','혁신적인 AI&빅데이터 솔루션 기업'),
+('company','about_intro','아이티무유는 ''기술로 세상을 움직이다''이라는 슬로건과 함께 혁신을 통한 기업의 미래가치 실현을 위해 물류 솔루션 개발로 시작한 기업의 물류 및 경영 솔루션을 확보한 기업입니다.'),
+('company','about_desc','아이티무유는 물류와 경영 자문의 역량을 바탕으로 물류 산업에 필요한 팔레타이징, 수출 서류 자동화, 포워더 컨택 및 선적 등의 올인원 솔루션을 시장에 공급합니다. 또한 경영에 도움이 될 수 있도록 기업 맞춤형 AI 솔루션으로 기업의 가치를 높이고 같이 성장하는 대한민국 최대의 비즈니스 솔루션 기업으로 성장을 준비하고 있습니다.'),
+('company','vision_desc','데이터와 AI로 전 세계 중소 수출 기업의 운영을 표준화하는 디지털 운영 OS 구축'),
+('company','mission_desc','모든 기업의 업무를 한번에, 오류 없이 처리할 수 있는 원스톱 SaaS 제공'),
+('company','core_values_desc','혁신, 고객 성공, 정직'),
+('company','subtitle_en','Introducing ITmoou - Global logistics SaaS and business management AI solutions'),
+('company','about_title_en','Innovative AI & Big Data Solution Company'),
+('company','about_intro_en','ITmoou is a company that has secured logistics and business management solutions for enterprises, starting with the development of logistics solutions to realize the future value of companies through innovation with the slogan "Move the world with technology."'),
+('company','about_desc_en','Based on logistics and business consulting capabilities, ITmoou supplies the market with all-in-one solutions such as palletizing, export document automation, forwarder contact, and shipping required for the logistics industry. We are also preparing to grow as Korea''s largest business solution company that increases corporate value and grows together with customized AI solutions to help management.'),
+('company','vision_desc_en','Building a digital operating OS that standardizes the operations of small and medium-sized export companies worldwide with data and AI'),
+('company','mission_desc_en','Providing a one-stop SaaS that can process all business tasks at once without errors'),
+('company','core_values_desc_en','Innovation, Customer Success, Integrity');

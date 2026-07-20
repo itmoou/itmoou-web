@@ -2,8 +2,12 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { getTranslation, getLocalizedPath, type Language } from './i18n'
+import announcements, { announcementsEn } from './announcements'
+import admin from './admin'
+import { v2Home, v2Company, v2Service, v2Rnd, v2Newsroom, v2Contact, type AnnouncementRow } from './site-v2'
+import type { NewsItem, SlideItem, HistoryItem, SolutionData, SolutionFeature, ContactSubmission } from './types'
 
-const app = new Hono()
+const app = new Hono<{ Bindings: { itmoou_db: D1Database; itmoou_files: R2Bucket; ADMIN_PASSWORD: string; FORM_SECRET?: string } }>()
 
 // Enable CORS for API routes
 app.use('/api/*', cors())
@@ -12,150 +16,247 @@ app.use('/api/*', cors())
 app.use('/static/*', serveStatic({ root: './public' }))
 app.use('/images/*', serveStatic({ root: './public' }))
 
-// Main page
-app.get('/', (c) => {
-  return c.html(getMainHTML())
+// 공통 DB 조회 헬퍼
+async function fetchCmsData(db: D1Database) {
+  const [newsRes, slidesRes, historyRes] = await Promise.all([
+    db.prepare('SELECT * FROM news ORDER BY order_num ASC').all<NewsItem>().catch(() => ({ results: [] as NewsItem[] })),
+    db.prepare('SELECT * FROM slides WHERE active = 1 ORDER BY order_num ASC').all<SlideItem>().catch(() => ({ results: [] as SlideItem[] })),
+    db.prepare('SELECT * FROM history_items ORDER BY order_num ASC').all<HistoryItem>().catch(() => ({ results: [] as HistoryItem[] })),
+  ])
+  return {
+    news: newsRes.results,
+    slides: slidesRes.results,
+    history: historyRes.results,
+  }
+}
+
+async function fetchSolution(db: D1Database, slug: string): Promise<SolutionData | null> {
+  return db.prepare('SELECT * FROM solutions WHERE slug = ?').bind(slug).first<SolutionData>().catch(() => null)
+}
+
+async function fetchSolutionFeatures(db: D1Database, slug: string): Promise<SolutionFeature[]> {
+  const res = await db.prepare('SELECT * FROM solution_features WHERE solution_slug = ? ORDER BY order_num ASC')
+    .bind(slug).all<SolutionFeature>().catch(() => ({ results: [] as SolutionFeature[] }))
+  return res.results
+}
+
+async function fetchJobsUrl(db: D1Database): Promise<string> {
+  const s = await db.prepare('SELECT value FROM site_settings WHERE key = ?').bind('jobs_url')
+    .first<{value: string}>().catch(() => null)
+  return s?.value || 'https://recruit.itmoou.com'
+}
+
+async function fetchPageSections(db: D1Database, page: string): Promise<Record<string, string>> {
+  const res = await db.prepare('SELECT section_key, content FROM page_sections WHERE page = ?')
+    .bind(page).all<{section_key: string; content: string}>().catch(() => ({ results: [] as {section_key: string; content: string}[] }))
+  const sections: Record<string, string> = {}
+  for (const r of res.results) sections[r.section_key] = r.content
+  return sections
+}
+
+// ─────────────────────────────────────────────
+// 2026-07 재구축(site-v2) 라우트
+// 구 URL은 SEO 보존을 위해 301로 새 IA에 매핑
+// ─────────────────────────────────────────────
+
+app.get('/', (c) => c.html(v2Home()))
+
+app.get('/company', (c) => c.html(v2Company()))
+app.get('/company/ceo', (c) => c.redirect('/company', 301))
+app.get('/company/history', (c) => c.redirect('/company', 301))
+app.get('/company/esg', (c) => c.redirect('/company', 301))
+app.get('/company/location', (c) => c.redirect('/company', 301))
+app.get('/company/news', (c) => c.redirect('/newsroom', 301))
+
+app.get('/service', (c) => c.html(v2Service()))
+app.get('/solutions/loginexio', (c) => c.redirect('/service', 301))
+app.get('/solutions/bizsupport', (c) => c.redirect('/service', 301))
+
+app.get('/rnd', (c) => c.html(v2Rnd()))
+app.get('/rnd/lab', (c) => c.redirect('/rnd', 301))
+app.get('/rnd/activities', (c) => c.redirect('/rnd', 301))
+
+app.get('/newsroom', async (c) => {
+  const anns = await c.env.itmoou_db
+    .prepare('SELECT id, number, category, title, notice_date FROM announcements ORDER BY number DESC LIMIT 10')
+    .all<AnnouncementRow>()
+    .then(r => r.results)
+    .catch(() => [] as AnnouncementRow[])
+  return c.html(v2Newsroom(anns))
 })
 
-// Company pages
-app.get('/company', (c) => {
-  return c.html(getCompanyHTML())
+// Careers - 채용 사이트(나인하이어)로 이동
+app.get('/careers', async (c) => {
+  return c.redirect(await fetchJobsUrl(c.env.itmoou_db))
 })
-
-app.get('/company/ceo', (c) => {
-  return c.html(getCEOHTML())
-})
-
-app.get('/company/history', (c) => {
-  return c.html(getHistoryHTML())
-})
-
-app.get('/company/esg', (c) => {
-  return c.html(getESGHTML())
-})
-
-app.get('/company/location', (c) => {
-  return c.html(getLocationHTML())
-})
-
-app.get('/company/news', (c) => {
-  return c.html(getCompanyNewsHTML())
-})
-
-// Solutions pages
-app.get('/solutions/loginexio', (c) => {
-  return c.html(getLogiNexioHTML())
-})
-
-app.get('/solutions/bizsupport', (c) => {
-  return c.html(getBizSupportHTML())
-})
-
-// R&D pages
-app.get('/rnd/lab', (c) => {
-  return c.html(getLabHTML())
-})
-
-app.get('/rnd/activities', (c) => {
-  return c.html(getActivitiesHTML())
-})
-
-// Careers pages - redirect to external site
-app.get('/careers', (c) => {
-  return c.redirect('https://recruit.itmoou.com')
-})
-
-app.get('/careers/talent', (c) => {
-  return c.html(getTalentHTML())
-})
+app.get('/careers/talent', (c) => c.redirect('/careers', 301))
 
 // Privacy Policy page
 app.get('/privacy-policy', (c) => {
   return c.html(getPrivacyPolicyHTML())
 })
 
-// Support pages
-app.get('/support/customer', (c) => {
-  return c.html(getCustomerSupportHTML())
+// 문의 (신규 경로) - 기존 스팸 방어 파이프라인 재사용
+app.get('/contact', async (c) => {
+  const formToken = c.env.FORM_SECRET ? await generateFormToken(c.env.FORM_SECRET) : ''
+  return c.html(v2Contact({ formToken }))
 })
 
-app.get('/support/contact', (c) => {
-  return c.html(getContactHTML())
+app.post('/contact', async (c) => {
+  const ip = c.req.header('CF-Connecting-IP') || ''
+  const body = await c.req.formData()
+  const honeypot = (body.get('_hp') as string) || ''
+  const formToken = (body.get('_t') as string) || ''
+  const company = (body.get('company') as string)?.trim() || ''
+  const name = (body.get('name') as string)?.trim() || ''
+  const email = (body.get('email') as string)?.trim() || ''
+  const phone = (body.get('phone') as string)?.trim() || ''
+  const inquiry_type = (body.get('inquiry_type') as string)?.trim() || ''
+  const rawMessage = (body.get('message') as string)?.trim() || ''
+  const message = company ? `[회사] ${company}\n\n${rawMessage}` : rawMessage
+
+  if (honeypot) {
+    await logSpam(c.env.itmoou_db, ip, email, 'honeypot')
+    return c.html(v2Contact({ success: true }))
+  }
+
+  const tokenCheck = await verifyFormToken(formToken, c.env.FORM_SECRET)
+  if (tokenCheck.blocked) {
+    await logSpam(c.env.itmoou_db, ip, email, tokenCheck.reason || 'invalid_token')
+    return c.html(v2Contact({ success: true }))
+  }
+
+  if (await checkRateLimit(c.env.itmoou_db, ip)) {
+    await logSpam(c.env.itmoou_db, ip, email, 'rate_limit')
+    return c.html(v2Contact({ success: true }))
+  }
+
+  const emailDomain = email.split('@')[1]?.toLowerCase() || ''
+  if (DISPOSABLE_DOMAINS.has(emailDomain) || isSuspiciousEmail(email)) {
+    await logSpam(c.env.itmoou_db, ip, email, DISPOSABLE_DOMAINS.has(emailDomain) ? 'disposable_email' : 'suspicious_email')
+    return c.html(v2Contact({ success: true }))
+  }
+
+  if (!name || !email || !inquiry_type || !rawMessage) {
+    return c.html(v2Contact({ error: '필수 항목을 모두 입력해주세요.' }))
+  }
+
+  const ticketNo = generateTrackingId()
+  await c.env.itmoou_db.prepare(
+    'INSERT INTO contact_submissions (name, email, phone, inquiry_type, message, lang, ticket_no, ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+  ).bind(name, email, phone, inquiry_type, message, 'ko', ticketNo, ip).run()
+
+  await sendContactEmail(c.env.RESEND_API_KEY, { name, email, phone, inquiry_type, message, lang: 'ko', ticketNo })
+  if (c.env.TEAMS_WEBHOOK_URL) await sendTeamsNotification(c.env.TEAMS_WEBHOOK_URL, { name, email, phone, inquiry_type, message, ticketNo, lang: 'ko', created_at: new Date().toISOString() })
+
+  return c.html(v2Contact({ success: true, ticketNo }))
 })
 
-// Privacy Policy
-app.get('/privacy-policy', (c) => {
-  return c.html(getPrivacyPolicyHTML())
+// 구 지원센터 경로 → 문의
+app.get('/support/customer', (c) => c.redirect('/contact', 301))
+app.get('/support/contact', (c) => c.redirect('/contact', 301))
+// 구 폼에서 들어오는 POST는 새 문의로 안내
+app.post('/support/contact', (c) => c.redirect('/contact', 301))
+
+// 영문 사이트 제거(기획안 D-2 확정): 전 경로 국문으로 301
+app.get('/en', (c) => c.redirect('/', 301))
+app.get('/en/*', (c) => c.redirect('/', 301))
+
+app.get('/robots.txt', (c) => {
+  return c.text(`User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://itmoou.com/sitemap.xml`)
 })
 
-// English routes
-app.get('/en', (c) => {
-  return c.html(getMainHTML('en'))
+app.get('/sitemap.xml', (c) => {
+  const base = 'https://itmoou.com'
+  const paths = [
+    '/', '/company', '/service', '/rnd', '/newsroom', '/contact',
+    '/announcements', '/privacy-policy',
+  ]
+  const urls = paths.map(p =>
+    `<url><loc>${base}${p}</loc><changefreq>weekly</changefreq><priority>${p === '/' ? '1.0' : '0.8'}</priority></url>`
+  ).join('\n  ')
+  return c.body(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${urls}
+</urlset>`, 200, { 'Content-Type': 'application/xml' })
 })
 
-app.get('/en/company', (c) => {
-  return c.html(getCompanyHTML('en'))
+// 공고 라우트 (공개)
+app.route('/announcements', announcements)
+app.route('/en/announcements', announcementsEn)
+
+// 관리자 라우트 (비공개)
+app.route('/admin', admin)
+
+// Solution feature image API (public)
+app.get('/api/solution-feature/:id/image', async (c) => {
+  const id = parseInt(c.req.param('id'))
+  const feature = await c.env.itmoou_db.prepare('SELECT image_key FROM solution_features WHERE id = ?')
+    .bind(id).first<{image_key: string}>().catch(() => null)
+  if (!feature?.image_key || feature.image_key.startsWith('/')) return c.notFound()
+  const obj = await c.env.itmoou_files.get(feature.image_key)
+  if (!obj) return c.notFound()
+  return new Response(obj.body as ReadableStream, {
+    headers: {
+      'Content-Type': obj.httpMetadata?.contentType ?? 'image/jpeg',
+      'Cache-Control': 'public, max-age=86400',
+    },
+  })
 })
 
-app.get('/en/company/ceo', (c) => {
-  return c.html(getCEOHTML('en'))
-})
-
-app.get('/en/company/history', (c) => {
-  return c.html(getHistoryHTML('en'))
-})
-
-app.get('/en/company/esg', (c) => {
-  return c.html(getESGHTML('en'))
-})
-
-app.get('/en/company/location', (c) => {
-  return c.html(getLocationHTML('en'))
-})
-
-app.get('/en/company/news', (c) => {
-  return c.html(getCompanyNewsHTML('en'))
-})
-
-app.get('/en/solutions/loginexio', (c) => {
-  return c.html(getLogiNexioHTML('en'))
-})
-
-app.get('/en/solutions/bizsupport', (c) => {
-  return c.html(getBizSupportHTML('en'))
-})
-
-app.get('/en/rnd/lab', (c) => {
-  return c.html(getLabHTML('en'))
-})
-
-app.get('/en/rnd/activities', (c) => {
-  return c.html(getActivitiesHTML('en'))
-})
-
-app.get('/en/careers/talent', (c) => {
-  return c.html(getTalentHTML('en'))
-})
-
-app.get('/en/careers', (c) => {
-  return c.redirect('https://recruit.itmoou.com')
-})
-
-app.get('/en/support/customer', (c) => {
-  return c.html(getCustomerSupportHTML('en'))
-})
-
-app.get('/en/support/contact', (c) => {
-  return c.html(getContactHTML('en'))
-})
-
-app.get('/en/privacy-policy', (c) => {
-  return c.html(getPrivacyPolicyHTML('en'))
+// Page image API (public)
+app.get('/api/page-image/:page/:key', async (c) => {
+  const { page, key } = c.req.param()
+  const db = c.env.itmoou_db
+  const record = await db.prepare('SELECT content FROM page_sections WHERE page = ? AND section_key = ?')
+    .bind(page, key).first<{content: string}>().catch(() => null)
+  if (!record?.content) return c.notFound()
+  const obj = await c.env.itmoou_files.get(record.content)
+  if (!obj) return c.notFound()
+  return new Response(obj.body as ReadableStream, {
+    headers: {
+      'Content-Type': obj.httpMetadata?.contentType ?? 'image/jpeg',
+      'Cache-Control': 'public, max-age=3600',
+    },
+  })
 })
 
 // API routes
 app.get('/api/hello', (c) => {
-  return c.json({ message: 'Hello from IT moou API!' })
+  return c.json({ message: 'Hello from ITMoou API!' })
+})
+
+// ── 고객 답장 수신 웹훅 (Power Automate → cs@itmoou.com 수신 시 호출) ──
+app.post('/api/inbound-reply', async (c) => {
+  const secret = c.req.query('secret') || c.req.header('X-Webhook-Secret')
+  if (!secret || secret !== c.env.ADMIN_PASSWORD) {
+    return c.json({ error: 'unauthorized' }, 401)
+  }
+
+  let body: any
+  try { body = await c.req.json() } catch { return c.json({ error: 'invalid json' }, 400) }
+
+  const { ticket_no, from_email, from_name, subject, body: emailBody } = body
+  if (!ticket_no || !from_email) return c.json({ error: 'missing fields: ticket_no, from_email' }, 400)
+
+  const db = c.env.itmoou_db
+  const contact = await db.prepare('SELECT id, status FROM contact_submissions WHERE ticket_no = ?')
+    .bind(String(ticket_no)).first<{id:number; status:string}>()
+
+  await db.prepare(
+    'INSERT INTO customer_replies (contact_id, ticket_no, from_email, from_name, subject, body) VALUES (?, ?, ?, ?, ?, ?)'
+  ).bind(contact?.id ?? null, String(ticket_no), String(from_email), String(from_name || ''), String(subject || ''), String(emailBody || '')).run()
+
+  // 미처리 상태면 처리중으로 자동 전환
+  if (contact && contact.status === 'new') {
+    await db.prepare("UPDATE contact_submissions SET status = 'in_progress' WHERE id = ?").bind(contact.id).run()
+  }
+
+  return c.json({ success: true, contact_id: contact?.id ?? null })
 })
 
 // Helper functions for HTML templates
@@ -168,7 +269,7 @@ function getHeader(lang: Language = 'ko') {
     <header class="header">
       <div class="header-container">
         <a href="${homePath}" class="logo">
-          <img src="/images/logo.png" alt="IT moou" style="height: 80px;">
+          <img src="/images/logo.png" alt="ITMoou" style="height: 80px;">
         </a>
         <button class="mobile-menu-toggle" aria-label="Toggle menu">
           <span></span>
@@ -197,6 +298,7 @@ function getHeader(lang: Language = 'ko') {
                 <a href="${currentPath}/company" class="dropdown-item">${t.nav.companyInfo}</a>
                 <a href="${currentPath}/company/ceo" class="dropdown-item">${t.nav.ceoMessage}</a>
                 <a href="${currentPath}/company/news" class="dropdown-item">${t.nav.companyNews}</a>
+                <a href="${currentPath}/announcements" class="dropdown-item">${t.nav.announcements}</a>
                 <a href="${currentPath}/company/history" class="dropdown-item">${t.nav.history}</a>
                 <a href="${currentPath}/company/esg" class="dropdown-item">${t.nav.esg}</a>
                 <a href="${currentPath}/company/location" class="dropdown-item">${t.nav.location}</a>
@@ -220,7 +322,7 @@ function getHeader(lang: Language = 'ko') {
               <a href="${currentPath}/careers/talent" class="nav-link">${t.nav.careers}</a>
               <div class="dropdown">
                 <a href="${currentPath}/careers/talent" class="dropdown-item">${t.nav.talent}</a>
-                <a href="https://recruit.itmoou.com" class="dropdown-item" target="_blank" rel="noopener noreferrer">${t.nav.jobs}</a>
+                <a href="${currentPath}/careers" class="dropdown-item" target="_blank" rel="noopener noreferrer">${t.nav.jobs}</a>
               </div>
             </li>
             <li class="nav-item">
@@ -253,7 +355,7 @@ function getFooter(lang: Language = 'ko') {
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-section footer-logo">
-            <img src="/images/footericon.png" alt="IT moou" style="height: 90px; margin-bottom: 1.5rem;">
+            <img src="/images/footericon.png" alt="ITMoou" style="height: 90px; margin-bottom: 1.5rem;">
             <p class="footer-main-info">${t.footer.phone}<br><span class="footer-phone">043.715.8553</span></p>
             <p class="footer-copyright">${t.footer.copyright}</p>
           </div>
@@ -276,14 +378,41 @@ function getFooter(lang: Language = 'ko') {
   `
 }
 
-function getBaseHTML(title: string, content: string, bodyClass: string = '', lang: Language = 'ko') {
+function getBaseHTML(title: string, content: string, bodyClass: string = '', lang: Language = 'ko', desc?: string, canonicalPath?: string, seoOverrideTitle?: string, seoOverrideDesc?: string) {
+  const pageTitle = seoOverrideTitle || (title ? `${title} | ITMoou` : 'ITMoou')
+  const defaultDesc = lang === 'en'
+    ? 'ITMoou provides enterprise SaaS solutions for global logistics (LogiNexio) and business management (BizSupport Pro).'
+    : 'ITMoou는 글로벌 물류 SaaS 솔루션 LogiNexio와 경영지원 AI 솔루션 BizSupport Pro를 제공하는 기업 소프트웨어 전문 기업입니다.'
+  const metaDesc = seoOverrideDesc || desc || defaultDesc
+  const base = 'https://itmoou.com'
+  const canonicalUrl = canonicalPath
+    ? `${base}${lang === 'en' ? '/en' : ''}${canonicalPath}`
+    : null
+  const altKo = canonicalPath ? `${base}${canonicalPath}` : null
+  const altEn = canonicalPath ? `${base}/en${canonicalPath}` : null
+
   return `
     <!DOCTYPE html>
-    <html lang="${lang}">
+    <html lang="${lang === 'en' ? 'en' : 'ko'}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ITMOOU</title>
+        <title>${pageTitle}</title>
+        <meta name="description" content="${metaDesc}">
+        <meta property="og:title" content="${pageTitle}">
+        <meta property="og:description" content="${metaDesc}">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="${base}/images/og-image.jpg">
+        <meta property="og:locale" content="${lang === 'en' ? 'en_US' : 'ko_KR'}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="${pageTitle}">
+        <meta name="twitter:description" content="${metaDesc}">
+        ${canonicalUrl ? `<link rel="canonical" href="${canonicalUrl}">` : ''}
+        ${altKo ? `<link rel="alternate" hreflang="ko" href="${altKo}">` : ''}
+        ${altEn ? `<link rel="alternate" hreflang="en" href="${altEn}">` : ''}
+        ${altKo ? `<link rel="alternate" hreflang="x-default" href="${altKo}">` : ''}
+        <meta name="google-site-verification" content="KhGq0NfIOoXgDx4WuQvY1oDfxoRarwb01z1TRYDUYrQ">
+        <meta name="naver-site-verification" content="891252343b02692b4a90f8d07ad88ce500e77512">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -304,37 +433,46 @@ function getBaseHTML(title: string, content: string, bodyClass: string = '', lan
   `
 }
 
-function getMainHTML(lang: Language = 'ko') {
+function getMainHTML(lang: Language = 'ko', news: NewsItem[] = [], slides: SlideItem[] = [], seoSections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const seoTitle = seoSections['seo_title'] || undefined
+  const seoDesc = seoSections['seo_description'] || undefined
+  const slideItems = slides.length > 0 ? slides : [
+    { id: 0, order_num: 0, title: t.home.slide1Title, description: t.home.slide1Desc, title_en: t.home.slide1Title, description_en: t.home.slide1Desc, image_filename: 'slide1.jpg', active: 1 },
+    { id: 1, order_num: 1, title: t.home.slide2Title, description: t.home.slide2Desc, title_en: t.home.slide2Title, description_en: t.home.slide2Desc, image_filename: 'slide2.jpg', active: 1 },
+    { id: 2, order_num: 2, title: t.home.slide3Title, description: t.home.slide3Desc, title_en: t.home.slide3Title, description_en: t.home.slide3Desc, image_filename: 'slide3.jpg', active: 1 },
+  ]
+  const slidesHTML = slideItems.map((s, i) => {
+    const slideTitle = (lang === 'en' && s.title_en) ? s.title_en : s.title
+    const slideDesc = (lang === 'en' && s.description_en) ? s.description_en : s.description
+    return `
+    <div class="slide ${i === 0 ? 'active' : ''}">
+      <img src="/images/${s.image_filename}" alt="ITMoou Slide ${i + 1}">
+      <div class="slide-content">
+        <h2>${slideTitle}</h2>
+        <p>${slideDesc}</p>
+      </div>
+    </div>`}).join('')
+  const dotsHTML = slideItems.map((_, i) => `<span class="slider-dot ${i === 0 ? 'active' : ''}"></span>`).join('')
+
+  const newsItems = news.length > 0 ? news.slice(0, 6) : []
+  const newsHTML = newsItems.map(n => {
+    const title = (lang === 'en' && n.title_en) ? n.title_en : n.title
+    const description = (lang === 'en' && n.description_en) ? n.description_en : n.description
+    return `
+    <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
+      <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${title}</h3>
+      <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${description}</p>
+      <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${n.date}</p>
+    </div>`}).join('')
+
   return getBaseHTML(t.home.title, `
     <div class="main-slider">
       <div class="slider-container">
-        <div class="slide active">
-          <img src="/images/slide1.jpg" alt="IT moou Slide 1">
-          <div class="slide-content">
-            <h2>${t.home.slide1Title}</h2>
-            <p>${t.home.slide1Desc}</p>
-          </div>
-        </div>
-        <div class="slide">
-          <img src="/images/slide2.jpg" alt="IT moou Slide 2">
-          <div class="slide-content">
-            <h2>${t.home.slide2Title}</h2>
-            <p>${t.home.slide2Desc}</p>
-          </div>
-        </div>
-        <div class="slide">
-          <img src="/images/slide3.jpg" alt="IT moou Slide 3">
-          <div class="slide-content">
-            <h2>${t.home.slide3Title}</h2>
-            <p>${t.home.slide3Desc}</p>
-          </div>
-        </div>
+        ${slidesHTML}
       </div>
       <div class="slider-controls">
-        <span class="slider-dot active"></span>
-        <span class="slider-dot"></span>
-        <span class="slider-dot"></span>
+        ${dotsHTML}
       </div>
     </div>
 
@@ -428,65 +566,44 @@ function getMainHTML(lang: Language = 'ko') {
         <p class="section-subtitle">${t.home.companyNewsSubtitle}</p>
       </div>
       <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news1Title}</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news1Desc}</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news1Date}</p>
-        </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news2Title}</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news2Desc}</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news2Date}</p>
-        </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news3Title}</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news3Desc}</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news3Date}</p>
-        </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news4Title}</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news4Desc}</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news4Date}</p>
-        </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news5Title}</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news5Desc}</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news5Date}</p>
-        </div>
-        <div style="padding: 1.5rem; border: 1px solid #e0e0e0; border-radius: 8px; transition: all 0.3s; cursor: pointer;">
-          <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.1rem;">${t.home.news6Title}</h3>
-          <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news6Desc}</p>
-          <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;">${t.home.news6Date}</p>
-        </div>
+        ${newsHTML}
       </div>
       <div class="text-center mt-4" style="margin-top: 2rem;">
         <a href="/company/news" style="display: inline-block; padding: 1rem 2rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; transition: all 0.3s;">${t.home.viewMore}</a>
       </div>
     </section>
-  `, 'home-page', lang)
+  `, 'home-page', lang, undefined, '/', seoTitle, seoDesc)
 }
 
-function getCompanyHTML(lang: Language = 'ko') {
+function getCompanyHTML(lang: Language = 'ko', sections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const s = (key: string, fallback: string) => (lang === 'en' ? sections[key + '_en'] : sections[key]) || fallback
+  const seoTitle = sections['seo_title'] || undefined
+  const seoDesc = sections['seo_description'] || undefined
+  const aboutImageKey = sections['about_image'] || ''
+  const aboutImageHTML = aboutImageKey
+    ? `<div style="max-width:900px;margin:1.5rem auto 0;"><img src="/api/page-image/company/about_image" alt="회사 소개 이미지" style="width:100%;border-radius:10px;object-fit:cover;max-height:400px;"></div>`
+    : ''
   return getBaseHTML(t.company.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.company.title}</h1>
-        <p style="font-size: 1.2rem;">${t.company.subtitle}</p>
+        <p style="font-size: 1.2rem;">${s('subtitle', t.company.subtitle)}</p>
       </section>
 
       <section class="content-section">
         <div class="section-header">
-          <h2 class="section-title">${t.company.aboutTitle}</h2>
+          <h2 class="section-title">${s('about_title', t.company.aboutTitle)}</h2>
         </div>
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666;">
           <p style="margin-bottom: 1.5rem;">
-            ${t.company.aboutIntro}
+            ${s('about_intro', t.company.aboutIntro)}
           </p>
           <p style="margin-bottom: 1.5rem;">
-            ${t.company.aboutDesc}
+            ${s('about_desc', t.company.aboutDesc)}
           </p>
         </div>
+        ${aboutImageHTML}
       </section>
 
       <section class="content-section" style="background: #f9f9f9;">
@@ -494,29 +611,32 @@ function getCompanyHTML(lang: Language = 'ko') {
           <div class="card">
             <div class="card-content">
               <h3 class="card-title"><i class="fas fa-eye"></i> ${t.company.visionTitle}</h3>
-              <p class="card-text">${t.company.visionDesc}</p>
+              <p class="card-text">${s('vision_desc', t.company.visionDesc)}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
               <h3 class="card-title"><i class="fas fa-bullseye"></i> ${t.company.missionTitle}</h3>
-              <p class="card-text">${t.company.missionDesc}</p>
+              <p class="card-text">${s('mission_desc', t.company.missionDesc)}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
               <h3 class="card-title"><i class="fas fa-heart"></i> ${t.company.coreValuesTitle}</h3>
-              <p class="card-text">${t.company.coreValuesDesc}</p>
+              <p class="card-text">${s('core_values_desc', t.company.coreValuesDesc)}</p>
             </div>
           </div>
         </div>
       </section>
     </div>
-  `, '', lang)
+  `, '', lang, undefined, '/company', seoTitle, seoDesc)
 }
 
-function getCEOHTML(lang: Language = 'ko') {
+function getCEOHTML(lang: Language = 'ko', sections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const s = (key: string, fallback: string) => (lang === 'en' ? sections[key + '_en'] : sections[key]) || fallback
+  const seoTitle = sections['seo_title'] || undefined
+  const seoDesc = sections['seo_description'] || undefined
   return getBaseHTML(t.ceo.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
@@ -529,25 +649,25 @@ function getCEOHTML(lang: Language = 'ko') {
           <div style="display: flex; gap: 3rem; align-items: flex-start;">
             <div style="flex: 1; line-height: 1.8; color: #666;">
               <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
-                ${t.ceo.message1}
+                ${s('message1', t.ceo.message1)}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                ${t.ceo.message2}
+                ${s('message2', t.ceo.message2)}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                ${t.ceo.message3}
+                ${s('message3', t.ceo.message3)}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                ${t.ceo.message4}
+                ${s('message4', t.ceo.message4)}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                ${t.ceo.message5}
+                ${s('message5', t.ceo.message5)}
               </p>
               <p style="margin-bottom: 1.5rem;">
-                ${t.ceo.message6}
-              </p>              
+                ${s('message6', t.ceo.message6)}
+              </p>
               <p style="margin-top: 3rem;">
-                <strong style="color: #0052A5; font-size: 1.2rem;">${t.ceo.signature}</strong>
+                <strong style="color: #0052A5; font-size: 1.2rem;">${s('signature', t.ceo.signature)}</strong>
               </p>
             </div>
             <div style="flex: 0 0 250px; text-align: center;">
@@ -559,41 +679,37 @@ function getCEOHTML(lang: Language = 'ko') {
         </div>
       </section>
     </div>
-  `, '', lang)
+  `, '', lang, undefined, '/company/ceo', seoTitle, seoDesc)
 }
 
-function getHistoryHTML(lang: Language = 'ko') {
+function getHistoryHTML(lang: Language = 'ko', historyItems: HistoryItem[] = []) {
   const t = getTranslation(lang)
+  // 연도별 그룹핑
+  const grouped: Record<string, string[]> = {}
+  for (const item of historyItems) {
+    if (!grouped[item.year]) grouped[item.year] = []
+    const content = (lang === 'en' && item.content_en) ? item.content_en : item.content
+    grouped[item.year].push(content)
+  }
+  const years = Object.keys(grouped).sort((a, b) => parseInt(b) - parseInt(a))
+  const historyHTML = years.map(year => `
+    <div style="margin-bottom: 3rem;">
+      <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">${year}</h3>
+      <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
+        ${grouped[year].map(c => `<li>• ${c}</li>`).join('')}
+      </ul>
+    </div>`).join('')
+
   return getBaseHTML(t.history.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.history.title}</h1>
         <p style="font-size: 1.2rem;">${t.history.subtitle}</p>
       </section>
-
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto;">
           <div style="border-left: 3px solid #0052A5; padding-left: 2rem;">
-            <div style="margin-bottom: 3rem;">
-              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2026</h3>
-              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• ${t.history.item2026_1}</li>
-              </ul>
-            </div>
-            <div style="margin-bottom: 3rem;">
-              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2025</h3>
-              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• ${t.history.item2025_1}</li>
-                <li>• ${t.history.item2025_2}</li>
-              </ul>
-            </div>
-            <div style="margin-bottom: 3rem;">
-              <h3 style="color: #0052A5; font-size: 1.8rem; margin-bottom: 0.5rem;">2024</h3>
-              <ul style="list-style: none; padding: 0; color: #666; line-height: 2;">
-                <li>• ${t.history.item2024_1}</li>
-                <li>• ${t.history.item2024_2}</li>
-              </ul>
-            </div>
+            ${historyHTML}
           </div>
         </div>
       </section>
@@ -601,8 +717,11 @@ function getHistoryHTML(lang: Language = 'ko') {
   `, '', lang)
 }
 
-function getESGHTML(lang: Language = 'ko') {
+function getESGHTML(lang: Language = 'ko', sections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const s = (key: string, fallback: string) => (lang === 'en' ? sections[key + '_en'] : sections[key]) || fallback
+  const seoTitle = sections['seo_title'] || undefined
+  const seoDesc = sections['seo_description'] || undefined
   return getBaseHTML(t.esg.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
@@ -614,30 +733,44 @@ function getESGHTML(lang: Language = 'ko') {
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title" style="color: #00A651;"><i class="fas fa-leaf"></i> ${t.esg.environmentTitle}</h3>
-              <p class="card-text">${t.esg.environmentDesc}</p>
+              <h3 class="card-title" style="color: #00A651;"><i class="fas fa-leaf"></i> ${s('env_title', t.esg.environmentTitle)}</h3>
+              <p class="card-text">${s('env_desc', t.esg.environmentDesc)}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title" style="color: #0052A5;"><i class="fas fa-users"></i> ${t.esg.socialTitle}</h3>
-              <p class="card-text">${t.esg.socialDesc}</p>
+              <h3 class="card-title" style="color: #0052A5;"><i class="fas fa-users"></i> ${s('social_title', t.esg.socialTitle)}</h3>
+              <p class="card-text">${s('social_desc', t.esg.socialDesc)}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title" style="color: #FF6B00;"><i class="fas fa-balance-scale"></i> ${t.esg.governanceTitle}</h3>
-              <p class="card-text">${t.esg.governanceDesc}</p>
+              <h3 class="card-title" style="color: #FF6B00;"><i class="fas fa-balance-scale"></i> ${s('gov_title', t.esg.governanceTitle)}</h3>
+              <p class="card-text">${s('gov_desc', t.esg.governanceDesc)}</p>
             </div>
           </div>
         </div>
       </section>
     </div>
-  `, '', lang)
+  `, '', lang, undefined, '/company/esg', seoTitle, seoDesc)
 }
 
-function getLocationHTML(lang: Language = 'ko') {
+function getLocationHTML(lang: Language = 'ko', sections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const s = (key: string, fallback: string) => (lang === 'en' ? sections[key + '_en'] : sections[key]) || fallback
+  const seoTitle = sections['seo_title'] || undefined
+  const seoDesc = sections['seo_description'] || undefined
+  const defaultMapEmbed = `<div id="daumRoughmapContainer1769348918868" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%;"></div>
+              <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+              <script charset="UTF-8">
+                new daum.roughmap.Lander({
+                  "timestamp" : "1769348918868",
+                  "key" : "gmuvtvo88pm",
+                  "mapWidth" : "100%",
+                  "mapHeight" : "400"
+                }).render();
+              </script>`
+  const mapEmbed = sections['map_embed'] || defaultMapEmbed
   return getBaseHTML(t.location.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
@@ -653,39 +786,30 @@ function getLocationHTML(lang: Language = 'ko') {
               <div style="margin-bottom: 3rem;">
                 <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt"></i> ${t.location.address}</h3>
                 <p style="color: #666; line-height: 1.8;">
-                  ${t.location.addressDetail}
+                  ${s('address_detail', t.location.addressDetail)}
                 </p>
               </div>
-              
+
               <div style="margin-bottom: 3rem;">
                 <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-phone"></i> ${t.location.contact}</h3>
                 <p style="color: #666; line-height: 1.8;">
-                  ${t.location.phone}: 043.715.8553<br>
-                  ${t.location.email}: cs@itmoou.com
+                  ${t.location.phone}: ${s('phone', '043.715.8553')}<br>
+                  ${t.location.email}: ${s('email', 'cs@itmoou.com')}
                 </p>
               </div>
 
               <div>
                 <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-car"></i> ${t.location.byCar}</h3>
                 <p style="color: #666; line-height: 1.8;">
-                  ${t.location.carDirection}<br>
-                  ${t.location.parking}
+                  ${s('car_direction', t.location.carDirection)}<br>
+                  ${s('parking', t.location.parking)}
                 </p>
               </div>
             </div>
 
             <!-- 오른쪽: 카카오맵 -->
             <div style="border: 3px solid #0052A5; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-              <div id="daumRoughmapContainer1769348918868" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%;"></div>
-              <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
-              <script charset="UTF-8">
-                new daum.roughmap.Lander({
-                  "timestamp" : "1769348918868",
-                  "key" : "gmuvtvo88pm",
-                  "mapWidth" : "100%",
-                  "mapHeight" : "400"
-                }).render();
-              </script>
+              ${mapEmbed}
             </div>
           </div>
         </div>
@@ -701,11 +825,36 @@ function getLocationHTML(lang: Language = 'ko') {
         }
       </style>
     </div>
-  `, '', lang)
+  `, '', lang, undefined, '/company/location', seoTitle, seoDesc)
 }
 
-function getCompanyNewsHTML(lang: Language = 'ko') {
+function getCompanyNewsHTML(lang: Language = 'ko', newsItems: NewsItem[] = []) {
   const t = getTranslation(lang)
+  const colors = [
+    { bg: 'linear-gradient(135deg, #0052A5 0%, #003366 100%)', icon: 'fa-globe' },
+    { bg: 'linear-gradient(135deg, #28a745 0%, #1e7e34 100%)', icon: 'fa-boxes' },
+    { bg: 'linear-gradient(135deg, #6f42c1 0%, #4e2a84 100%)', icon: 'fa-file-alt' },
+    { bg: 'linear-gradient(135deg, #fd7e14 0%, #c35a00 100%)', icon: 'fa-chart-line' },
+    { bg: 'linear-gradient(135deg, #17a2b8 0%, #117a8b 100%)', icon: 'fa-handshake' },
+    { bg: 'linear-gradient(135deg, #ffc107 0%, #e0a800 100%)', icon: 'fa-trophy' },
+    { bg: 'linear-gradient(135deg, #20c997 0%, #17a2b8 100%)', icon: 'fa-cloud' },
+  ]
+  const newsHTML = newsItems.map((n, i) => {
+    const c = colors[i % colors.length]
+    const title = (lang === 'en' && n.title_en) ? n.title_en : n.title
+    const description = (lang === 'en' && n.description_en) ? n.description_en : n.description
+    return `<div class="news-item" data-title="${title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
+      <div style="background: ${c.bg}; min-width: 150px; display: flex; align-items: center; justify-content: center;">
+        <i class="fas ${c.icon}" style="font-size: 3rem; color: white;"></i>
+      </div>
+      <div style="padding: 1.5rem; flex: 1;">
+        <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${title}</h3>
+        <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${n.date}</p>
+        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${description}</p>
+      </div>
+    </div>`
+  }).join('')
+
   return getBaseHTML(t.news.title, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
@@ -720,82 +869,7 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
           </div>
 
           <div id="newsList" style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <div class="news-item" data-title="${t.home.news1Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
-              <div style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-globe" style="font-size: 3rem; color: white;"></i>
-              </div>
-              <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news1Title}</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news1Date}</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news1Desc}</p>
-              </div>
-            </div>
-
-            <div class="news-item" data-title="${t.home.news2Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
-              <div style="background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-boxes" style="font-size: 3rem; color: white;"></i>
-              </div>
-              <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news2Title}</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news2Date}</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news2Desc}</p>
-              </div>
-            </div>
-
-            <div class="news-item" data-title="${t.home.news3Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
-              <div style="background: linear-gradient(135deg, #6f42c1 0%, #4e2a84 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-file-alt" style="font-size: 3rem; color: white;"></i>
-              </div>
-              <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news3Title}</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news3Date}</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news3Desc}</p>
-              </div>
-            </div>
-
-            <div class="news-item" data-title="${t.home.news4Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
-              <div style="background: linear-gradient(135deg, #fd7e14 0%, #c35a00 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-chart-line" style="font-size: 3rem; color: white;"></i>
-              </div>
-              <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news4Title}</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news4Date}</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news4Desc}</p>
-              </div>
-            </div>
-
-            <div class="news-item" data-title="${t.home.news5Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
-              <div style="background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-handshake" style="font-size: 3rem; color: white;"></i>
-              </div>
-              <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news5Title}</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news5Date}</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news5Desc}</p>
-              </div>
-            </div>
-
-            <div class="news-item" data-title="${t.home.news6Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
-              <div style="background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-trophy" style="font-size: 3rem; color: white;"></i>
-              </div>
-              <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news6Title}</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news6Date}</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news6Desc}</p>
-              </div>
-            </div>
-
-            <div class="news-item" data-title="${t.home.news7Title}" style="display: flex; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: all 0.3s;">
-              <div style="background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%); min-width: 150px; display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-cloud" style="font-size: 3rem; color: white;"></i>
-              </div>
-              <div style="padding: 1.5rem; flex: 1;">
-                <h3 style="color: #0052A5; margin-bottom: 0.5rem; font-size: 1.2rem;">${t.home.news7Title}</h3>
-                <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.8rem;">${t.home.news7Date}</p>
-                <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">${t.home.news7Desc}</p>
-              </div>
-            </div>
+            ${newsHTML}
           </div>
         </div>
       </section>
@@ -819,131 +893,83 @@ function getCompanyNewsHTML(lang: Language = 'ko') {
   `, '', lang)
 }
 
-function getLogiNexioHTML(lang: Language = 'ko') {
+function renderFeatures(features: SolutionFeature[], lang: Language = 'ko') {
+  if (features.length === 0) return ''
+  return features.map(f => {
+    const imgSrc = f.image_key
+      ? (f.image_key.startsWith('/') ? f.image_key : `/api/solution-feature/${f.id}/image`)
+      : null
+    const reverse = f.image_position === 'left'
+    const title = (lang === 'en' && f.title_en) ? f.title_en : f.title
+    const description = (lang === 'en' && f.description_en) ? f.description_en : f.description
+    return `
+    <div style="display:flex;gap:2rem;align-items:center;margin-bottom:3rem;padding:2rem;background:white;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);${reverse ? 'flex-direction:row-reverse;' : ''}">
+      <div style="flex:1;">
+        <h3 style="color:#0052A5;font-size:1.5rem;margin-bottom:1rem;">
+          <i class="${f.icon}" style="margin-right:0.5rem;"></i> ${title}
+        </h3>
+        <p style="color:#666;line-height:1.8;">${description}</p>
+      </div>
+      ${imgSrc ? `<div style="flex:0 0 250px;"><img src="${imgSrc}" alt="${title}" style="width:100%;border-radius:8px;object-fit:cover;"></div>` : ''}
+    </div>`
+  }).join('')
+}
+
+function getLogiNexioHTML(lang: Language = 'ko', sol: SolutionData | null = null, dbFeatures: SolutionFeature[] = []) {
   const t = getTranslation(lang)
+  const subtitle = sol ? ((lang === 'en' && sol.subtitle_en) ? sol.subtitle_en : sol.subtitle) : t.solutions.logiNexioSubtitle
+  const description = sol ? ((lang === 'en' && sol.description_en) ? sol.description_en : sol.description) : t.solutions.logiNexioDesc
   return getBaseHTML(t.solutions.logiNexioTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">LogiNexio</h1>
-        <p style="font-size: 1.2rem;">${t.solutions.logiNexioSubtitle}</p>
+        <p style="font-size: 1.2rem;">${subtitle}</p>
       </section>
-
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
-          <p style="margin-bottom: 1.5rem; text-align: center; font-size: 1.1rem;">
-            ${t.solutions.logiNexioDesc}
-          </p>
+          <p style="margin-bottom: 1.5rem; text-align: center; font-size: 1.1rem;">${description}</p>
         </div>
-
         <div class="section-header">
           <h2 class="section-title">${t.solutions.logiNexioFeatures}</h2>
         </div>
         <div style="max-width: 1000px; margin: 0 auto;">
-          <!-- 팔레트 자동화 -->
-          <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <div style="flex: 1;">
-              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-boxes" style="margin-right: 0.5rem;"></i> ${t.solutions.palletTitle}</h3>
-              <p style="color: #666; line-height: 1.8;">${t.solutions.palletDesc}</p>
-            </div>
-            <div style="flex: 0 0 250px;">
-              <img src="/images/pallet.png" alt="${t.solutions.palletTitle}" style="width: 100%; border-radius: 8px; object-fit: cover;">
-            </div>
-          </div>
-
-          <!-- 물류 서류 자동화 -->
-          <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex-direction: row-reverse;">
-            <div style="flex: 1;">
-              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i> ${t.solutions.documentTitle}</h3>
-              <p style="color: #666; line-height: 1.8;">${t.solutions.documentDesc}</p>
-            </div>
-            <div style="flex: 0 0 250px;">
-              <img src="/images/docu.png" alt="${t.solutions.documentTitle}" style="width: 100%; border-radius: 8px; object-fit: cover;">
-            </div>
-          </div>
-
-          <!-- 포워더 계약 관리 -->
-          <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <div style="flex: 1;">
-              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-handshake" style="margin-right: 0.5rem;"></i> ${t.solutions.forwarderTitle}</h3>
-              <p style="color: #666; line-height: 1.8;">${t.solutions.forwarderDesc}</p>
-            </div>
-            <div style="flex: 0 0 250px;">
-              <img src="/images/foward.png" alt="${t.solutions.forwarderTitle}" style="width: 100%; border-radius: 8px; object-fit: cover;">
-            </div>
-          </div>
-
-          <!-- 실시간 물류 추적 -->
-          <div style="display: flex; gap: 2rem; align-items: center; margin-bottom: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); flex-direction: row-reverse;">
-            <div style="flex: 1;">
-              <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem;"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> ${t.solutions.trackingTitle}</h3>
-              <p style="color: #666; line-height: 1.8;">${t.solutions.trackingDesc}</p>
-            </div>
-            <div style="flex: 0 0 250px;">
-              <img src="/images/locate.png" alt="${t.solutions.trackingTitle}" style="width: 100%; border-radius: 8px; object-fit: cover;">
-            </div>
-          </div>
+          ${renderFeatures(dbFeatures, lang)}
         </div>
       </section>
     </div>
   `, '', lang)
 }
 
-function getBizSupportHTML(lang: Language = 'ko') {
+function getBizSupportHTML(lang: Language = 'ko', sol: SolutionData | null = null, dbFeatures: SolutionFeature[] = []) {
   const t = getTranslation(lang)
+  const subtitle = sol ? ((lang === 'en' && sol.subtitle_en) ? sol.subtitle_en : sol.subtitle) : t.solutions.bizSupportSubtitle
+  const description = sol ? ((lang === 'en' && sol.description_en) ? sol.description_en : sol.description) : t.solutions.bizSupportDesc
   return getBaseHTML(t.solutions.bizSupportTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">BizSupport Pro</h1>
-        <p style="font-size: 1.2rem;">${t.solutions.bizSupportSubtitle}</p>
+        <p style="font-size: 1.2rem;">${subtitle}</p>
       </section>
-
       <section class="content-section">
-        <div style="max-width: 900px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
-          <img src="/images/bizsupport.jpg" alt="BizSupport Pro" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: none;">
-        </div>
-
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666; margin-bottom: 3rem;">
-          <p style="margin-bottom: 1.5rem;">
-            ${t.solutions.bizSupportDesc}
-          </p>
+          <p style="margin-bottom: 1.5rem;">${description}</p>
         </div>
-
         <div class="section-header">
           <h2 class="section-title">${t.solutions.bizSupportFeatures}</h2>
         </div>
-        <div class="grid-3">
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-tasks"></i> ${t.solutions.projectTitle}</h3>
-              <p class="card-text">${t.solutions.projectDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-users"></i> ${t.solutions.collaborationTitle}</h3>
-              <p class="card-text">${t.solutions.collaborationDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-chart-line"></i> ${t.solutions.analyticsTitle}</h3>
-              <p class="card-text">${t.solutions.analyticsDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-cogs"></i> ${t.solutions.workflowTitle}</h3>
-              <p class="card-text">${t.solutions.workflowDesc}</p>
-            </div>
-          </div>
+        <div style="max-width: 1000px; margin: 0 auto;">
+          ${renderFeatures(dbFeatures, lang)}
         </div>
       </section>
     </div>
   `, '', lang)
 }
 
-function getLabHTML(lang: Language = 'ko') {
+function getLabHTML(lang: Language = 'ko', sections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const s = (key: string, fallback: string) => (lang === 'en' ? sections[key + '_en'] : sections[key]) || fallback
+  const seoTitle = sections['seo_title'] || undefined
+  const seoDesc = sections['seo_description'] || undefined
   return getBaseHTML(t.rd.labTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
@@ -953,76 +979,91 @@ function getLabHTML(lang: Language = 'ko') {
 
       <section class="content-section">
         <div style="max-width: 900px; margin: 0 auto; line-height: 1.8; color: #666;">
-          <p style="margin-bottom: 1.5rem;">
-            ${t.rd.labDesc}
-          </p>
+          <p style="margin-bottom: 1.5rem;">${s('intro', t.rd.labDesc)}</p>
         </div>
 
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-microscope"></i> ${t.rd.facilityTitle}</h3>
-              <p class="card-text">${t.rd.facilityDesc}</p>
+              <h3 class="card-title"><i class="fas fa-microscope"></i> ${s('facility_title', t.rd.facilityTitle)}</h3>
+              <p class="card-text">${s('facility_desc', t.rd.facilityDesc)}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-user-graduate"></i> ${t.rd.expertTitle}</h3>
-              <p class="card-text">${t.rd.expertDesc}</p>
+              <h3 class="card-title"><i class="fas fa-user-graduate"></i> ${s('expert_title', t.rd.expertTitle)}</h3>
+              <p class="card-text">${s('expert_desc', t.rd.expertDesc)}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-handshake"></i> ${t.rd.cooperationTitle}</h3>
-              <p class="card-text">${t.rd.cooperationDesc}</p>
+              <h3 class="card-title"><i class="fas fa-handshake"></i> ${s('cooperation_title', t.rd.cooperationTitle)}</h3>
+              <p class="card-text">${s('cooperation_desc', t.rd.cooperationDesc)}</p>
             </div>
           </div>
         </div>
       </section>
     </div>
-  `, '', lang)
+  `, '', lang, s('intro', t.rd.labDesc), '/rnd/lab', seoTitle, seoDesc)
 }
 
-function getActivitiesHTML(lang: Language = 'ko') {
+function getActivitiesHTML(lang: Language = 'ko', sections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const s = (key: string, fallback: string) => (lang === 'en' ? sections[key + '_en'] : sections[key]) || fallback
+  const seoTitle = sections['seo_title'] || undefined
+  const seoDesc = sections['seo_description'] || undefined
+  const actIcons = ['fas fa-truck', 'fas fa-database', 'fas fa-chart-line']
+  const actDefaults = [
+    [t.rd.logisticsOptTitle, t.rd.logisticsOptDesc],
+    [t.rd.bigdataTitle, t.rd.bigdataDesc],
+    [t.rd.bizSolutionTitle, t.rd.bizSolutionDesc],
+  ]
+  const actsHTML = actDefaults.map((d, i) => `
+    <div class="card">
+      <div class="card-content">
+        <h3 class="card-title"><i class="${actIcons[i]}"></i> ${s('act' + (i+1) + '_title', d[0])}</h3>
+        <p class="card-text">${s('act' + (i+1) + '_desc', d[1])}</p>
+      </div>
+    </div>`).join('')
   return getBaseHTML(t.rd.activityTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
         <h1 style="font-size: 3rem; margin-bottom: 1rem;">${t.rd.activityTitle}</h1>
-        <p style="font-size: 1.2rem;">${t.rd.activitySubtitle}</p>
+        <p style="font-size: 1.2rem;">${s('intro', t.rd.activitySubtitle)}</p>
       </section>
 
       <section class="content-section">
         <div class="section-header">
           <h2 class="section-title">${t.rd.activityFeatures}</h2>
         </div>
-        <div class="grid-3">
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-truck"></i> ${t.rd.logisticsOptTitle}</h3>
-              <p class="card-text">${t.rd.logisticsOptDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-database"></i> ${t.rd.bigdataTitle}</h3>
-              <p class="card-text">${t.rd.bigdataDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-chart-line"></i> ${t.rd.bizSolutionTitle}</h3>
-              <p class="card-text">${t.rd.bizSolutionDesc}</p>
-            </div>
-          </div>
-        </div>
+        <div class="grid-3">${actsHTML}</div>
       </section>
     </div>
-  `, '', lang)
+  `, '', lang, s('intro', t.rd.activitySubtitle), '/rnd/activities', seoTitle, seoDesc)
 }
 
-function getTalentHTML(lang: Language = 'ko') {
+function getTalentHTML(lang: Language = 'ko', sections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const s = (key: string, fallback: string) => (lang === 'en' ? sections[key + '_en'] : sections[key]) || fallback
+  const seoTitle = sections['seo_title'] || undefined
+  const seoDesc = sections['seo_description'] || undefined
+  const currentPath = lang === 'en' ? '/en' : ''
+  const icons = ['fas fa-lightbulb', 'fas fa-handshake', 'fas fa-star', 'fas fa-heart', 'fas fa-globe', 'fas fa-graduation-cap']
+  const defaults = [
+    [t.careers.innovationTitle, t.careers.innovationDesc],
+    [t.careers.teamworkTitle, t.careers.teamworkDesc],
+    [t.careers.expertiseTitle, t.careers.expertiseDesc],
+    [t.careers.responsibilityTitle, t.careers.responsibilityDesc],
+    [t.careers.globalTitle, t.careers.globalDesc],
+    [t.careers.learningTitle, t.careers.learningDesc],
+  ]
+  const cardsHTML = defaults.map((d, i) => `
+    <div class="card">
+      <div class="card-content">
+        <h3 class="card-title"><i class="${icons[i]}"></i> ${s('card' + (i+1) + '_title', d[0])}</h3>
+        <p class="card-text">${s('card' + (i+1) + '_desc', d[1])}</p>
+      </div>
+    </div>`).join('')
   return getBaseHTML(t.careers.talentTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
@@ -1035,54 +1076,22 @@ function getTalentHTML(lang: Language = 'ko') {
           <h2 class="section-title">${t.careers.ourTalent}</h2>
         </div>
         <div class="grid-3">
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-lightbulb"></i> ${t.careers.innovationTitle}</h3>
-              <p class="card-text">${t.careers.innovationDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-handshake"></i> ${t.careers.teamworkTitle}</h3>
-              <p class="card-text">${t.careers.teamworkDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-star"></i> ${t.careers.expertiseTitle}</h3>
-              <p class="card-text">${t.careers.expertiseDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-heart"></i> ${t.careers.responsibilityTitle}</h3>
-              <p class="card-text">${t.careers.responsibilityDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-globe"></i> ${t.careers.globalTitle}</h3>
-              <p class="card-text">${t.careers.globalDesc}</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-graduation-cap"></i> ${t.careers.learningTitle}</h3>
-              <p class="card-text">${t.careers.learningDesc}</p>
-            </div>
-          </div>
+          ${cardsHTML}
         </div>
 
         <div style="margin-top: 4rem; text-align: center;">
-          <a href="/careers" style="display: inline-block; padding: 1rem 3rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; transition: all 0.3s;">${t.careers.viewJobs}</a>
+          <a href="${currentPath}/careers" style="display: inline-block; padding: 1rem 3rem; background: #0052A5; color: white; text-decoration: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; transition: all 0.3s;">${t.careers.viewJobs}</a>
         </div>
       </section>
     </div>
-  `, '', lang)
+  `, '', lang, undefined, '/careers/talent', seoTitle, seoDesc)
 }
 
-function getCustomerSupportHTML(lang: Language = 'ko') {
+function getCustomerSupportHTML(lang: Language = 'ko', sections: Record<string, string> = {}) {
   const t = getTranslation(lang)
+  const s = (key: string, fallback: string) => (lang === 'en' ? sections[key + '_en'] : sections[key]) || fallback
+  const seoTitle = sections['seo_title'] || undefined
+  const seoDesc = sections['seo_description'] || undefined
   return getBaseHTML(t.support.customerTitle, `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
@@ -1094,22 +1103,22 @@ function getCustomerSupportHTML(lang: Language = 'ko') {
         <div class="grid-3">
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-headset"></i> ${t.support.techSupportTitle}</h3>
-              <p class="card-text">${t.support.techSupportDesc}</p>
+              <h3 class="card-title"><i class="fas fa-headset"></i> ${s('tech_title', t.support.techSupportTitle)}</h3>
+              <p class="card-text">${s('tech_desc', t.support.techSupportDesc)}</p>
               <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">${t.support.techSupportContact}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-book"></i> ${t.support.trainingTitle}</h3>
-              <p class="card-text">${t.support.trainingDesc}</p>
+              <h3 class="card-title"><i class="fas fa-book"></i> ${s('training_title', t.support.trainingTitle)}</h3>
+              <p class="card-text">${s('training_desc', t.support.trainingDesc)}</p>
               <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">${t.support.trainingContact}</p>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <h3 class="card-title"><i class="fas fa-tools"></i> ${t.support.maintenanceTitle}</h3>
-              <p class="card-text">${t.support.maintenanceDesc}</p>
+              <h3 class="card-title"><i class="fas fa-tools"></i> ${s('maintenance_title', t.support.maintenanceTitle)}</h3>
+              <p class="card-text">${s('maintenance_desc', t.support.maintenanceDesc)}</p>
               <p style="margin-top: 1rem; color: #0052A5; font-weight: bold;">${t.support.maintenanceContact}</p>
             </div>
           </div>
@@ -1118,18 +1127,209 @@ function getCustomerSupportHTML(lang: Language = 'ko') {
         <div style="max-width: 900px; margin: 4rem auto; padding: 2rem; background: #f9f9f9; border-radius: 8px;">
           <h3 style="color: #0052A5; font-size: 1.5rem; margin-bottom: 1rem; text-align: center;"><i class="fas fa-clock"></i> ${t.support.operatingHours}</h3>
           <p style="text-align: center; color: #666; line-height: 1.8;">
-            ${t.support.weekdays}<br>
-            ${t.support.lunchTime}<br>
-            ${t.support.weekends}
+            ${s('hours', t.support.weekdays + ' / ' + t.support.lunchTime + ' / ' + t.support.weekends)}
           </p>
         </div>
       </section>
     </div>
-  `, '', lang)
+  `, '', lang, t.support.customerSubtitle, '/support/customer', seoTitle, seoDesc)
 }
 
-function getContactHTML(lang: Language = 'ko') {
+async function sendTeamsNotification(webhookUrl: string, data: { name: string; email: string; phone: string; inquiry_type: string; message: string; ticketNo: string; lang: string; created_at: string }) {
+  await fetch(webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ticketNo: data.ticketNo,
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      inquiry_type: data.inquiry_type,
+      message: data.message,
+      lang: data.lang,
+      created_at: data.created_at,
+    }),
+  }).catch(() => {})
+}
+
+function generateTrackingId(): string {
+  const now = new Date()
+  const pad = (n: number, len = 2) => String(n).padStart(len, '0')
+  const ts = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
+  const rand = String(Math.floor(Math.random() * 10000)).padStart(4, '0')
+  return ts + rand
+}
+
+// ── Spam prevention ──────────────────────────────────────────────────────────
+
+const DISPOSABLE_DOMAINS = new Set([
+  'mailinator.com', 'guerrillamail.com', 'guerrillamail.net', 'guerrillamail.org',
+  'guerrillamail.biz', 'guerrillamail.de', 'guerrillamailblock.com', 'grr.la',
+  'sharklasers.com', 'spam4.me', 'yopmail.com', 'yopmail.fr', 'cool.fr.nf',
+  'jetable.fr.nf', 'tempmail.com', 'temp-mail.org', 'throwam.com',
+  'trashmail.at', 'trashmail.com', 'trashmail.io', 'trashmail.me',
+  'trashmail.net', 'trashmail.org', 'fakeinbox.com', 'mailnull.com',
+  'maildrop.cc', 'dispostable.com', 'spamgourmet.com', 'mailnesia.com',
+  'wegwerfmail.de', 'wegwerfmail.net', 'wegwerfmail.org', 'discard.email',
+  'spamex.com', 'spam.su', 'mailscrap.com', 'getairmail.com',
+])
+
+async function generateFormToken(secret: string): Promise<string> {
+  const ts = String(Date.now())
+  const key = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(secret || 'default'),
+    { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  )
+  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(ts))
+  const hex = Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('')
+  return `${ts}.${hex}`
+}
+
+async function verifyFormToken(token: string | null, secret: string | undefined): Promise<{ blocked: boolean; reason?: string }> {
+  if (!secret) return { blocked: false }
+  if (!token) return { blocked: true, reason: 'missing_token' }
+  const dotIdx = token.lastIndexOf('.')
+  if (dotIdx === -1) return { blocked: true, reason: 'invalid_token' }
+  const ts = token.slice(0, dotIdx)
+  const sig = token.slice(dotIdx + 1)
+  try {
+    const key = await crypto.subtle.importKey(
+      'raw', new TextEncoder().encode(secret),
+      { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']
+    )
+    const sigBytes = new Uint8Array((sig.match(/.{2}/g) || []).map(h => parseInt(h, 16)))
+    const valid = await crypto.subtle.verify('HMAC', key, sigBytes, new TextEncoder().encode(ts))
+    if (!valid) return { blocked: true, reason: 'invalid_hmac' }
+    const elapsed = Date.now() - parseInt(ts)
+    if (elapsed < 3000) return { blocked: true, reason: 'too_fast' }
+    if (elapsed > 3600000) return { blocked: true, reason: 'expired_token' }
+    return { blocked: false }
+  } catch {
+    return { blocked: true, reason: 'token_error' }
+  }
+}
+
+async function checkRateLimit(db: D1Database, ip: string): Promise<boolean> {
+  if (!ip) return false
+  // created_at is stored in KST (+9h); compute KST cutoff 5 minutes ago
+  const cutoff = new Date(Date.now() - 5 * 60 * 1000 + 9 * 60 * 60 * 1000).toISOString().replace('T', ' ').slice(0, 19)
+  const result = await db.prepare(
+    'SELECT COUNT(*) as cnt FROM contact_submissions WHERE ip = ? AND created_at >= ?'
+  ).bind(ip, cutoff).first<{ cnt: number }>().catch(() => null)
+  return (result?.cnt ?? 0) >= 3
+}
+
+function isSuspiciousEmail(email: string): boolean {
+  const local = email.split('@')[0]
+  if (/[bcdfghjklmnpqrstvwxyz]{5,}/i.test(local)) return true
+  if (local.length > 40) return true
+  return false
+}
+
+async function logSpam(db: D1Database, ip: string, email: string, reason: string): Promise<void> {
+  await db.prepare('INSERT INTO spam_logs (ip, email, reason) VALUES (?, ?, ?)')
+    .bind(ip || null, email || null, reason).run().catch(() => {})
+}
+
+async function sendContactEmail(apiKey: string, data: { name: string; email: string; phone: string; inquiry_type: string; message: string; lang: string; ticketNo: string }) {
+  const inquiryLabels: Record<string, string> = {
+    product: '제품 문의', solution: '솔루션 문의', support: '기술 지원', partnership: '파트너십', etc: '기타',
+  }
+  const label = inquiryLabels[data.inquiry_type] || data.inquiry_type
+  const html = `
+<div style="font-family:sans-serif;max-width:600px;margin:0 auto;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;">
+  <div style="background:#003366;padding:1.5rem 2rem;color:white;">
+    <h2 style="margin:0;font-size:1.3rem;">ITMoou — 새 문의가 접수되었습니다</h2>
+  </div>
+  <div style="padding:2rem;background:#fff;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.95rem;">
+      <tr><td style="padding:0.6rem 0;color:#888;width:120px;">TrackingID</td><td style="padding:0.6rem 0;color:#222;font-weight:700;font-family:monospace;">TrackingID#${data.ticketNo}</td></tr>
+      <tr><td style="padding:0.6rem 0;color:#888;">이름</td><td style="padding:0.6rem 0;color:#222;font-weight:600;">${data.name}</td></tr>
+      <tr><td style="padding:0.6rem 0;color:#888;">이메일</td><td style="padding:0.6rem 0;color:#0052A5;">${data.email}</td></tr>
+      <tr><td style="padding:0.6rem 0;color:#888;">전화번호</td><td style="padding:0.6rem 0;color:#222;">${data.phone || '—'}</td></tr>
+      <tr><td style="padding:0.6rem 0;color:#888;">문의 유형</td><td style="padding:0.6rem 0;"><span style="background:#e6f0ff;color:#0052A5;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.85rem;">${label}</span></td></tr>
+      <tr><td style="padding:0.6rem 0;color:#888;">언어</td><td style="padding:0.6rem 0;color:#666;">${data.lang === 'en' ? '🇺🇸 English' : '🇰🇷 한국어'}</td></tr>
+    </table>
+    <div style="margin-top:1.5rem;padding:1.2rem;background:#f9f9f9;border-radius:6px;border-left:3px solid #0052A5;">
+      <p style="color:#888;font-size:0.85rem;margin-bottom:0.5rem;">문의 내용</p>
+      <p style="color:#222;line-height:1.7;white-space:pre-wrap;">${data.message}</p>
+    </div>
+  </div>
+  <div style="padding:1rem 2rem;background:#f5f5f5;font-size:0.8rem;color:#aaa;text-align:center;">
+    itmoou.com Contact Us 폼을 통해 접수된 문의입니다.
+  </div>
+</div>`
+
+  const replyHtml = data.lang === 'en' ? `
+<div style="font-family:sans-serif;max-width:600px;margin:0 auto;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;">
+  <div style="background:#003366;padding:1.5rem 2rem;color:white;">
+    <h2 style="margin:0;font-size:1.3rem;">ITMoou — Inquiry Received</h2>
+  </div>
+  <div style="padding:2rem;background:#fff;line-height:1.7;color:#333;">
+    <p>Dear <strong>${data.name}</strong>,</p>
+    <p>Thank you for contacting ITMoou. We have received your inquiry and will get back to you as soon as possible.</p>
+    <p style="margin-top:1.5rem;padding:1rem;background:#f9f9f9;border-left:3px solid #0052A5;border-radius:4px;">
+      <strong>TrackingID:</strong> <span style="font-family:monospace;font-weight:700;">TrackingID#${data.ticketNo}</span><br>
+      <strong>Inquiry Type:</strong> ${label}<br>
+      <strong>Message:</strong> ${data.message}
+    </p>
+    <p style="margin-top:1.5rem;">Best regards,<br><strong>ITMoou Customer Support</strong><br>cs@itmoou.com / 043-715-8553</p>
+  </div>
+</div>` : `
+<div style="font-family:sans-serif;max-width:600px;margin:0 auto;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;">
+  <div style="background:#003366;padding:1.5rem 2rem;color:white;">
+    <h2 style="margin:0;font-size:1.3rem;">ITMoou — 문의 접수 확인</h2>
+  </div>
+  <div style="padding:2rem;background:#fff;line-height:1.7;color:#333;">
+    <p><strong>${data.name}</strong> 님, 안녕하세요.</p>
+    <p>ITMoou에 문의해 주셔서 감사합니다. 문의가 정상적으로 접수되었으며, 빠른 시일 내에 답변 드리겠습니다.</p>
+    <p style="margin-top:1.5rem;padding:1rem;background:#f9f9f9;border-left:3px solid #0052A5;border-radius:4px;">
+      <strong>TrackingID:</strong> <span style="font-family:monospace;font-weight:700;">TrackingID#${data.ticketNo}</span><br>
+      <strong>문의 유형:</strong> ${label}<br>
+      <strong>문의 내용:</strong> ${data.message}
+    </p>
+    <p style="margin-top:1.5rem;">감사합니다.<br><strong>ITMoou 고객지원팀</strong><br>cs@itmoou.com / 043-715-8553</p>
+  </div>
+</div>`
+
+  await Promise.all([
+    fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'ITMoou Contact <no-reply@itmoou.com>',
+        to: ['cs@itmoou.com'],
+        reply_to: data.email,
+        subject: `[문의] ${label} — ${data.name} / TrackingID#${data.ticketNo}`,
+        html,
+      }),
+    }),
+    fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'ITMoou <no-reply@itmoou.com>',
+        to: [data.email],
+        subject: data.lang === 'en' ? `[ITMoou] Your inquiry has been received - TrackingID#${data.ticketNo}` : `[ITMoou] 문의가 접수되었습니다 - TrackingID#${data.ticketNo}`,
+        html: replyHtml,
+      }),
+    }),
+  ])
+}
+
+function getContactHTML(lang: Language = 'ko', error?: string, success = false, ticketNo?: string, formToken?: string) {
   const t = getTranslation(lang)
+  const action = lang === 'en' ? '/en/support/contact' : '/support/contact'
+
+  const successMsg = `
+    <div style="background:#e8f5e9;color:#2e7d32;border-radius:8px;padding:1.5rem 2rem;text-align:center;margin-bottom:2rem;">
+      <i class="fas fa-check-circle" style="font-size:2rem;margin-bottom:0.5rem;display:block;"></i>
+      <strong style="font-size:1.1rem;">${lang === 'en' ? 'Your inquiry has been submitted!' : '문의가 접수되었습니다!'}</strong><br>
+      <span style="font-size:0.95rem;color:#388e3c;">${lang === 'en' ? 'We will get back to you as soon as possible.' : '빠른 시일 내에 답변 드리겠습니다.'}</span>
+    </div>`
+
+  const errorMsg = error ? `<div style="background:#fff0f0;color:#d32f2f;border-radius:8px;padding:1rem 1.5rem;margin-bottom:1.5rem;"><i class="fas fa-exclamation-circle"></i> ${error}</div>` : ''
+
   return getBaseHTML('Contact Us', `
     <div style="margin-top: 80px;">
       <section style="background: linear-gradient(135deg, #0052A5 0%, #003366 100%); color: white; padding: 4rem 2rem; text-align: center;">
@@ -1139,22 +1339,32 @@ function getContactHTML(lang: Language = 'ko') {
 
       <section class="content-section">
         <div style="max-width: 600px; margin: 0 auto;">
-          <form style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <div style="background:#fff8e1;color:#7a5800;border-left:4px solid #ffc107;border-radius:4px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:0.95rem;line-height:1.6;">
+            <i class="fas fa-exclamation-triangle" style="margin-right:0.4rem;"></i>
+            ${lang === 'en'
+              ? 'Inquiries submitted before March 10, 2026 cannot be answered due to a platform migration. We apologize for the inconvenience — please resubmit your inquiry.'
+              : '2026년 03월 10일 이전 문의건은 플랫폼 변경으로 인해 답변이 어렵습니다. 다시 제출해주시면 감사하겠습니다. 이용에 불편을 드려 죄송합니다.'}
+          </div>
+          ${success ? successMsg : `
+          ${errorMsg}
+          <form method="POST" action="${action}" style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <div style="position:absolute;left:-9999px;top:-9999px;overflow:hidden;" aria-hidden="true"><input type="text" name="_hp" tabindex="-1" autocomplete="off" value=""></div>
+            <input type="hidden" name="_t" value="${formToken || ''}">
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.nameLabel}</label>
-              <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.nameLabel} <span style="color:#d32f2f;">*</span></label>
+              <input type="text" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
             </div>
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.emailLabel}</label>
-              <input type="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.emailLabel} <span style="color:#d32f2f;">*</span></label>
+              <input type="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
             </div>
             <div style="margin-bottom: 1.5rem;">
               <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.phoneLabel}</label>
-              <input type="tel" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+              <input type="tel" name="phone" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
             </div>
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.inquiryTypeLabel}</label>
-              <select required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.inquiryTypeLabel} <span style="color:#d32f2f;">*</span></label>
+              <select name="inquiry_type" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
                 <option value="">${t.support.inquiryTypePlaceholder}</option>
                 <option value="product">${t.support.inquiryTypeProduct}</option>
                 <option value="solution">${t.support.inquiryTypeSolution}</option>
@@ -1164,13 +1374,13 @@ function getContactHTML(lang: Language = 'ko') {
               </select>
             </div>
             <div style="margin-bottom: 1.5rem;">
-              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.messageLabel}</label>
-              <textarea required rows="6" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; resize: vertical;"></textarea>
+              <label style="display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500;">${t.support.messageLabel} <span style="color:#d32f2f;">*</span></label>
+              <textarea name="message" required rows="6" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; resize: vertical;"></textarea>
             </div>
             <div style="text-align: center;">
               <button type="submit" style="padding: 1rem 3rem; background: #0052A5; color: white; border: none; border-radius: 4px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s;">${t.support.submitButton}</button>
             </div>
-          </form>
+          </form>`}
 
           <div style="margin-top: 3rem; text-align: center; color: #666;">
             <p style="margin-bottom: 1rem;">${t.support.orContact}</p>

@@ -3,7 +3,7 @@ export const ko = {
   // 헤더/네비게이션
   nav: {
     company: '회사소개',
-    companyInfo: 'IT moou',
+    companyInfo: 'ITMoou',
     ceoMessage: 'CEO 메시지',
     history: '연혁',
     esg: 'ESG',
@@ -21,6 +21,7 @@ export const ko = {
     support: '지원센터',
     customer: '고객지원',
     contact: 'Contact Us',
+    announcements: '공고',
   },
   
   // 메인 페이지
@@ -306,7 +307,7 @@ export const ko = {
     address: '주소',
     businessNumber: '사업자등록번호',
     email: 'E-mail',
-    copyright: '2025 ITmoou Co., Ltd. ALL RIGHTS RESERVED.',
+    copyright: '© 2026 ITmoou Co., Ltd. ALL RIGHTS RESERVED.',
   },
   
   // 개인정보처리방침

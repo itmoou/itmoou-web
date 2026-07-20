@@ -1,34 +1,24 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "webapp",
-  "compatibility_date": "2026-01-24",
-  "pages_build_output_dir": "./dist",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MY_BUCKET",
-  //     "bucket_name": "my-bucket"
-  //   }
-  // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
-  // "ai": {
-  //   "binding": "AI"
-  // }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "itmoou-webpage",
+	"compatibility_date": "2026-01-24",
+	"pages_build_output_dir": "./dist",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"d1_databases": [
+		{
+			"binding": "itmoou_db",
+			"database_name": "itmoou-db",
+			"database_id": "07ade62a-7773-4144-bcf7-597158ad6bdc",
+			"remote": true
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "itmoou_files",
+			"bucket_name": "itmoou-files",
+			"remote": true
+		}
+	]
 }
