@@ -373,16 +373,19 @@
   /* ── 서브 히어로 ── */
   .subhero {
     position: relative; overflow: hidden;
-    background: linear-gradient(160deg, #0052a5 0%, #003d7c 90%);
-    color: #fff; padding: 92px 0 84px;
+    background:
+      radial-gradient(900px 420px at 50% -18%, color-mix(in srgb, var(--brand) 12%, var(--bg)), transparent 70%),
+      var(--bg);
+    color: var(--ink); padding: 88px 0 72px;
+    border-bottom: 1px solid var(--line);
   }
   .subhero .crumb {
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 0.76rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(255,255,255,0.6); margin: 0 0 18px;
+    color: var(--brand); margin: 0 0 18px;
   }
   .subhero h1 { margin: 0 0 16px; font-size: clamp(2.1rem, 4.6vw, 3.3rem); font-weight: 800; letter-spacing: -0.045em; line-height: 1.22; }
-  .subhero p.sub { margin: 0; max-width: 36em; color: rgba(255,255,255,0.8); font-size: 1.05rem; }
+  .subhero p.sub { margin: 0; max-width: 36em; color: var(--ink-soft); font-size: 1.05rem; }
   .foot-note { font-size: 0.78rem; color: var(--ink-faint); margin-top: 18px; }
   .quote { border-left: 3px solid var(--brand); padding: 6px 0 6px 30px; margin: 0; }
   .quote p.q { margin: 0 0 18px; font-size: clamp(1.15rem, 2.2vw, 1.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.6; max-width: 30em; }
