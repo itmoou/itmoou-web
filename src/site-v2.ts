@@ -1050,3 +1050,68 @@ export function v2Contact(opts: { formToken?: string; error?: string; success?: 
 </footer>
 ` + V2_TAIL
 }
+
+// ── 공용 셸 (공고 등 서브 시스템 페이지용) ──
+export const V2_HEADER = `<header class="gnb" id="gnb">
+  <div class="wrap gnb-inner">
+    <a href="/" data-nav="home" class="logo"><img src="/images/logo-web.png" alt="아이티무유"></a>
+    <nav class="menu" aria-label="주 메뉴">
+      <a class="item" href="/company" data-nav="about">회사소개</a>
+      <a class="item" href="/service" data-nav="service">서비스</a>
+      <a class="item" href="/rnd" data-nav="rnd">연구개발</a>
+      <a class="item" href="/newsroom" data-nav="news">뉴스룸</a>
+      <a class="item" href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    </nav>
+    <div class="gnb-right">
+      <a class="btn btn-dark btn-sm" href="/contact" data-nav="contact">문의하기</a>
+      <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="m-nav" aria-label="모바일 메뉴">
+    <a href="/company" data-nav="about">회사소개</a>
+    <a href="/service" data-nav="service">서비스</a>
+    <a href="/rnd" data-nav="rnd">연구개발</a>
+    <a href="/newsroom" data-nav="news">뉴스룸</a>
+    <a href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    <a href="/contact" data-nav="contact">문의하기</a>
+  </nav>
+</header>`
+
+export const V2_FOOTER = `<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <span class="flogo"><img src="/images/logo-web.png" alt="아이티무유"></span>
+      <p style="margin: 10px 0 0; font-size: 0.92rem; font-weight: 700; color: var(--ink-soft);">기술로 세상을 움직이다</p>
+      <p class="corp">
+        아이티무유 주식회사 · 대표이사 심영민<br>
+        사업자등록번호 229-81-43410<br>
+        충청북도 청주시 흥덕구 공단로126번길 51, 청주산단스타트업센터 502호<br>
+        © 2026 ITmoou Co., Ltd.
+      </p>
+    </div>
+    <div>
+      <h4>서비스</h4>
+      <ul>
+        <li><a href="https://loginexio.com" target="_blank" rel="noopener">LogiNexio ↗</a></li>
+        <li><a href="/rnd" data-nav="rnd">연구개발</a></li>
+        <li><a href="/contact" data-nav="contact">도입 문의</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>회사</h4>
+      <ul>
+        <li><a href="/company" data-nav="about">회사소개</a></li>
+        <li><a href="/newsroom" data-nav="news">뉴스룸</a></li>
+        <li><a href="#">인재영입 ↗</a></li>
+        <li><a href="/newsroom" data-nav="news">공고</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>`
+
+export function v2Shell(path: string, title: string, desc: string, mainHtml: string): string {
+  return v2Head(path, title, desc) + V2_HEADER + '\n<main>' + mainHtml + '</main>\n' + V2_FOOTER + V2_TAIL
+}

@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import type { Env, Announcement, Attachment } from './types'
+import { v2Shell } from './site-v2'
 
 const announcements = new Hono<Env>()
 export const announcementsEn = new Hono<Env>()
@@ -74,10 +75,11 @@ announcements.get('/:id/files/:attachmentId', async (c) => {
   })
 })
 
-// ──────────────── HTML 생성 ────────────────
+// ──────────────── HTML 생성 (site-v2 디자인) ────────────────
 
 const CATEGORIES = ['일반공고', '주주총회', '기타']
 
+// 영문(레거시) 템플릿에서 참조 - 유지
 function getSharedHead() {
   return `
     <meta charset="UTF-8">
@@ -89,6 +91,17 @@ function getSharedHead() {
   `
 }
 
+function annSubhero(sub: string) {
+  return `
+  <section class="subhero">
+    <div class="wrap">
+      <p class="crumb">ITMOOU — NOTICE</p>
+      <h1>공고</h1>
+      <p class="sub">${sub}</p>
+    </div>
+  </section>`
+}
+
 function getAnnouncementsListHTML(
   items: Announcement[],
   category: string,
@@ -96,310 +109,92 @@ function getAnnouncementsListHTML(
   totalPages: number,
   total: number
 ) {
-  const categoryTabs = ['', ...CATEGORIES].map(cat => {
+  const tabs = ['', ...CATEGORIES].map(cat => {
     const label = cat || '전체'
     const isActive = category === cat
-    return `<a href="/announcements${cat ? '?category=' + encodeURIComponent(cat) : ''}"
-               class="category-tab ${isActive ? 'active' : ''}">${label}</a>`
+    return `<a href="/announcements${cat ? '?category=' + encodeURIComponent(cat) : ''}" class="cat-tab ${isActive ? 'active' : ''}">${label}</a>`
   }).join('')
 
   const rows = items.length === 0
-    ? `<tr><td colspan="4" style="text-align:center;padding:3rem;color:#999;">등록된 공고가 없습니다.</td></tr>`
+    ? `<tr><td colspan="4" class="notice-empty">등록된 공고가 없습니다.</td></tr>`
     : items.map(item => `
         <tr>
-          <td class="ann-number">${item.number}</td>
-          <td class="ann-category"><span class="cat-badge cat-${item.category}">${item.category}</span></td>
-          <td class="ann-title"><a href="/announcements/${item.id}">${escapeHtml(item.title)}</a></td>
-          <td class="ann-date">${item.notice_date}</td>
+          <td>${item.number}</td>
+          <td><span class="cat-badge">${item.category}</span></td>
+          <td><a href="/announcements/${item.id}" style="color:var(--ink); font-weight:600">${escapeHtml(item.title)}</a></td>
+          <td>${item.notice_date}</td>
         </tr>`).join('')
 
-  const paginationItems = []
-  if (page > 1) {
-    paginationItems.push(`<a href="/announcements?${category ? 'category=' + encodeURIComponent(category) + '&' : ''}page=${page - 1}" class="page-btn">‹ 이전</a>`)
-  }
+  const pages: string[] = []
+  if (page > 1) pages.push(`<a href="/announcements?${category ? 'category=' + encodeURIComponent(category) + '&' : ''}page=${page - 1}" class="page-btn">‹</a>`)
   for (let i = 1; i <= totalPages; i++) {
-    paginationItems.push(`<a href="/announcements?${category ? 'category=' + encodeURIComponent(category) + '&' : ''}page=${i}" class="page-btn ${i === page ? 'active' : ''}">${i}</a>`)
+    pages.push(`<a href="/announcements?${category ? 'category=' + encodeURIComponent(category) + '&' : ''}page=${i}" class="page-btn ${i === page ? 'active' : ''}">${i}</a>`)
   }
-  if (page < totalPages) {
-    paginationItems.push(`<a href="/announcements?${category ? 'category=' + encodeURIComponent(category) + '&' : ''}page=${page + 1}" class="page-btn">다음 ›</a>`)
-  }
+  if (page < totalPages) pages.push(`<a href="/announcements?${category ? 'category=' + encodeURIComponent(category) + '&' : ''}page=${page + 1}" class="page-btn">›</a>`)
 
-  return `<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <title>공고 | IT moou</title>
-  ${getSharedHead()}
-  <style>${announcementStyles}</style>
-</head>
-<body>
-  <header class="header">
-    <div class="header-container">
-      <a href="/" class="logo"><img src="/images/logo.png" alt="IT moou" style="height:80px;"></a>
-      <button class="mobile-menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-      <nav class="mobile-nav">
-        <div class="mobile-nav-header">
-          <div class="mobile-nav-actions">
-            <a href="#" class="mobile-language-toggle"><i class="fas fa-globe"></i></a>
-            <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
-          </div>
-          <div class="mobile-language-dropdown">
-            <a href="/announcements" class="mobile-language-item active">🇰🇷 한국어</a>
-            <a href="/en/announcements" class="mobile-language-item">🇺🇸 English</a>
-          </div>
-        </div>
-        <ul class="main-nav">
-          <li class="nav-item"><a href="/company" class="nav-link">회사소개</a>
-            <div class="dropdown">
-              <a href="/company" class="dropdown-item">ITMoou</a>
-              <a href="/company/ceo" class="dropdown-item">CEO 메시지</a>
-              <a href="/company/news" class="dropdown-item">회사소식</a>
-              <a href="/announcements" class="dropdown-item">공고</a>
-              <a href="/company/history" class="dropdown-item">연혁</a>
-              <a href="/company/esg" class="dropdown-item">ESG</a>
-              <a href="/company/location" class="dropdown-item">오시는 길</a>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/solutions/loginexio" class="nav-link">솔루션</a>
-            <div class="dropdown">
-              <a href="/solutions/loginexio" class="dropdown-item">LogiNexio</a>
-              <a href="/solutions/bizsupport" class="dropdown-item">BizSupport Pro</a>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/rnd/lab" class="nav-link">연구개발</a>
-            <div class="dropdown">
-              <a href="/rnd/lab" class="dropdown-item">연구소</a>
-              <a href="/rnd/activities" class="dropdown-item">연구개발 활동</a>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/careers/talent" class="nav-link">채용정보</a>
-            <div class="dropdown">
-              <a href="/careers/talent" class="dropdown-item">인재상</a>
-              <a href="/careers" class="dropdown-item" target="_blank" rel="noopener noreferrer">채용공고</a>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/support/customer" class="nav-link">지원센터</a>
-            <div class="dropdown">
-              <a href="/support/customer" class="dropdown-item">고객지원</a>
-              <a href="/support/contact" class="dropdown-item">Contact Us</a>
-            </div>
-          </li>
-          <li class="nav-item language-switcher">
-            <a href="#" class="nav-link"><i class="fas fa-globe"></i></a>
-            <div class="dropdown">
-              <a href="/announcements" class="dropdown-item active">🇰🇷 한국어</a>
-              <a href="/en/announcements" class="dropdown-item">🇺🇸 English</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <div class="page-content" style="padding-top:80px;">
-    <div class="page-header" style="background:linear-gradient(135deg,#003366,#0052A5);color:#fff;padding:3rem 0;text-align:center;">
-      <h1 style="font-size:2rem;font-weight:700;margin:0;">공고</h1>
-      <p style="margin:0.5rem 0 0;opacity:0.8;">아이티무유 공식 공고사항</p>
-    </div>
-    <div class="container" style="max-width:1000px;margin:0 auto;padding:2rem 1rem;">
-      <div class="category-tabs" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-        ${categoryTabs}
+  const main = `
+  ${annSubhero('아이티무유 주식회사의 공식 공고사항을 게시합니다.')}
+  <section style="padding: 72px 0 128px;">
+    <div class="wrap">
+      <div class="cat-tabs">${tabs}</div>
+      <p style="margin: 0 0 14px; font-size: 0.88rem; color: var(--ink-faint);">총 ${total}건</p>
+      <div style="overflow-x: auto;">
+        <table class="notice-table">
+          <thead>
+            <tr><th style="width:70px">번호</th><th style="width:120px">분류</th><th>제목</th><th style="width:120px">공고일</th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
       </div>
-      <p style="color:#666;font-size:0.9rem;margin-bottom:1rem;">총 ${total}건</p>
-      <table class="ann-table">
-        <thead>
-          <tr>
-            <th style="width:80px;">번호</th>
-            <th style="width:120px;">분류</th>
-            <th>제목</th>
-            <th style="width:120px;">공고일</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>
-      ${totalPages > 1 ? `<div class="pagination">${paginationItems.join('')}</div>` : ''}
+      ${totalPages > 1 ? `<div class="pagination">${pages.join('')}</div>` : ''}
     </div>
-  </div>
+  </section>`
 
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-content">
-        <div class="footer-section footer-logo">
-          <img src="/images/footericon.png" alt="IT moou" style="height:90px;margin-bottom:1.5rem;">
-          <p class="footer-main-info">대표전화<br><span class="footer-phone">043.715.8553</span></p>
-          <p class="footer-copyright">© 2026 ITmoou Co., Ltd. ALL RIGHTS RESERVED.</p>
-        </div>
-        <div class="footer-section footer-info">
-          <p class="footer-small">대표이사 : 심영민<br>개인정보보호 책임자 : 심영민<br>
-          <a href="/privacy-policy" class="footer-link">개인정보처리방침</a></p>
-          <p class="footer-address">충청북도 청주시 흥덕구 공단로126번길 51, 청주산단스타트업센터 502호<br>
-          사업자등록번호 : 229-81-43410<br>
-          이메일 <a href="mailto:sales@itmoou.com" class="footer-link">sales@itmoou.com</a></p>
-          <div class="social-links" style="margin-top:2rem;">
-            <a href="https://www.instagram.com/itmoou/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/moou-it-6414573a8/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.youtube.com/@%EC%95%84%EC%9D%B4%ED%8B%B0%EB%AC%B4%EC%9C%A0" target="_blank" rel="noopener noreferrer" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <script src="/static/app.js"></script>
-</body>
-</html>`
+  return v2Shell('/announcements', '공고 | 아이티무유', '아이티무유 주식회사의 공식 공고사항을 게시합니다.', main)
 }
 
 function getAnnouncementDetailHTML(item: Announcement, attachments: Attachment[]) {
-  const attachmentList = attachments.length === 0
-    ? ''
-    : `<div class="attachments-section">
-        <h3><i class="fas fa-paperclip"></i> 첨부파일</h3>
-        <ul class="attachment-list">
-          ${attachments.map(a => `
-            <li>
-              <a href="/announcements/${item.id}/files/${a.id}" class="attachment-link">
-                <i class="fas fa-file"></i>
-                ${escapeHtml(a.filename)}
-                ${a.size ? `<span class="file-size">(${formatFileSize(a.size)})</span>` : ''}
-              </a>
-            </li>`).join('')}
-        </ul>
+  const files = attachments.length === 0 ? '' : `
+      <div class="ann-files">
+        <h3>첨부파일</h3>
+        ${attachments.map(a => `<a href="/announcements/${item.id}/files/${a.id}">📎 ${escapeHtml(a.filename)}${a.size ? ` <span style="color:var(--ink-faint); font-weight:500">(${formatFileSize(a.size)})</span>` : ''}</a>`).join('')}
       </div>`
 
   const contentHtml = escapeHtml(item.content).replace(/\n/g, '<br>')
 
-  return `<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <title>${escapeHtml(item.title)} | 공고 | IT moou</title>
-  ${getSharedHead()}
-  <style>${announcementStyles}</style>
-</head>
-<body>
-  <header class="header">
-    <div class="header-container">
-      <a href="/" class="logo"><img src="/images/logo.png" alt="IT moou" style="height:80px;"></a>
-      <button class="mobile-menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-      <nav class="mobile-nav">
-        <div class="mobile-nav-header">
-          <div class="mobile-nav-actions">
-            <a href="#" class="mobile-language-toggle"><i class="fas fa-globe"></i></a>
-            <button class="mobile-menu-close" aria-label="Close menu"><i class="fas fa-times"></i></button>
-          </div>
-          <div class="mobile-language-dropdown">
-            <a href="/announcements" class="mobile-language-item active">🇰🇷 한국어</a>
-            <a href="/en/announcements" class="mobile-language-item">🇺🇸 English</a>
-          </div>
+  const main = `
+  ${annSubhero('아이티무유 주식회사의 공식 공고사항을 게시합니다.')}
+  <section style="padding: 72px 0 128px;">
+    <div class="wrap">
+      <article class="ann-detail">
+        <div class="ann-head">
+          <span class="cat-badge">${item.category}</span>
+          <h1 class="ann-title">${escapeHtml(item.title)}</h1>
+          <p class="ann-meta">공고 제${item.number}호 · ${item.notice_date}</p>
         </div>
-        <ul class="main-nav">
-          <li class="nav-item"><a href="/company" class="nav-link">회사소개</a>
-            <div class="dropdown">
-              <a href="/company" class="dropdown-item">ITMoou</a>
-              <a href="/company/ceo" class="dropdown-item">CEO 메시지</a>
-              <a href="/company/news" class="dropdown-item">회사소식</a>
-              <a href="/announcements" class="dropdown-item">공고</a>
-              <a href="/company/history" class="dropdown-item">연혁</a>
-              <a href="/company/esg" class="dropdown-item">ESG</a>
-              <a href="/company/location" class="dropdown-item">오시는 길</a>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/solutions/loginexio" class="nav-link">솔루션</a>
-            <div class="dropdown">
-              <a href="/solutions/loginexio" class="dropdown-item">LogiNexio</a>
-              <a href="/solutions/bizsupport" class="dropdown-item">BizSupport Pro</a>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/rnd/lab" class="nav-link">연구개발</a>
-            <div class="dropdown">
-              <a href="/rnd/lab" class="dropdown-item">연구소</a>
-              <a href="/rnd/activities" class="dropdown-item">연구개발 활동</a>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/careers/talent" class="nav-link">채용정보</a>
-            <div class="dropdown">
-              <a href="/careers/talent" class="dropdown-item">인재상</a>
-              <a href="/careers" class="dropdown-item" target="_blank" rel="noopener noreferrer">채용공고</a>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/support/customer" class="nav-link">지원센터</a>
-            <div class="dropdown">
-              <a href="/support/customer" class="dropdown-item">고객지원</a>
-              <a href="/support/contact" class="dropdown-item">Contact Us</a>
-            </div>
-          </li>
-          <li class="nav-item language-switcher">
-            <a href="#" class="nav-link"><i class="fas fa-globe"></i></a>
-            <div class="dropdown">
-              <a href="/announcements" class="dropdown-item active">🇰🇷 한국어</a>
-              <a href="/en/announcements" class="dropdown-item">🇺🇸 English</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
+        <div class="ann-body">${contentHtml}</div>
+        ${files}
+        <a class="ann-back" href="/announcements">← 공고 목록으로</a>
+      </article>
     </div>
-  </header>
+  </section>`
 
-  <div class="page-content" style="padding-top:80px;">
-    <div class="page-header" style="background:linear-gradient(135deg,#003366,#0052A5);color:#fff;padding:3rem 0;text-align:center;">
-      <h1 style="font-size:2rem;font-weight:700;margin:0;">공고</h1>
-    </div>
-    <div class="container" style="max-width:900px;margin:0 auto;padding:2rem 1rem;">
-      <div style="margin-bottom:1rem;">
-        <a href="/announcements" style="color:#0052A5;text-decoration:none;font-size:0.9rem;">
-          <i class="fas fa-arrow-left"></i> 목록으로
-        </a>
-      </div>
-      <div class="announcement-detail">
-        <div class="detail-header">
-          <span class="cat-badge cat-${item.category}">${item.category}</span>
-          <span class="ann-num-badge">제${item.number}호</span>
-        </div>
-        <h2 class="detail-title">${escapeHtml(item.title)}</h2>
-        <div class="detail-meta">
-          <span><i class="fas fa-calendar"></i> 공고일: ${item.notice_date}</span>
-          <span><i class="fas fa-clock"></i> 등록: ${item.created_at.substring(0, 10)}</span>
-        </div>
-        <div class="detail-content">${contentHtml}</div>
-        ${attachmentList}
-      </div>
-      <div style="margin-top:2rem;text-align:center;">
-        <a href="/announcements" class="btn-back">목록으로 돌아가기</a>
-      </div>
-    </div>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-content">
-        <div class="footer-section footer-logo">
-          <img src="/images/footericon.png" alt="IT moou" style="height:90px;margin-bottom:1.5rem;">
-          <p class="footer-main-info">대표전화<br><span class="footer-phone">043.715.8553</span></p>
-          <p class="footer-copyright">© 2026 ITmoou Co., Ltd. ALL RIGHTS RESERVED.</p>
-        </div>
-        <div class="footer-section footer-info">
-          <p class="footer-small">대표이사 : 심영민<br>개인정보보호 책임자 : 심영민<br>
-          <a href="/privacy-policy" class="footer-link">개인정보처리방침</a></p>
-          <p class="footer-address">충청북도 청주시 흥덕구 공단로126번길 51, 청주산단스타트업센터 502호<br>
-          사업자등록번호 : 229-81-43410<br>
-          이메일 <a href="mailto:sales@itmoou.com" class="footer-link">sales@itmoou.com</a></p>
-          <div class="social-links" style="margin-top:2rem;">
-            <a href="https://www.instagram.com/itmoou/" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/moou-it-6414573a8/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.youtube.com/@%EC%95%84%EC%9D%B4%ED%8B%B0%EB%AC%B4%EC%9C%A0" target="_blank" rel="noopener noreferrer" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <script src="/static/app.js"></script>
-</body>
-</html>`
+  return v2Shell(`/announcements/${item.id}`, `${escapeHtml(item.title)} | 공고 | 아이티무유`, '아이티무유 주식회사의 공식 공고사항입니다.', main)
 }
 
 function getNotFoundHTML() {
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>404</title></head>
-  <body style="text-align:center;padding:4rem;font-family:sans-serif;">
-  <h2>공고를 찾을 수 없습니다.</h2>
-  <a href="/announcements">목록으로</a></body></html>`
+  const main = `
+  ${annSubhero('아이티무유 주식회사의 공식 공고사항을 게시합니다.')}
+  <section style="padding: 72px 0 128px;">
+    <div class="wrap">
+      <div class="empty">
+        <h3>공고를 찾을 수 없습니다</h3>
+        <p>삭제되었거나 존재하지 않는 공고입니다.</p>
+        <p style="margin-top: 20px;"><a href="/announcements" class="ann-back" style="margin-top:0">← 공고 목록으로</a></p>
+      </div>
+    </div>
+  </section>`
+  return v2Shell('/announcements', '공고 | 아이티무유', '아이티무유 주식회사의 공식 공고사항을 게시합니다.', main)
 }
 
 // ──────────────── 영문 공고 라우트 ────────────────
