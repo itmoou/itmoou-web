@@ -133,7 +133,7 @@ function getAnnouncementsListHTML(
   if (page < totalPages) pages.push(`<a href="/announcements?${category ? 'category=' + encodeURIComponent(category) + '&' : ''}page=${page + 1}" class="page-btn">›</a>`)
 
   const main = `
-  ${annSubhero('아이티무유 주식회사의 공식 공고사항을 게시합니다.')}
+  ${annSubhero('아이티무유 주식회사는 정관에 따라 전자적 방법(홈페이지 게시)으로 공고합니다.')}
   <section style="padding: 72px 0 128px;">
     <div class="wrap">
       <div class="cat-tabs">${tabs}</div>
@@ -163,7 +163,7 @@ function getAnnouncementDetailHTML(item: Announcement, attachments: Attachment[]
   const contentHtml = escapeHtml(item.content).replace(/\n/g, '<br>')
 
   const main = `
-  ${annSubhero('아이티무유 주식회사의 공식 공고사항을 게시합니다.')}
+  ${annSubhero('아이티무유 주식회사는 정관에 따라 전자적 방법(홈페이지 게시)으로 공고합니다.')}
   <section style="padding: 72px 0 128px;">
     <div class="wrap">
       <article class="ann-detail">
@@ -184,7 +184,7 @@ function getAnnouncementDetailHTML(item: Announcement, attachments: Attachment[]
 
 function getNotFoundHTML() {
   const main = `
-  ${annSubhero('아이티무유 주식회사의 공식 공고사항을 게시합니다.')}
+  ${annSubhero('아이티무유 주식회사는 정관에 따라 전자적 방법(홈페이지 게시)으로 공고합니다.')}
   <section style="padding: 72px 0 128px;">
     <div class="wrap">
       <div class="empty">

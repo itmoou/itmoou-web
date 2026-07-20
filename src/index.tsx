@@ -61,7 +61,14 @@ async function fetchPageSections(db: D1Database, page: string): Promise<Record<s
 
 app.get('/', (c) => c.html(v2Home()))
 
-app.get('/company', (c) => c.html(v2Company()))
+app.get('/company', async (c) => {
+  const history = await c.env.itmoou_db
+    .prepare('SELECT year, content FROM history_items ORDER BY year DESC, order_num ASC')
+    .all<{ year: string; content: string }>()
+    .then(r => r.results)
+    .catch(() => [] as { year: string; content: string }[])
+  return c.html(v2Company(history))
+})
 app.get('/company/ceo', (c) => c.redirect('/company', 301))
 app.get('/company/history', (c) => c.redirect('/company', 301))
 app.get('/company/esg', (c) => c.redirect('/company', 301))

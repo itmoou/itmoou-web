@@ -298,7 +298,21 @@ export function v2Home(): string {
 ` + V2_TAIL
 }
 
-export function v2Company(): string {
+function esc(v: string): string {
+  return v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
+export function v2Company(history: { year: string; content: string }[] = []): string {
+  const byYear = new Map<string, string[]>()
+  for (const h of history) {
+    if (!byYear.has(h.year)) byYear.set(h.year, [])
+    byYear.get(h.year)!.push(esc(h.content))
+  }
+  const timelineHtml = history.length
+    ? '<ul class="timeline reveal">' + [...byYear.entries()].map(([yr, items]) =>
+        `<li><span class="yr">${yr}</span><span class="tx">${items.join('<br>')}</span></li>`).join('') + '</ul>'
+    : '<ul class="timeline reveal"><li><span class="yr">2026</span><span class="tx">LogiNexio V1 베타 · 파일럿 파트너 모집</span></li></ul>'
+
   return v2Head('/company', '회사소개 | 아이티무유', '기술로 세상을 움직이다. 아이티무유의 비전, 미션, 걸어온 길을 소개합니다.') + `
 <header class="gnb" id="gnb">
   <div class="wrap gnb-inner">
@@ -393,12 +407,7 @@ export function v2Company(): string {
         <p class="label">History</p>
         <h2>걸어온 길</h2>
       </div>
-      <ul class="timeline reveal">
-        <li><span class="yr">2026</span><span class="tx">LogiNexio V1 베타 · 파일럿 파트너 모집</span></li>
-        <li><span class="yr">2025</span><span class="tx">LogiNexio 개발 착수</span><span class="hold">확인 필요</span></li>
-        <li><span class="yr">2024</span><span class="tx">아이티무유 주식회사 설립</span><span class="hold">확인 필요</span></li>
-      </ul>
-      <p class="foot-note">연혁은 증빙 확인 후 확정 게재합니다 (기획안 D-6).</p>
+      ${timelineHtml}
     </div>
   </section>
 
@@ -841,7 +850,7 @@ export function v2Newsroom(anns: AnnouncementRow[]): string {
       <div class="sec-head reveal">
         <p class="label">Notice</p>
         <h2>공고</h2>
-        <p class="sub">주주총회 등 아이티무유 주식회사의 공식 공고사항을 게시합니다.</p>
+        <p class="sub">아이티무유 주식회사는 정관에 따라 전자적 방법(홈페이지 게시)으로 공고합니다. 주주총회 등 공식 공고사항을 게시합니다.</p>
       </div>
       <div class="reveal" style="overflow-x: auto;">
         <table class="notice-table">
