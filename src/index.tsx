@@ -4,7 +4,7 @@ import { serveStatic } from 'hono/cloudflare-workers'
 import { getTranslation, getLocalizedPath, type Language } from './i18n'
 import announcements, { announcementsEn } from './announcements'
 import admin from './admin'
-import { v2Home, v2Company, v2Service, v2Rnd, v2Newsroom, v2Contact, type AnnouncementRow } from './site-v2'
+import { v2Home, v2Company, v2Service, v2Rnd, v2Newsroom, v2Contact, v2Privacy, type AnnouncementRow } from './site-v2'
 import type { NewsItem, SlideItem, HistoryItem, SolutionData, SolutionFeature, ContactSubmission } from './types'
 
 const app = new Hono<{ Bindings: { itmoou_db: D1Database; itmoou_files: R2Bucket; ADMIN_PASSWORD: string; FORM_SECRET?: string } }>()
@@ -100,7 +100,7 @@ app.get('/careers/talent', (c) => c.redirect('/careers', 301))
 
 // Privacy Policy page
 app.get('/privacy-policy', (c) => {
-  return c.html(getPrivacyPolicyHTML())
+  return c.html(v2Privacy())
 })
 
 // 문의 (신규 경로) - 기존 스팸 방어 파이프라인 재사용
