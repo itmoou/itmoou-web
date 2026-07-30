@@ -34,6 +34,7 @@
 
 ## 작업 규칙
 
-- **로컬 워킹트리가 운영 정본**이다 (배포 = `npm run deploy` wrangler 직배포, GitHub 원격은 구버전). 로컬을 reset·discard 하지 말 것
+- **배포 = 커밋 → GitHub 푸시** (2026-07-30 검증: Cloudflare Pages가 itmoou/itmoou-web main과 git 연동돼 푸시 시 자동 빌드·배포). `npm run deploy` wrangler 직배포는 예비 수단
+- 로컬에 미커밋 변경이 있을 수 있다. reset·discard 하지 말 것
 - 운영 콘텐츠는 D1에 있다 — 코드 수정으로 콘텐츠를 못 지운다, admin에서 처리
 - 구 템플릿(getXXXHTML)은 데드코드로 잔존 — 헷갈리지 말고 site-v2.ts만 수정
