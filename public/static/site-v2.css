@@ -400,10 +400,12 @@
   :root[data-theme="dark"] .hold { color: #f2c47c; background: #2c2212; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hold { color: #f2c47c; background: #2c2212; } }
   .map-box {
-    background: var(--bg-soft); border-radius: 22px; height: 320px;
-    display: grid; place-items: center; color: var(--ink-faint); font-size: 0.9rem; font-weight: 600;
-    margin-bottom: 18px;
+    background: var(--bg-soft); border-radius: 22px; overflow: hidden;
+    min-height: 320px; margin-bottom: 18px;
   }
+  .map-box .root_daum_roughmap { width: 100% !important; }
+  .map-box .root_daum_roughmap .phone { display: none; } /* 카카오 장소에 전화 미등록 - 빈 줄 숨김(연락처는 아래 카드에 있음) */
+  .map-box .root_daum_roughmap .cont { background: #fff; } /* 카카오 정보패널 글자색이 고정 진회색이라 다크모드에서도 흰 배경 유지 */
 
   .vcards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 840px) { .vcards { grid-template-columns: 1fr; } }

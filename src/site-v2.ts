@@ -447,7 +447,18 @@ export function v2Company(history: { year: string; content: string }[] = []): st
         <h2>오시는 길</h2>
       </div>
       <div class="reveal">
-        <div class="map-box">지도 영역 · 구현 시 카카오맵/네이버지도 삽입</div>
+        <div class="map-box">
+          <div id="daumRoughmapContainer1769348918868" class="root_daum_roughmap root_daum_roughmap_landing" style="width:100%;"></div>
+        </div>
+        <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+        <script charset="UTF-8">
+          new daum.roughmap.Lander({
+            "timestamp" : "1769348918868",
+            "key" : "gmuvtvo88pm",
+            "mapWidth" : "100%",
+            "mapHeight" : "400"
+          }).render();
+        </script>
         <div class="info">
           <div class="info-card">
             <span class="c-label">주소</span>
