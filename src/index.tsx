@@ -5,6 +5,7 @@ import { getTranslation, getLocalizedPath, type Language } from './i18n'
 import announcements, { announcementsEn } from './announcements'
 import admin from './admin'
 import { v2Home, v2Company, v2Service, v2Rnd, v2Newsroom, v2Contact, v2Privacy, type AnnouncementRow } from './site-v2'
+import { htmlToMarkdown, llmsTxt } from './geo'
 import type { NewsItem, SlideItem, HistoryItem, SolutionData, SolutionFeature, ContactSubmission } from './types'
 
 const app = new Hono<{ Bindings: { itmoou_db: D1Database; itmoou_files: R2Bucket; ADMIN_PASSWORD: string; FORM_SECRET?: string } }>()
@@ -179,17 +180,50 @@ Sitemap: https://itmoou.com/sitemap.xml`)
 
 app.get('/sitemap.xml', (c) => {
   const base = 'https://itmoou.com'
-  const paths = [
-    '/', '/company', '/service', '/rnd', '/newsroom', '/contact',
-    '/announcements', '/privacy-policy',
+  // lastmod = 그 페이지 글이 마지막으로 바뀐 날(빌드마다 오늘로 찍지 않는다). 처리방침은 부칙 개정일.
+  const pages: [string, string][] = [
+    ['/', '2026-11-26'], ['/company', '2026-11-26'], ['/service', '2026-11-26'], ['/rnd', '2026-11-26'],
+    ['/newsroom', '2026-11-26'], ['/contact', '2026-11-26'], ['/announcements', '2026-11-26'], ['/privacy-policy', '2026-07-30'],
   ]
-  const urls = paths.map(p =>
-    `<url><loc>${base}${p}</loc><changefreq>weekly</changefreq><priority>${p === '/' ? '1.0' : '0.8'}</priority></url>`
+  const urls = pages.map(([p, d]) =>
+    `<url><loc>${base}${p}</loc><lastmod>${d}</lastmod><changefreq>weekly</changefreq><priority>${p === '/' ? '1.0' : '0.8'}</priority></url>`
   ).join('\n  ')
   return c.body(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${urls}
 </urlset>`, 200, { 'Content-Type': 'application/xml' })
+})
+
+// GEO: AI 안내 파일과 마크다운 대응본(화면 HTML 을 그대로 변환 - 별도 원고 없음)
+app.get('/llms.txt', (c) => c.text(llmsTxt(), 200, { 'Content-Type': 'text/plain; charset=utf-8' }))
+
+async function pageMarkdown(c: any, path: string): Promise<string | null> {
+  const res = await app.request(path, undefined, c.env)
+  if (res.status !== 200) return null
+  const html = await res.text()
+  const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || '아이티무유'
+  const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || ''
+  return htmlToMarkdown(html, path, title, desc)
+}
+
+app.get('/llms-full.txt', async (c) => {
+  const parts: string[] = []
+  for (const p of ['/', '/company', '/service', '/rnd', '/newsroom', '/contact', '/privacy-policy']) {
+    const md = await pageMarkdown(c, p)
+    if (md) parts.push(md)
+  }
+  return c.text(parts.join('\n\n---\n\n'), 200, { 'Content-Type': 'text/markdown; charset=utf-8' })
+})
+
+app.get('/announcements/:file{[0-9]+\\.md}', async (c) => {
+  const md = await pageMarkdown(c, `/announcements/${c.req.param('file').replace(/\.md$/, '')}`)
+  return md ? c.text(md, 200, { 'Content-Type': 'text/markdown; charset=utf-8' }) : c.notFound()
+})
+
+app.get('/:file{[a-z0-9-]+\\.md}', async (c) => {
+  const slug = c.req.param('file').replace(/\.md$/, '')
+  const md = await pageMarkdown(c, slug === 'index' ? '/' : `/${slug}`)
+  return md ? c.text(md, 200, { 'Content-Type': 'text/markdown; charset=utf-8' }) : c.notFound()
 })
 
 // 공고 라우트 (공개)

@@ -1,6 +1,8 @@
 // site-v2: 2026-07 재구축 디자인 (기획안 v1.1 · 시안 v8.5 기준)
 // 구 템플릿(getXXXHTML)은 index.tsx에 남아 있으나 라우트에서 분리됨.
 
+import { SERVICE_FAQ, faqSectionHtml, geoHead, type HeadOpts } from './geo'
+
 const LOGINEXIO_URL = 'https://loginexio.com' // D-7 확정 (2026-07-20)
 
 export interface AnnouncementRow {
@@ -11,7 +13,7 @@ export interface AnnouncementRow {
   notice_date: string
 }
 
-function v2Head(path: string, title: string, desc: string): string {
+function v2Head(path: string, title: string, desc: string, opts: HeadOpts = {}): string {
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,19 +31,7 @@ function v2Head(path: string, title: string, desc: string): string {
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "아이티무유",
-  "alternateName": "ITMOOU Inc.",
-  "url": "https://itmoou.com",
-  "logo": "https://itmoou.com/images/logo-web.png",
-  "description": "수출 중소기업을 위한 B2B 물류 SaaS LogiNexio(로지넥시오)를 만드는 소프트웨어 회사",
-  "email": "sales@itmoou.com",
-  "brand": { "@type": "Brand", "name": "LogiNexio", "url": "https://loginexio.com" }
-}
-</script>
+${geoHead(path, title, desc, opts)}
 <meta name="google-site-verification" content="KhGq0NfIOoXgDx4WuQvY1oDfxoRarwb01z1TRYDUYrQ">
 <meta name="naver-site-verification" content="891252343b02692b4a90f8d07ad88ce500e77512">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -49,7 +39,7 @@ function v2Head(path: string, title: string, desc: string): string {
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="apple-touch-icon" href="/apple-icon-180x180.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="/static/site-v2.css?v=20260803">
+<link rel="stylesheet" href="/static/site-v2.css?v=20261126">
 <!-- GA4 - 유입·전환 측정 (개인정보처리방침 §부칙 고지) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LV7ZK818L"></script>
 <script>
@@ -305,7 +295,7 @@ export function v2Home(): string {
       </p>
     </div>
     <div>
-      <h4>서비스</h4>
+      <p class="ft-head">서비스</p>
       <ul>
         <li><a href="${LOGINEXIO_URL}" target="_blank" rel="noopener">LogiNexio ↗</a></li>
         <li><a href="/rnd">연구개발</a></li>
@@ -313,7 +303,7 @@ export function v2Home(): string {
       </ul>
     </div>
     <div>
-      <h4>회사</h4>
+      <p class="ft-head">회사</p>
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
@@ -492,7 +482,7 @@ export function v2Company(history: { year: string; content: string }[] = []): st
       </p>
     </div>
     <div>
-      <h4>서비스</h4>
+      <p class="ft-head">서비스</p>
       <ul>
         <li><a href="${LOGINEXIO_URL}" target="_blank" rel="noopener">LogiNexio ↗</a></li>
         <li><a href="/rnd">연구개발</a></li>
@@ -500,7 +490,7 @@ export function v2Company(history: { year: string; content: string }[] = []): st
       </ul>
     </div>
     <div>
-      <h4>회사</h4>
+      <p class="ft-head">회사</p>
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
@@ -515,7 +505,7 @@ export function v2Company(history: { year: string; content: string }[] = []): st
 }
 
 export function v2Service(): string {
-  return v2Head('/service', '서비스 | 아이티무유', '수출 업무 전체를 하나의 흐름으로 잇는 물류 올인원 SaaS, LogiNexio를 소개합니다.') + `
+  return v2Head('/service', '서비스 | 아이티무유', '수출 업무 전체를 하나의 흐름으로 잇는 물류 올인원 SaaS, LogiNexio를 소개합니다. 3D 적재 시뮬레이션, 포워더 견적 비교, 수출 서류 자동 생성, 선적 트래킹과 자주 묻는 질문.', { faq: SERVICE_FAQ, faqAnchor: 'faq' }) + `
 <header class="gnb" id="gnb">
   <div class="wrap gnb-inner">
     <a href="/" class="logo"><img src="/images/logo-web.png" alt="아이티무유"></a>
@@ -558,7 +548,7 @@ export function v2Service(): string {
         <div class="svc-body">
           <div class="svc-logo">Logi<b>Nexio</b></div>
           <span class="svc-tag"><span class="dot" aria-hidden="true"></span>2026 V1 베타 · 파일럿 모집 중</span>
-          <h3>수출 업무 전체를 하나의 흐름으로 잇는<br>물류 올인원 SaaS</h3>
+          <p class="svc-h3">수출 업무 전체를 하나의 흐름으로 잇는<br>물류 올인원 SaaS</p>
           <p class="desc">
             수주 등록부터 3D 적재 시뮬레이션, 포워더 견적 비교, 수출 서류 자동 생성,
             선적 트래킹까지. 한 번 입력한 데이터가 끝까지 흘러갑니다.
@@ -672,6 +662,7 @@ export function v2Service(): string {
     </div>
   </section>
 
+${faqSectionHtml(SERVICE_FAQ, 'faq')}
 </main>
 
 <footer class="foot">
@@ -687,7 +678,7 @@ export function v2Service(): string {
       </p>
     </div>
     <div>
-      <h4>서비스</h4>
+      <p class="ft-head">서비스</p>
       <ul>
         <li><a href="${LOGINEXIO_URL}" target="_blank" rel="noopener">LogiNexio ↗</a></li>
         <li><a href="/rnd">연구개발</a></li>
@@ -695,7 +686,7 @@ export function v2Service(): string {
       </ul>
     </div>
     <div>
-      <h4>회사</h4>
+      <p class="ft-head">회사</p>
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
@@ -808,7 +799,7 @@ export function v2Rnd(): string {
       </p>
     </div>
     <div>
-      <h4>서비스</h4>
+      <p class="ft-head">서비스</p>
       <ul>
         <li><a href="${LOGINEXIO_URL}" target="_blank" rel="noopener">LogiNexio ↗</a></li>
         <li><a href="/rnd">연구개발</a></li>
@@ -816,7 +807,7 @@ export function v2Rnd(): string {
       </ul>
     </div>
     <div>
-      <h4>회사</h4>
+      <p class="ft-head">회사</p>
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
@@ -834,7 +825,7 @@ export function v2Newsroom(anns: AnnouncementRow[]): string {
   const annRows = anns.length
     ? anns.map(a => `<tr><td>${a.number}</td><td>${a.category}</td><td><a href="/announcements/${a.id}" style="color:var(--brand); font-weight:600">${a.title}</a></td><td>${a.notice_date}</td></tr>`).join('')
     : '<tr><td colspan="4" class="notice-empty">등록된 공고가 없습니다.</td></tr>'
-  return v2Head('/newsroom', '뉴스룸 | 아이티무유', '아이티무유의 소식과 공식 공고를 전합니다.') + `
+  return v2Head('/newsroom', '뉴스룸 | 아이티무유', '아이티무유의 소식과 공식 공고를 한곳에 모았습니다. 보도자료, 파일럿 모집, 채용 소식과 정관에 따른 전자 공고를 날짜순으로 보고 보도 문의 창구를 안내합니다.', { type: 'CollectionPage' }) + `
 <header class="gnb" id="gnb">
   <div class="wrap gnb-inner">
     <a href="/" class="logo"><img src="/images/logo-web.png" alt="아이티무유"></a>
@@ -933,7 +924,7 @@ export function v2Newsroom(anns: AnnouncementRow[]): string {
       </p>
     </div>
     <div>
-      <h4>서비스</h4>
+      <p class="ft-head">서비스</p>
       <ul>
         <li><a href="${LOGINEXIO_URL}" target="_blank" rel="noopener">LogiNexio ↗</a></li>
         <li><a href="/rnd">연구개발</a></li>
@@ -941,7 +932,7 @@ export function v2Newsroom(anns: AnnouncementRow[]): string {
       </ul>
     </div>
     <div>
-      <h4>회사</h4>
+      <p class="ft-head">회사</p>
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
@@ -1078,7 +1069,7 @@ export function v2Contact(opts: { formToken?: string; error?: string; success?: 
       </p>
     </div>
     <div>
-      <h4>서비스</h4>
+      <p class="ft-head">서비스</p>
       <ul>
         <li><a href="${LOGINEXIO_URL}" target="_blank" rel="noopener">LogiNexio ↗</a></li>
         <li><a href="/rnd">연구개발</a></li>
@@ -1086,7 +1077,7 @@ export function v2Contact(opts: { formToken?: string; error?: string; success?: 
       </ul>
     </div>
     <div>
-      <h4>회사</h4>
+      <p class="ft-head">회사</p>
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
@@ -1141,7 +1132,7 @@ export const V2_FOOTER = `<footer class="foot">
       </p>
     </div>
     <div>
-      <h4>서비스</h4>
+      <p class="ft-head">서비스</p>
       <ul>
         <li><a href="https://loginexio.com" target="_blank" rel="noopener">LogiNexio ↗</a></li>
         <li><a href="/rnd" data-nav="rnd">연구개발</a></li>
@@ -1149,7 +1140,7 @@ export const V2_FOOTER = `<footer class="foot">
       </ul>
     </div>
     <div>
-      <h4>회사</h4>
+      <p class="ft-head">회사</p>
       <ul>
         <li><a href="/company" data-nav="about">회사소개</a></li>
         <li><a href="/newsroom" data-nav="news">뉴스룸</a></li>
@@ -1161,19 +1152,36 @@ export const V2_FOOTER = `<footer class="foot">
   </div>
 </footer>`
 
-export function v2Shell(path: string, title: string, desc: string, mainHtml: string): string {
-  return v2Head(path, title, desc) + V2_HEADER + '\n<main>' + mainHtml + '</main>\n' + V2_FOOTER + V2_TAIL
+export function v2Shell(path: string, title: string, desc: string, mainHtml: string, opts: HeadOpts = {}): string {
+  return v2Head(path, title, desc, opts) + V2_HEADER + '\n<main>' + mainHtml + '</main>\n' + V2_FOOTER + V2_TAIL
 }
 
 
 // 개인정보처리방침 (구 사이트 원문 그대로 게재 + 2026-07-30 웹로그 부칙. 원문 개정은 법무 검토 후에만)
+const PRIVACY_DESC = '아이티무유 주식회사 개인정보처리방침 전문. 수집 항목과 목적, 보유 기간, 제3자 제공과 위탁, 이용자 권리, 안전성 확보 조치, 웹 로그 분석 도구 고지를 담습니다. 시행 2026-01-02, 최근 개정 2026-07-30.'
+
+/** 절 제목에 닻(id)을 달고 목차를 만든다 - 수집기가 절 단위로 읽고 바로 간다. */
+function privacyToc(main: string): string {
+  const titles: { id: string; title: string }[] = []
+  let k = 0
+  const withIds = main.replace(/<h2([^>]*)>([\s\S]*?)<\/h2>/g, (_m, attrs, inner) => {
+    k += 1
+    const id = `sec-${k}`
+    titles.push({ id, title: inner.replace(/<[^>]+>/g, '').trim() })
+    return `<h2 id="${id}"${attrs}>${inner}</h2>`
+  })
+  const toc = `<nav class="toc" aria-label="목차"><p class="toc-head">목차</p><ol>${titles.map((x) => `<li><a href="#${x.id}">${x.title}</a></li>`).join('')}</ol></nav>`
+  return withIds.replace('<div class="wrap" style="max-width: 860px; line-height: 1.85;">', `<div class="wrap" style="max-width: 860px; line-height: 1.85;"><article>${toc}`)
+}
+
 export function v2Privacy(): string {
-  return v2Shell('/privacy-policy', '개인정보처리방침 | 아이티무유', '아이티무유 주식회사 개인정보 보호 정책.', `
+  const main = privacyToc(`
   <section class="subhero">
     <div class="wrap">
       <p class="crumb">ITmoou — Privacy</p>
       <h1>개인정보처리방침</h1>
       <p class="sub">아이티무유 주식회사 개인정보 보호 정책</p>
+      <p class="sub">시행 <time datetime="2026-01-02">2026-01-02</time> · 최근 개정 <time datetime="2026-07-30">2026-07-30</time></p>
     </div>
   </section>
   <section style="padding: 90px 0 100px;">
@@ -1316,5 +1324,6 @@ export function v2Privacy(): string {
         <li>이용자는 브라우저 쿠키 차단 설정 또는 Google Analytics 차단 부가기능(tools.google.com/dlpage/gaoptout)으로 수집을 거부할 수 있습니다.</li>
       </ul>
     </div>
-  </section>`)
+  </section>`).replace(/    <\/div>\n  <\/section>$/, '    </article></div>\n  </section>')
+  return v2Shell('/privacy-policy', '개인정보처리방침 | 아이티무유', PRIVACY_DESC, main, { article: true, datePublished: '2026-01-02', dateModified: '2026-07-30' })
 }

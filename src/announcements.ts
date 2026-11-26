@@ -150,7 +150,7 @@ function getAnnouncementsListHTML(
     </div>
   </section>`
 
-  return v2Shell('/announcements', '공고 | 아이티무유', '아이티무유 주식회사의 공식 공고사항을 게시합니다.', main)
+  return v2Shell('/announcements', '공고 | 아이티무유', '아이티무유 주식회사의 공식 공고를 번호 · 분류 · 공고일과 함께 게시합니다. 정관에 따른 전자 공고로 파일럿 모집, 채용, 계약 · 정정 공고를 여기서 확인합니다.', main)
 }
 
 function getAnnouncementDetailHTML(item: Announcement, attachments: Attachment[]) {
@@ -179,7 +179,7 @@ function getAnnouncementDetailHTML(item: Announcement, attachments: Attachment[]
     </div>
   </section>`
 
-  return v2Shell(`/announcements/${item.id}`, `${escapeHtml(item.title)} | 공고 | 아이티무유`, '아이티무유 주식회사의 공식 공고사항입니다.', main)
+  return v2Shell(`/announcements/${item.id}`, `${escapeHtml(item.title)} | 공고 | 아이티무유`, `아이티무유 주식회사 공고 제${item.number}호(${item.category}, ${item.notice_date}): ${escapeHtml(item.title)}`, main, { article: true, datePublished: item.notice_date, dateModified: item.notice_date })
 }
 
 function getNotFoundHTML() {
@@ -194,7 +194,7 @@ function getNotFoundHTML() {
       </div>
     </div>
   </section>`
-  return v2Shell('/announcements', '공고 | 아이티무유', '아이티무유 주식회사의 공식 공고사항을 게시합니다.', main)
+  return v2Shell('/announcements', '공고 | 아이티무유', '아이티무유 주식회사의 공식 공고를 번호 · 분류 · 공고일과 함께 게시합니다. 정관에 따른 전자 공고로 파일럿 모집, 채용, 계약 · 정정 공고를 여기서 확인합니다.', main)
 }
 
 // ──────────────── 영문 공고 라우트 ────────────────
