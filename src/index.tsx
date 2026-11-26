@@ -11,6 +11,18 @@ import type { NewsItem, SlideItem, HistoryItem, SolutionData, SolutionFeature, C
 
 const app = new Hono<{ Bindings: { itmoou_db: D1Database; itmoou_files: R2Bucket; ADMIN_PASSWORD: string; FORM_SECRET?: string } }>()
 
+// www.itmoou.com 처럼 대표 주소가 아닌 우리 호스트로 들어오면 itmoou.com 으로 301 - Search Console 「적절한 표준 태그가 포함된 대체 페이지」(11-26)의 원인인 www 중복을 없앤다.
+// pages.dev 미리보기 주소와 로컬(127.0.0.1)은 그대로 둔다.
+app.use('*', async (c, next) => {
+  const url = new URL(c.req.url)
+  if (url.hostname !== 'itmoou.com' && url.hostname.endsWith('.itmoou.com')) {
+    url.hostname = 'itmoou.com'
+    url.protocol = 'https:'
+    return c.redirect(url.toString(), 301)
+  }
+  await next()
+})
+
 // Accept: text/markdown 으로 페이지를 부르면(콘텐츠 협상) 마크다운 대응본을 준다. 브라우저는 text/html 이 앞서므로 영향 없음.
 app.use('*', async (c, next) => {
   const accept = c.req.header('accept') || ''
