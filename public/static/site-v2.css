@@ -190,9 +190,10 @@
   html.js .hero .scroll-hint { animation: floaty 2.6s ease-in-out infinite; }
   @keyframes floaty { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 7px); } }
   @keyframes riseIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes riseInVisible { from { transform: translateY(26px); } to { transform: none; } }
   html.js .hero .eng { animation: riseIn 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-  html.js .hero h1 { animation: riseIn 0.9s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-  html.js .hero p.lede { animation: riseIn 0.9s 0.26s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  html.js .hero h1 { animation: riseInVisible 0.9s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  html.js .hero p.lede { animation: riseInVisible 0.9s 0.26s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
   .hero .routes .shipdot { fill: var(--brand); }
   .hero .routes .shipglow { fill: color-mix(in srgb, var(--brand) 22%, transparent); }
 
@@ -546,8 +547,10 @@ article h2[id] { scroll-margin-top: 90px; }
 .faq-band { padding: 90px 0 110px; border-top: 1px solid var(--line, #e5e7eb); }
 .faq-band .eyebrow { margin: 0 0 8px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--ink-faint); }
 .faq-band h2 { margin: 0 0 28px; font-size: clamp(1.5rem, 2.6vw, 2rem); letter-spacing: -0.03em; }
-.faq details { border-top: 1px solid var(--line, #e5e7eb); padding: 18px 0; }
-.faq details:last-child { border-bottom: 1px solid var(--line, #e5e7eb); }
+.faq details, .faq .faq-item { border-top: 1px solid var(--line, #e5e7eb); padding: 18px 0; }
+.faq details:last-child, .faq .faq-item:last-child { border-bottom: 1px solid var(--line, #e5e7eb); }
+.faq .faq-item h3 { margin: 0; font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; }
+.faq .faq-item p { margin: 10px 0 0; max-width: 44em; color: var(--ink-soft); line-height: 1.8; }
 .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: "+"; flex: none; width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--line, #e5e7eb); display: grid; place-items: center; font-weight: 500; color: var(--ink-soft); }

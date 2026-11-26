@@ -24,7 +24,7 @@ function v2Head(path: string, title: string, desc: string, opts: HeadOpts = {}):
 <link rel="canonical" href="https://itmoou.com${path === '/' ? '/' : path}">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${desc}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="${opts.article ? 'article' : 'website'}">${opts.article && opts.datePublished ? `\n<meta property="article:published_time" content="${opts.datePublished}T00:00:00+09:00">` : ''}${opts.article && opts.dateModified ? `\n<meta property="article:modified_time" content="${opts.dateModified}T00:00:00+09:00">` : ''}
 <meta property="og:locale" content="ko_KR">
 <meta property="og:url" content="https://itmoou.com${path === '/' ? '' : path}">
 <meta property="og:image" content="https://itmoou.com/images/og-image.png">
@@ -38,8 +38,10 @@ ${geoHead(path, title, desc, opts)}
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="apple-touch-icon" href="/apple-icon-180x180.png">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="/static/site-v2.css?v=20261126">
+<!-- 글꼴 CSS 는 첫 그리기를 막지 않게 비동기로(시스템 글꼴로 먼저 그리고 바꿔 끼움, font-display: swap). LCP 5.9s(11-26 점검) 대응 -->
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
+<link rel="stylesheet" href="/static/site-v2.css?v=20261126b">
 <!-- GA4 - 유입·전환 측정 (개인정보처리방침 §부칙 고지) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LV7ZK818L"></script>
 <script>

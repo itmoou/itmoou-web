@@ -10,6 +10,19 @@ import type { NewsItem, SlideItem, HistoryItem, SolutionData, SolutionFeature, C
 
 const app = new Hono<{ Bindings: { itmoou_db: D1Database; itmoou_files: R2Bucket; ADMIN_PASSWORD: string; FORM_SECRET?: string } }>()
 
+// Accept: text/markdown 으로 페이지를 부르면(콘텐츠 협상) 마크다운 대응본을 준다. 브라우저는 text/html 이 앞서므로 영향 없음.
+app.use('*', async (c, next) => {
+  const accept = c.req.header('accept') || ''
+  const path = new URL(c.req.url).pathname
+  const wantsMd = accept.includes('text/markdown') && (accept.indexOf('text/markdown') < (accept.indexOf('text/html') === -1 ? 1e9 : accept.indexOf('text/html')))
+  if (c.req.method === 'GET' && wantsMd && /^\/(company|service|rnd|newsroom|contact|announcements(\/\d+)?|privacy-policy)?$/.test(path)) {
+    const md = await pageMarkdown(c, path || '/')
+    if (md) return c.text(md, 200, { 'Content-Type': 'text/markdown; charset=utf-8', Vary: 'Accept' })
+  }
+  await next()
+})
+
+
 // Enable CORS for API routes
 app.use('/api/*', cors())
 
@@ -196,6 +209,10 @@ app.get('/sitemap.xml', (c) => {
 
 // GEO: AI 안내 파일과 마크다운 대응본(화면 HTML 을 그대로 변환 - 별도 원고 없음)
 app.get('/llms.txt', (c) => c.text(llmsTxt(), 200, { 'Content-Type': 'text/plain; charset=utf-8' }))
+app.get('/.md', async (c) => {
+  const md = await pageMarkdown(c, '/')
+  return md ? c.text(md, 200, { 'Content-Type': 'text/markdown; charset=utf-8' }) : c.notFound()
+})
 
 async function pageMarkdown(c: any, path: string): Promise<string | null> {
   const res = await app.request(path, undefined, c.env)

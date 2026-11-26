@@ -143,7 +143,7 @@ export function faqSectionHtml(faq: readonly { q: string; a: string }[], anchor 
       <p class="eyebrow">FAQ</p>
       <h2 id="${anchor}-title">자주 묻는 질문</h2>
       <div class="faq">
-        ${faq.map((f) => `<details open><summary><h3>${f.q}</h3></summary><p>${f.a}</p></details>`).join('\n        ')}
+        ${faq.map((f) => `<div class="faq-item"><h3>${f.q}</h3><p>${f.a}</p></div>`).join('\n        ')}
       </div>
     </div>
   </section>`
