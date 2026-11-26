@@ -40,6 +40,24 @@ export const ORGANIZATION = {
   brand: { '@type': 'Brand', name: 'LogiNexio', alternateName: '로지넥시오', url: 'https://loginexio.com' },
 }
 
+/** 글(Article)의 저자 - 점검 기준은 「Person 저자」. 안내 글 · 처리방침은 대표이사 명의로 게시한다. */
+export const AUTHOR_PERSON = {
+  '@type': 'Person',
+  '@id': `${SITE}/#ceo`,
+  name: '심영민',
+  jobTitle: '대표이사',
+  worksFor: { '@id': ORG_ID },
+  url: `${SITE}/company`,
+}
+/** 발행사 - @id 참조를 풀지 않는 수집기를 위해 이름 · 주소 · 로고를 노드 안에 같이. */
+export const PUBLISHER_ORG = {
+  '@type': 'Organization',
+  '@id': ORG_ID,
+  name: '아이티무유 주식회사',
+  url: SITE,
+  logo: { '@type': 'ImageObject', url: `${SITE}/images/logo-web.png` },
+}
+
 export const WEBSITE = {
   '@type': 'WebSite',
   '@id': WEBSITE_ID,
@@ -103,8 +121,9 @@ export function geoHead(path: string, title: string, desc: string, opts: HeadOpt
       inLanguage: 'ko',
       isAccessibleForFree: true,
       mainEntityOfPage: { '@id': pageId },
-      author: { '@id': ORG_ID },
-      publisher: { '@id': ORG_ID },
+      image: `${SITE}/images/og-image.png`,
+      author: AUTHOR_PERSON,
+      publisher: PUBLISHER_ORG,
       ...(opts.datePublished ? { datePublished: opts.datePublished } : {}),
       ...(opts.dateModified ? { dateModified: opts.dateModified } : {}),
     })
@@ -212,6 +231,10 @@ export function llmsTxt(): string {
 - [뉴스룸](${SITE}/newsroom): 소식과 공고, 보도 문의. 마크다운 ${SITE}/newsroom.md
 - [공고](${SITE}/announcements): 정관에 따른 전자 공고. 마크다운 ${SITE}/announcements.md
 - [문의하기](${SITE}/contact): 파일럿 참여 · 제품 데모 · 파트너십 문의. 마크다운 ${SITE}/contact.md
+- [안내 글 목록](${SITE}/guide): 하는 일을 글로. 마크다운 ${SITE}/guide.md
+- [수주 하나가 완료되기까지, 네 가지가 자동으로 이어집니다](${SITE}/guide/loginexio): LogiNexio 네 가지 기능 · 파일럿 모집 · 요금. 게시 2026-11-26. 마크다운 ${SITE}/guide/loginexio.md
+- [논문 속 기술이 아니라, 수출 현장의 문제를 푸는 기술을 만듭니다](${SITE}/guide/rnd): 세 가지 연구 분야. 게시 2026-11-26. 마크다운 ${SITE}/guide/rnd.md
+- [인재영입](${SITE}/careers): 채용 안내. 마크다운 ${SITE}/careers.md
 - [개인정보처리방침](${SITE}/privacy-policy): 마크다운 ${SITE}/privacy-policy.md
 - [전체 글(llms-full.txt)](${SITE}/llms-full.txt): 위 페이지 본문을 한 파일로
 

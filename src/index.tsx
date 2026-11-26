@@ -6,6 +6,7 @@ import announcements, { announcementsEn } from './announcements'
 import admin from './admin'
 import { v2Home, v2Company, v2Service, v2Rnd, v2Newsroom, v2Contact, v2Privacy, type AnnouncementRow } from './site-v2'
 import { htmlToMarkdown, llmsTxt } from './geo'
+import { GUIDES, v2Careers, v2Guide, v2GuideIndex } from './guides'
 import type { NewsItem, SlideItem, HistoryItem, SolutionData, SolutionFeature, ContactSubmission } from './types'
 
 const app = new Hono<{ Bindings: { itmoou_db: D1Database; itmoou_files: R2Bucket; ADMIN_PASSWORD: string; FORM_SECRET?: string } }>()
@@ -106,9 +107,16 @@ app.get('/newsroom', async (c) => {
   return c.html(v2Newsroom(anns))
 })
 
-// Careers - 채용 사이트(나인하이어)로 이동
+// Careers - 한 장(채용 사이트로 가는 단추 포함). 메뉴 「인재영입」의 목적지가 정상 페이지(200)가 되게 - 전엔 302 로 밖으로 보내 수집기가 확인 못 함.
 app.get('/careers', async (c) => {
-  return c.redirect(await fetchJobsUrl(c.env.itmoou_db))
+  return c.html(v2Careers(await fetchJobsUrl(c.env.itmoou_db)))
+})
+
+// 안내 글 - 하는 일을 글로(제목 · 소제목 닻 · 목차 · 게시일 · 저자)
+app.get('/guide', (c) => c.html(v2GuideIndex()))
+app.get('/guide/:slug{[a-z0-9-]+}', (c) => {
+  const html = v2Guide(c.req.param('slug'))
+  return html ? c.html(html) : c.notFound()
 })
 app.get('/careers/talent', (c) => c.redirect('/careers', 301))
 
@@ -197,6 +205,7 @@ app.get('/sitemap.xml', (c) => {
   const pages: [string, string][] = [
     ['/', '2026-11-26'], ['/company', '2026-11-26'], ['/service', '2026-11-26'], ['/rnd', '2026-11-26'],
     ['/newsroom', '2026-11-26'], ['/contact', '2026-11-26'], ['/announcements', '2026-11-26'], ['/privacy-policy', '2026-07-30'],
+    ['/guide', '2026-11-26'], ...GUIDES.map((g): [string, string] => [`/guide/${g.slug}`, g.dateModified]), ['/careers', '2026-11-26'],
   ]
   const urls = pages.map(([p, d]) =>
     `<url><loc>${base}${p}</loc><lastmod>${d}</lastmod><changefreq>weekly</changefreq><priority>${p === '/' ? '1.0' : '0.8'}</priority></url>`
@@ -225,11 +234,16 @@ async function pageMarkdown(c: any, path: string): Promise<string | null> {
 
 app.get('/llms-full.txt', async (c) => {
   const parts: string[] = []
-  for (const p of ['/', '/company', '/service', '/rnd', '/newsroom', '/contact', '/privacy-policy']) {
+  for (const p of ['/', '/company', '/service', '/rnd', '/guide', ...GUIDES.map((g) => `/guide/${g.slug}`), '/careers', '/newsroom', '/contact', '/privacy-policy']) {
     const md = await pageMarkdown(c, p)
     if (md) parts.push(md)
   }
   return c.text(parts.join('\n\n---\n\n'), 200, { 'Content-Type': 'text/markdown; charset=utf-8' })
+})
+
+app.get('/guide/:file{[a-z0-9-]+\\.md}', async (c) => {
+  const md = await pageMarkdown(c, `/guide/${c.req.param('file').replace(/\.md$/, '')}`)
+  return md ? c.text(md, 200, { 'Content-Type': 'text/markdown; charset=utf-8' }) : c.notFound()
 })
 
 app.get('/announcements/:file{[0-9]+\\.md}', async (c) => {

@@ -41,7 +41,7 @@ ${geoHead(path, title, desc, opts)}
 <!-- 글꼴 CSS 는 첫 그리기를 막지 않게 비동기로(시스템 글꼴로 먼저 그리고 바꿔 끼움, font-display: swap). LCP 5.9s(11-26 점검) 대응 -->
 <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
-<link rel="stylesheet" href="/static/site-v2.css?v=20261126b">
+<link rel="stylesheet" href="/static/site-v2.css?v=20261126c">
 <!-- GA4 - 유입·전환 측정 (개인정보처리방침 §부칙 고지) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LV7ZK818L"></script>
 <script>
@@ -76,7 +76,7 @@ export function v2Home(): string {
       <a class="item" href="/service">서비스</a>
       <a class="item" href="/rnd">연구개발</a>
       <a class="item" href="/newsroom">뉴스룸</a>
-      <a class="item" href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+      <a class="item" href="/careers">인재영입</a>
     </nav>
     <div class="gnb-right">
       <a class="btn btn-dark btn-sm" href="/contact">문의하기</a>
@@ -90,7 +90,7 @@ export function v2Home(): string {
     <a href="/service">서비스</a>
     <a href="/rnd">연구개발</a>
     <a href="/newsroom">뉴스룸</a>
-    <a href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    <a href="/careers">인재영입</a>
     <a href="/contact">문의하기</a>
   </nav>
 </header>
@@ -240,7 +240,7 @@ export function v2Home(): string {
           <span class="tag">Careers</span>
           <h3>함께 성장할 동료를 찾고 있습니다</h3>
           <p>수출 물류라는 오래된 산업을 소프트웨어로 다시 만드는 일. 그 초기 멤버가 될 분을 기다립니다.</p>
-          <a class="go" href="/careers" target="_blank" rel="noopener">채용 홈페이지 ↗</a>
+          <a class="go" href="/careers">인재영입 안내</a>
         </div>
       </div>
     </div>
@@ -252,7 +252,7 @@ export function v2Home(): string {
       <p class="label">We're hiring</p>
       <h2>오래된 산업을 다시 만드는 일,<br>함께 하시겠습니까?</h2>
       <p class="sub">수출 물류의 하루를 바꾸는 소프트웨어를 만듭니다. 청주에서, 그리고 어디서든.</p>
-      <a class="btn btn-white btn-lg" href="/careers" target="_blank" rel="noopener">인재영입 바로가기 ↗</a>
+      <a class="btn btn-white btn-lg" href="/careers">인재영입 바로가기</a>
     </div>
   </section>
 
@@ -309,7 +309,7 @@ export function v2Home(): string {
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
-        <li><a href="/careers" target="_blank" rel="noopener">인재영입 ↗</a></li>
+        <li><a href="/careers">인재영입</a></li>
         <li><a href="/newsroom">공고</a></li>
         <li><a href="/privacy-policy">개인정보처리방침</a></li>
       </ul>
@@ -343,7 +343,7 @@ export function v2Company(history: { year: string; content: string }[] = []): st
       <a class="item" href="/service">서비스</a>
       <a class="item" href="/rnd">연구개발</a>
       <a class="item" href="/newsroom">뉴스룸</a>
-      <a class="item" href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+      <a class="item" href="/careers">인재영입</a>
     </nav>
     <div class="gnb-right">
       <a class="btn btn-dark btn-sm" href="/contact">문의하기</a>
@@ -357,7 +357,7 @@ export function v2Company(history: { year: string; content: string }[] = []): st
     <a href="/service">서비스</a>
     <a href="/rnd">연구개발</a>
     <a href="/newsroom">뉴스룸</a>
-    <a href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    <a href="/careers">인재영입</a>
     <a href="/contact">문의하기</a>
   </nav>
 </header>
@@ -496,7 +496,7 @@ export function v2Company(history: { year: string; content: string }[] = []): st
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
-        <li><a href="/careers" target="_blank" rel="noopener">인재영입 ↗</a></li>
+        <li><a href="/careers">인재영입</a></li>
         <li><a href="/newsroom">공고</a></li>
         <li><a href="/privacy-policy">개인정보처리방침</a></li>
       </ul>
@@ -516,7 +516,7 @@ export function v2Service(): string {
       <a class="item" href="/service">서비스</a>
       <a class="item" href="/rnd">연구개발</a>
       <a class="item" href="/newsroom">뉴스룸</a>
-      <a class="item" href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+      <a class="item" href="/careers">인재영입</a>
     </nav>
     <div class="gnb-right">
       <a class="btn btn-dark btn-sm" href="/contact">문의하기</a>
@@ -530,7 +530,7 @@ export function v2Service(): string {
     <a href="/service">서비스</a>
     <a href="/rnd">연구개발</a>
     <a href="/newsroom">뉴스룸</a>
-    <a href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    <a href="/careers">인재영입</a>
     <a href="/contact">문의하기</a>
   </nav>
 </header>
@@ -692,7 +692,7 @@ ${faqSectionHtml(SERVICE_FAQ, 'faq')}
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
-        <li><a href="/careers" target="_blank" rel="noopener">인재영입 ↗</a></li>
+        <li><a href="/careers">인재영입</a></li>
         <li><a href="/newsroom">공고</a></li>
         <li><a href="/privacy-policy">개인정보처리방침</a></li>
       </ul>
@@ -712,7 +712,7 @@ export function v2Rnd(): string {
       <a class="item" href="/service">서비스</a>
       <a class="item" href="/rnd">연구개발</a>
       <a class="item" href="/newsroom">뉴스룸</a>
-      <a class="item" href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+      <a class="item" href="/careers">인재영입</a>
     </nav>
     <div class="gnb-right">
       <a class="btn btn-dark btn-sm" href="/contact">문의하기</a>
@@ -726,7 +726,7 @@ export function v2Rnd(): string {
     <a href="/service">서비스</a>
     <a href="/rnd">연구개발</a>
     <a href="/newsroom">뉴스룸</a>
-    <a href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    <a href="/careers">인재영입</a>
     <a href="/contact">문의하기</a>
   </nav>
 </header>
@@ -782,7 +782,7 @@ export function v2Rnd(): string {
       <p class="label">We're hiring</p>
       <h2>함께 연구할 동료를 찾습니다</h2>
       <p class="sub">오래된 산업을 소프트웨어로 다시 만드는 일. 그 초기 멤버가 될 분을 기다립니다.</p>
-      <a class="btn btn-white btn-lg" href="/careers" target="_blank" rel="noopener">인재영입 바로가기 ↗</a>
+      <a class="btn btn-white btn-lg" href="/careers">인재영입 바로가기</a>
     </div>
   </section>
 
@@ -813,7 +813,7 @@ export function v2Rnd(): string {
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
-        <li><a href="/careers" target="_blank" rel="noopener">인재영입 ↗</a></li>
+        <li><a href="/careers">인재영입</a></li>
         <li><a href="/newsroom">공고</a></li>
         <li><a href="/privacy-policy">개인정보처리방침</a></li>
       </ul>
@@ -836,7 +836,7 @@ export function v2Newsroom(anns: AnnouncementRow[]): string {
       <a class="item" href="/service">서비스</a>
       <a class="item" href="/rnd">연구개발</a>
       <a class="item" href="/newsroom">뉴스룸</a>
-      <a class="item" href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+      <a class="item" href="/careers">인재영입</a>
     </nav>
     <div class="gnb-right">
       <a class="btn btn-dark btn-sm" href="/contact">문의하기</a>
@@ -850,7 +850,7 @@ export function v2Newsroom(anns: AnnouncementRow[]): string {
     <a href="/service">서비스</a>
     <a href="/rnd">연구개발</a>
     <a href="/newsroom">뉴스룸</a>
-    <a href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    <a href="/careers">인재영입</a>
     <a href="/contact">문의하기</a>
   </nav>
 </header>
@@ -938,7 +938,7 @@ export function v2Newsroom(anns: AnnouncementRow[]): string {
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
-        <li><a href="/careers" target="_blank" rel="noopener">인재영입 ↗</a></li>
+        <li><a href="/careers">인재영입</a></li>
         <li><a href="/newsroom">공고</a></li>
         <li><a href="/privacy-policy">개인정보처리방침</a></li>
       </ul>
@@ -964,7 +964,7 @@ export function v2Contact(opts: { formToken?: string; error?: string; success?: 
       <a class="item" href="/service">서비스</a>
       <a class="item" href="/rnd">연구개발</a>
       <a class="item" href="/newsroom">뉴스룸</a>
-      <a class="item" href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+      <a class="item" href="/careers">인재영입</a>
     </nav>
     <div class="gnb-right">
       <a class="btn btn-dark btn-sm" href="/contact">문의하기</a>
@@ -978,7 +978,7 @@ export function v2Contact(opts: { formToken?: string; error?: string; success?: 
     <a href="/service">서비스</a>
     <a href="/rnd">연구개발</a>
     <a href="/newsroom">뉴스룸</a>
-    <a href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    <a href="/careers">인재영입</a>
     <a href="/contact">문의하기</a>
   </nav>
 </header>
@@ -1083,7 +1083,7 @@ export function v2Contact(opts: { formToken?: string; error?: string; success?: 
       <ul>
         <li><a href="/company">회사소개</a></li>
         <li><a href="/newsroom">뉴스룸</a></li>
-        <li><a href="/careers" target="_blank" rel="noopener">인재영입 ↗</a></li>
+        <li><a href="/careers">인재영입</a></li>
         <li><a href="/newsroom">공고</a></li>
         <li><a href="/privacy-policy">개인정보처리방침</a></li>
       </ul>
@@ -1102,7 +1102,7 @@ export const V2_HEADER = `<header class="gnb" id="gnb">
       <a class="item" href="/service" data-nav="service">서비스</a>
       <a class="item" href="/rnd" data-nav="rnd">연구개발</a>
       <a class="item" href="/newsroom" data-nav="news">뉴스룸</a>
-      <a class="item" href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+      <a class="item" href="/careers">인재영입</a>
     </nav>
     <div class="gnb-right">
       <a class="btn btn-dark btn-sm" href="/contact" data-nav="contact">문의하기</a>
@@ -1116,7 +1116,7 @@ export const V2_HEADER = `<header class="gnb" id="gnb">
     <a href="/service" data-nav="service">서비스</a>
     <a href="/rnd" data-nav="rnd">연구개발</a>
     <a href="/newsroom" data-nav="news">뉴스룸</a>
-    <a href="/careers" target="_blank" rel="noopener">인재영입<span class="ext">↗</span></a>
+    <a href="/careers">인재영입</a>
     <a href="/contact" data-nav="contact">문의하기</a>
   </nav>
 </header>`
@@ -1146,7 +1146,7 @@ export const V2_FOOTER = `<footer class="foot">
       <ul>
         <li><a href="/company" data-nav="about">회사소개</a></li>
         <li><a href="/newsroom" data-nav="news">뉴스룸</a></li>
-        <li><a href="/careers" target="_blank" rel="noopener">인재영입 ↗</a></li>
+        <li><a href="/careers">인재영입</a></li>
         <li><a href="/newsroom" data-nav="news">공고</a></li>
         <li><a href="/privacy-policy">개인정보처리방침</a></li>
       </ul>

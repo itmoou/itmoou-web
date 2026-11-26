@@ -557,3 +557,14 @@ article h2[id] { scroll-margin-top: 90px; }
 .faq details[open] summary::after { content: "−"; }
 .faq summary h3 { margin: 0; font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; }
 .faq details p { margin: 12px 0 0; max-width: 44em; color: var(--ink-soft); line-height: 1.8; }
+
+/* 안내 글(/guide) · 인재영입 */
+.byline { font-size: 0.92rem; }
+.byline .author { font-weight: 700; }
+.byline-sm { margin: 4px 0 0; font-size: 0.88rem; color: var(--ink-soft); }
+.g-sec { margin: 0 0 34px; }
+.g-sec h2 { margin: 0 0 10px; font-size: 1.25rem; scroll-margin-top: 90px; }
+.g-sec h2 a { color: inherit; text-decoration: none; }
+.g-sec h2 a:hover { text-decoration: underline; }
+.g-sec p { margin: 0 0 10px; }
+.subhero .crumb a { color: inherit; text-decoration: none; }
