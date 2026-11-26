@@ -1170,7 +1170,7 @@ function privacyToc(main: string): string {
     titles.push({ id, title: inner.replace(/<[^>]+>/g, '').trim() })
     return `<h2 id="${id}"${attrs}>${inner}</h2>`
   })
-  const toc = `<nav class="toc" aria-label="목차"><p class="toc-head">목차</p><ol>${titles.map((x) => `<li><a href="#${x.id}">${x.title}</a></li>`).join('')}</ol></nav>`
+  const toc = `<nav class="toc" aria-label="목차"><p class="toc-head">목차</p><ul class="toc-list">${titles.map((x) => `<li><a href="#${x.id}">${x.title}</a></li>`).join('')}</ul></nav>`
   return withIds.replace('<div class="wrap" style="max-width: 860px; line-height: 1.85;">', `<div class="wrap" style="max-width: 860px; line-height: 1.85;"><article>${toc}`)
 }
 
